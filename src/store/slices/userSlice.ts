@@ -12,10 +12,10 @@ const initialState: UserState = {
 };
 
 const userSlice = createSlice({
-  name: "router",
+  name: "user",
   initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<UserState>) => {
+    setUser: (state, action: PayloadAction<Pick<UserState, "username">>) => {
       state.username = action.payload.username;
     },
     setIsUserConnected: (

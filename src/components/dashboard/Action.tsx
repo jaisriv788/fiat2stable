@@ -13,7 +13,7 @@ const Data = [
 
 const Action: React.FC = () => {
   return (
-    <div className="flex justify-evenly md:justify-center md:gap-10 mt-10">
+    <div className="flex justify-between mx-2  max-w-lg  md:gap-10 mt-10">
       {Data.map((item, index) => {
         return (
           <div key={index} className="flex flex-col gap-1 items-center">
