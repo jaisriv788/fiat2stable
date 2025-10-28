@@ -15,7 +15,7 @@ const TrxCard: React.FC = () => {
 
       <div className="flex mt-8">
         <div className="flex-1 flex gap-3">
-          <div className="bg-white w-fit rounded-full p-2">
+          <div className="bg-white w-15 flex items-center justify-center rounded-full aspect-square p-2">
             <RiLuggageDepositFill className="text-4xl text-[#5728A6]" />
           </div>
           <div className="">
@@ -26,7 +26,7 @@ const TrxCard: React.FC = () => {
           </div>
         </div>
         <div className="flex-1 flex gap-3">
-          <div className="bg-white w-fit rounded-full p-2">
+          <div className="bg-white w-15 flex items-center justify-center rounded-full aspect-square p-2">
             <BiMoneyWithdraw className="text-4xl text-[#5728A6]" />
           </div>
           <div className="">

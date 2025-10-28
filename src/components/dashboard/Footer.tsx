@@ -5,7 +5,7 @@ import { BsQrCode } from "react-icons/bs";
 
 const Footer: React.FC = () => {
   return (
-    <div className="fixed bottom-0  left-0 w-full shadow-[0_-3px_9px_#ddd4ee] ">
+    <div className="fixed bottom-0 z-30 left-0 w-full shadow-[0_-3px_9px_#ddd4ee] ">
       <div className="max-w-lg relative mx-auto px-4 py-3 md:py-5 flex justify-between">
         <button className="flex gap-2 hover:scale-105 hover:-rotate-6 font-semibold hover:bg-black transition ease-in-out duration-300 bg-[#5728A6] rounded-lg cursor-pointer text-white px-5 py-2 items-center">
           <BsFillCartPlusFill className="text-xl" />
@@ -16,7 +16,7 @@ const Footer: React.FC = () => {
           Sell
         </button>
         <button className="absolute left-1/2 -translate-x-1/2 -top-1/2 md:translate-y-1.5">
-          <div className="bg-gray-100 border-2 hover:bg-gray-200 transition ease-in-out duration-300 border-gray-300 cursor-pointer p-4 rounded-full">
+          <div className="bg-gray-100 border-2 hover:scale-110 hover:bg-gray-200 transition ease-in-out duration-300 border-gray-300 cursor-pointer p-4 rounded-full">
             <BsQrCode className="text-[#5728A6] font-semibold text-4xl" />
           </div>
           <span className="text-xs font-extrabold md:font-bold">

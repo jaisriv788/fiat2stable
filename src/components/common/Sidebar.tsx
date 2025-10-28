@@ -1,0 +1,102 @@
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch, RootState } from "@/store/store";
+import { setSidebar } from "@/store/slices/modelSlice";
+import { setIsUserConnected } from "@/store/slices/userSlice";
+import { AnimatePresence, motion } from "motion/react";
+import { IoCloseCircleSharp } from "react-icons/io5";
+import { IoLogOut } from "react-icons/io5";
+import { RiTwitterXFill } from "react-icons/ri";
+import { FaTelegramPlane } from "react-icons/fa";
+
+const Sidebar: React.FC = () => {
+  const isSideBarVisible = useSelector(
+    (state: RootState) => state.model.showSidebar
+  );
+  const dispatch = useDispatch<AppDispatch>();
+
+  function handleClose() {
+    dispatch(setSidebar({ showSidebar: false }));
+  }
+
+  function handleLogout() {
+    dispatch(setIsUserConnected({ isConnected: false }));
+  }
+
+  return (
+    <AnimatePresence mode="wait">
+      {isSideBarVisible && (
+        <motion.div
+          key="sidebar-wrapper"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+          // onClick={handleClose}
+          className="absolute inset-0 z-50 bg-black/40 backdrop-blur-md"
+        >
+          <motion.div
+            key="sidebar"
+            initial={{ x: -80, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: -80, opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            onClick={(e) => e.stopPropagation()}
+            className="bg-gray-100 border-r border-gray-300 h-full top-0 z-50 w-75 flex flex-col"
+          >
+            <div className="px-5 py-5 md:py-4 border-b border-gray-300 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <img
+                  className="logo rotate-15"
+                  src="/login/icon2.svg"
+                  alt="icon"
+                  width={28}
+                />
+                <div className="font-bold">XYZ.Me</div>
+              </div>
+              <IoCloseCircleSharp
+                onClick={handleClose}
+                className="text-xl hover:text-red-700 transition ease-in-out duration-300 cursor-pointer"
+              />
+            </div>
+            <div className="flex-1 px-5 py-5 md:py-4">links</div>
+            <div className="px-5 py-3 border-t border-gray-300">
+              <div className="bg-[#ddd5ff] p-2 rounded-lg shadow-lg font-semibold flex gap-3 items-center">
+                <div className="bg-[#5728A6] aspect-square w-7 font-semibold text-white rounded-full flex items-center justify-center">
+                  T
+                </div>
+                <div>
+                  <div className="text-sm">Logged in Via</div>
+                  <div className="text-xs">Test@test.com</div>
+                </div>
+              </div>
+              <div className="mt-5 mb-3 flex items-center justify-between">
+                <div>
+                  <div className="font-bold text-sm">Find Us On</div>
+                  <div className="flex gap-3 mt-2">
+                    <RiTwitterXFill
+                      onClick={() => window.open("https://x.com/", "_")}
+                      className="text-2xl cursor-pointer text-[#5728A6] hover:text-black transition ease-in-out duration-300"
+                    />
+                    <FaTelegramPlane
+                      onClick={() => window.open("https://telegram.org/", "_")}
+                      className="text-2xl cursor-pointer text-[#5728A6] hover:text-black transition ease-in-out duration-300"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <IoLogOut
+                    onClick={handleLogout}
+                    className="text-3xl cursor-pointer text-[#5728A6] hover:text-black transition ease-in-out duration-300"
+                  />
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};
+
+export default Sidebar;
