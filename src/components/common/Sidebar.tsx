@@ -8,7 +8,20 @@ import { IoCloseCircleSharp } from "react-icons/io5";
 import { IoLogOut } from "react-icons/io5";
 import { RiTwitterXFill } from "react-icons/ri";
 import { FaTelegramPlane } from "react-icons/fa";
+import { SlBadge } from "react-icons/sl";
+import { TbTransactionRupee } from "react-icons/tb";
+import { GiReceiveMoney } from "react-icons/gi";
+import { BiSupport } from "react-icons/bi";
+import { IoMdSettings } from "react-icons/io";
+import { FaArrowRightLong } from "react-icons/fa6";
 
+const Data = [
+  { icon: SlBadge, tag: "My Limit" },
+  { icon: TbTransactionRupee, tag: "Transaction" },
+  { icon: GiReceiveMoney, tag: "Refer & Earn" },
+  { icon: BiSupport, tag: "Help & Support" },
+  { icon: IoMdSettings, tag: "Settings" },
+];
 const Sidebar: React.FC = () => {
   const isSideBarVisible = useSelector(
     (state: RootState) => state.model.showSidebar
@@ -59,7 +72,24 @@ const Sidebar: React.FC = () => {
                 className="text-xl hover:text-red-700 transition ease-in-out duration-300 cursor-pointer"
               />
             </div>
-            <div className="flex-1 px-5 py-5 md:py-4">links</div>
+            <div className="flex-1 py-5 md:py-4 flex flex-col gap-2">
+              {Data.map((item, index) => {
+                return (
+                  <div
+                    key={index}
+                    className="flex items-center px-5 justify-between cursor-pointer transition ease-in-out duration-300 hover:bg-gray-300 py-3"
+                  >
+                    <div className="flex items-center gap-3 font-bold">
+                      <item.icon className="text-2xl text-[#5728A6]" />
+                      <div className="text-lg">{item.tag}</div>
+                    </div>
+                    <div>
+                      <FaArrowRightLong />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
             <div className="px-5 py-3 border-t border-gray-300">
               <div className="bg-[#ddd5ff] p-2 rounded-lg shadow-lg font-semibold flex gap-3 items-center">
                 <div className="bg-[#5728A6] aspect-square w-7 font-semibold text-white rounded-full flex items-center justify-center">
