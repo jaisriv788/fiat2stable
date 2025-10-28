@@ -34,6 +34,7 @@ const Sidebar: React.FC = () => {
 
   function handleLogout() {
     dispatch(setIsUserConnected({ isConnected: false }));
+    handleClose();
   }
 
   return (
@@ -45,7 +46,7 @@ const Sidebar: React.FC = () => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          // onClick={handleClose}
+          onClick={handleClose}
           className="absolute inset-0 z-50 bg-black/40 backdrop-blur-md"
         >
           <motion.div
