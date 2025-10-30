@@ -5,6 +5,7 @@ import { ShimmerButton } from "../ui/shimmer-button";
 import { useNavigate, useLocation } from "react-router";
 import { Menu } from "lucide-react";
 import { setSidebar } from "@/store/slices/modelSlice";
+import { setSellingPrice, setBuyingPrice } from "@/store/slices/priceSlice";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from "@/store/store";
 import { FaArrowLeft } from "react-icons/fa";
@@ -14,11 +15,17 @@ const Navbar: React.FC = () => {
   const [showSelling, setShowSelling] = useState(true);
 
   const location = useLocation();
-
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
+
   const isSidebarVisible = useSelector(
     (state: RootState) => state.model.showSidebar
+  );
+  const sellingPrice = useSelector(
+    (state: RootState) => state.price.sellingPrice
+  );
+  const buyingPrice = useSelector(
+    (state: RootState) => state.price.buyingPrice
   );
 
   const isDashboard = location.pathname == "/dashboard";
@@ -35,6 +42,24 @@ const Navbar: React.FC = () => {
     const interval = setInterval(() => setShowSelling((prev) => !prev), 3500);
     return () => clearInterval(interval);
   }, []);
+
+  async function fetchData() {
+    const buyPrice = parseFloat(buyingPrice) + 1;
+    const sellPrice = parseFloat(sellingPrice) + 2;
+
+    // console.log({ buyingPrice, buyPrice, sellingPrice, sellPrice });
+
+    dispatch(setSellingPrice({ sellingPrice: sellPrice.toString() }));
+    dispatch(setBuyingPrice({ buyingPrice: buyPrice.toString() }));
+  }
+
+  useEffect(() => {
+    if (sellingPrice == "0.00" || buyingPrice == "0.00") fetchData();
+
+    const interval = setInterval(fetchData, 30000);
+
+    return () => clearInterval(interval);
+  }, [buyingPrice, sellingPrice]);
 
   return (
     <div className="shadow-md shadow-[#ddd4ee] fixed top-0 left-0 bg-white w-full z-30">
@@ -98,7 +123,7 @@ const Navbar: React.FC = () => {
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                     className="absolute text-center text-sm leading-none font-medium tracking-tight text-white"
                   >
-                    Selling Price - ₹100.00
+                    Selling Price - ₹{sellingPrice}
                   </motion.span>
                 ) : (
                   <motion.span
@@ -109,7 +134,7 @@ const Navbar: React.FC = () => {
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                     className="absolute text-center text-sm leading-none font-medium tracking-tight text-white"
                   >
-                    Buying Price - ₹100.00
+                    Buying Price - ₹{buyingPrice}
                   </motion.span>
                 )}
               </AnimatePresence>

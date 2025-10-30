@@ -7,7 +7,7 @@ interface UserState {
 }
 
 const initialState: UserState = {
-  username: "jai",
+  username: "tester@test.com",
   isConnected: false,
 };
 

@@ -28,6 +28,7 @@ const Data = [
 const Sidebar: React.FC = () => {
   const isOnline = useOnlineStatus();
 
+  const username = useSelector((state: RootState) => state.user.username);
   const isSideBarVisible = useSelector(
     (state: RootState) => state.model.showSidebar
   );
@@ -118,7 +119,7 @@ const Sidebar: React.FC = () => {
                 </div>
                 <div>
                   <div className="text-sm">Logged in Via</div>
-                  <div className="text-xs">Test@test.com</div>
+                  <div className="text-xs">{username}</div>
                 </div>
               </div>
               <div className="mt-5 mb-3 flex items-center justify-between">
