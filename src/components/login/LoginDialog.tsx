@@ -46,7 +46,7 @@ export function LoginDialog() {
       </DialogTrigger>
       <DialogContent
         className="sm:max-w-[425px]"
-        onOpenAutoFocus={(e) => e.preventDefault()}
+        onOpenAutoFocus={(e: Event) => e.preventDefault()}
       >
         <form onSubmit={handleLogin}>
           <DialogHeader>

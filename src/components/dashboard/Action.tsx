@@ -9,12 +9,14 @@ import {
   setDepositeSlider,
   setWithdrawSlider,
 } from "@/store/slices/modelSlice";
+import WalletModel from "./WalletModel";
 
 const Action: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const Data = [
     {
+      id: 1,
       icon: FaWallet,
       tag: "Wallet",
       click: () => {
@@ -22,6 +24,7 @@ const Action: React.FC = () => {
       },
     },
     {
+      id: 2,
       icon: PiHandDepositFill,
       tag: "Deposite",
       click: () => {
@@ -29,6 +32,7 @@ const Action: React.FC = () => {
       },
     },
     {
+      id: 3,
       icon: PiHandWithdrawFill,
       tag: "Withdraw",
       click: () => {
@@ -36,6 +40,7 @@ const Action: React.FC = () => {
       },
     },
     {
+      id: 4,
       icon: BiSupport,
       tag: "Support",
       click: () => {
@@ -53,9 +58,13 @@ const Action: React.FC = () => {
             onClick={item.click}
             className="flex flex-col gap-1 items-center"
           >
-            <div className="border-2 hover:scale-110 hover:rotate-6 hover:bg-purple-50 transition-all ease-in-out duration-300 border-[#5728A6] cursor-pointer text-[#5728A6] hover:scale rounded-md p-3">
-              <item.icon className="text-2xl" />
-            </div>
+            {item.id == 1 ? (
+              <WalletModel />
+            ) : (
+              <div className="border-2 hover:scale-110 hover:rotate-6 hover:bg-purple-50 transition-all ease-in-out duration-300 border-[#5728A6] cursor-pointer text-[#5728A6] hover:scale rounded-md p-3">
+                <item.icon className="text-2xl" />
+              </div>
+            )}
             <div className="font-semibold">{item.tag}</div>
           </div>
         );
