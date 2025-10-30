@@ -59,7 +59,7 @@ const Navbar: React.FC = () => {
             ></div>
           </div>
 
-          <div className="relative w-[140px] h-5 overflow-hidden flex justify-center items-center">
+          <div className="relative w-[150px] h-5 overflow-hidden flex justify-center items-center">
             <AnimatePresence mode="wait">
               {showSelling ? (
                 <motion.span
@@ -68,7 +68,7 @@ const Navbar: React.FC = () => {
                   animate={{ y: 0, opacity: 1 }}
                   exit={{ y: 20, opacity: 0 }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
-                  className="absolute text-center text-sm leading-none font-medium tracking-tight text-white lg:text-base"
+                  className="absolute text-center text-sm leading-none font-medium tracking-tight text-white"
                 >
                   Selling Price - ₹100.00
                 </motion.span>
@@ -79,7 +79,7 @@ const Navbar: React.FC = () => {
                   animate={{ y: 0, opacity: 1 }}
                   exit={{ y: 20, opacity: 0 }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
-                  className="absolute text-center text-sm leading-none font-medium tracking-tight text-white lg:text-base"
+                  className="absolute text-center text-sm leading-none font-medium tracking-tight text-white"
                 >
                   Buying Price - ₹100.00
                 </motion.span>

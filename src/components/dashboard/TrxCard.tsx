@@ -9,7 +9,7 @@ const TrxCard: React.FC = () => {
       <div className="font-semibold text-lg">Transaction Limit</div>
       <p className="text-xs text-gray-700 font-semibold">
         This is the maximum amount you can buy, sell, or pay in one order.
-        Increase the limit to do larger transactions in{" "}
+        Increase limit for larger transactions in{" "}
         <TypingAnimation words={["USDC.", "USDT."]} loop />
       </p>
 

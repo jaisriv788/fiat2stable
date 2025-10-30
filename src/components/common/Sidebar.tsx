@@ -14,15 +14,20 @@ import { GiReceiveMoney } from "react-icons/gi";
 import { BiSupport } from "react-icons/bi";
 import { IoMdSettings } from "react-icons/io";
 import { FaArrowRightLong } from "react-icons/fa6";
+import useOnlineStatus from "@/hooks/useOnlineStatus";
+import { ImConnection } from "react-icons/im";
 
 const Data = [
-  { icon: SlBadge, tag: "My Limit" },
-  { icon: TbTransactionRupee, tag: "Transaction" },
-  { icon: GiReceiveMoney, tag: "Refer & Earn" },
-  { icon: BiSupport, tag: "Help & Support" },
-  { icon: IoMdSettings, tag: "Settings" },
+  { id: 1, icon: SlBadge, tag: "My Limit" },
+  { id: 2, icon: TbTransactionRupee, tag: "Transaction" },
+  { id: 3, icon: GiReceiveMoney, tag: "Refer & Earn" },
+  { id: 4, icon: BiSupport, tag: "Help & Support" },
+  { id: 5, icon: IoMdSettings, tag: "Settings" },
+  { id: 6, icon: ImConnection, tag: "Connection Status" },
 ];
 const Sidebar: React.FC = () => {
+  const isOnline = useOnlineStatus();
+
   const isSideBarVisible = useSelector(
     (state: RootState) => state.model.showSidebar
   );
@@ -85,7 +90,22 @@ const Sidebar: React.FC = () => {
                       <div className="text-lg">{item.tag}</div>
                     </div>
                     <div>
-                      <FaArrowRightLong />
+                      {item.id == 6 ? (
+                        <div
+                          className={`w-4 h-4  ${
+                            isOnline ? "bg-green-300" : "bg-red-300"
+                          } rounded-full flex items-center justify-center`}
+                        >
+                          <div
+                            className={`w-2.5 h-2.5 ${
+                              isOnline ? "bg-green-600" : "bg-red-600"
+                            } rounded-full animate-ping`}
+                            style={{ animationDuration: "1.4s" }}
+                          ></div>
+                        </div>
+                      ) : (
+                        <FaArrowRightLong />
+                      )}
                     </div>
                   </div>
                 );

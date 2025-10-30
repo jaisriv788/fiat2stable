@@ -3,6 +3,8 @@ import Balance from "@/components/dashboard/Balance";
 import Action from "@/components/dashboard/Action";
 import TrxCard from "@/components/dashboard/TrxCard";
 import Footer from "@/components/dashboard/Footer";
+import DepositeSlider from "@/components/dashboard/DepositeSlider";
+import WithdrawSlider from "@/components/dashboard/WithdrawSlider";
 
 const Dashboard: React.FC = () => {
   return (
@@ -11,6 +13,8 @@ const Dashboard: React.FC = () => {
       <Action />
       <TrxCard />
       <Footer />
+      <DepositeSlider />
+      <WithdrawSlider />
     </div>
   );
 };
