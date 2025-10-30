@@ -71,14 +71,16 @@ const Navbar: React.FC = () => {
               onClick={() => {
                 dispatch(setSidebar({ showSidebar: !isSidebarVisible }));
               }}
-              className="md:absolute -left-10 cursor-pointer hover:text-[#9371cf] transition ease-in-out duration-300"
+              size={30}
+              className="md:absolute border hover:bg-gray-100 rounded p-1 -left-10 cursor-pointer hover:text-[#9371cf] transition ease-in-out duration-300"
             />
           ) : (
             <FaArrowLeft
               onClick={() => {
                 navigate(-1);
               }}
-              className="md:absolute -left-10 cursor-pointer hover:text-[#9371cf] transition ease-in-out duration-300"
+              size={30}
+              className="md:absolute p-1 border rounded-full hover:bg-gray-100 -left-10 cursor-pointer hover:text-[#9371cf] transition ease-in-out duration-300"
             />
           )}
           {isDashboard ? (
