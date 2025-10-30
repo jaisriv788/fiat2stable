@@ -34,14 +34,27 @@ const Navbar: React.FC = () => {
     "/buy": "Buy USDT/USDC",
     "/sell": "Sell USDT/USDC",
     "/scan": "Scan & Pay",
-    "/limit":"My Limit",
-    "/transaction":"Transaction",
-    "/refer":"Refer & Earn",
-    "/support":"Help & Support",
-    "/settings":"Settings",
+    "/limit": "My Limit",
+    "/transaction": "Transaction",
+    "/refer": "Refer & Earn",
+    "/support": "Help & Support",
+    "/settings": "Settings",
   };
 
   const title = routeTitles[location.pathname];
+
+  const showHelp: Record<string, boolean> = {
+    "/buy": true,
+    "/sell": true,
+    "/scan": true,
+    "/limit": true,
+    "/transaction": true,
+    "/refer": true,
+    "/support": false,
+    "/settings": false,
+  };
+
+  const show = showHelp[location.pathname];
 
   useEffect(() => {
     const interval = setInterval(() => setShowSelling((prev) => !prev), 3500);
@@ -148,10 +161,12 @@ const Navbar: React.FC = () => {
             </div>
           </ShimmerButton>
         ) : (
-          <div className="flex items-center gap-2 text-gray-600 border border-gray-300 cursor-pointer transition ease-in-out duration-300 hover:bg-gray-200 font-semibold rounded-full px-3 py-0.5">
-            <IoMdHelpCircle />
-            Help
-          </div>
+          show && (
+            <div onClick={() => navigate("/support")} className="flex items-center gap-2 text-gray-600 border border-gray-300 cursor-pointer transition ease-in-out duration-300 hover:bg-gray-200 font-semibold rounded-full px-3 py-0.5">
+              <IoMdHelpCircle />
+              Help
+            </div>
+          )
         )}
       </div>
     </div>

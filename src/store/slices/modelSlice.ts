@@ -5,12 +5,14 @@ interface ModelState {
   showSidebar: boolean;
   showDepositeSlider: boolean;
   showWithdrawSlider: boolean;
+  showConnectionSlider: boolean;
 }
 
 const initialState: ModelState = {
   showSidebar: false,
   showDepositeSlider: false,
   showWithdrawSlider: false,
+  showConnectionSlider: false,
 };
 
 const modelSlice = createSlice({
@@ -35,9 +37,19 @@ const modelSlice = createSlice({
     ) => {
       state.showWithdrawSlider = action.payload.showWithdrawSlider;
     },
+    setConnectionSlider: (
+      state,
+      action: PayloadAction<Pick<ModelState, "showConnectionSlider">>
+    ) => {
+      state.showConnectionSlider = action.payload.showConnectionSlider;
+    },
   },
 });
 
-export const { setSidebar, setDepositeSlider, setWithdrawSlider } =
-  modelSlice.actions;
+export const {
+  setSidebar,
+  setDepositeSlider,
+  setWithdrawSlider,
+  setConnectionSlider,
+} = modelSlice.actions;
 export default modelSlice.reducer;

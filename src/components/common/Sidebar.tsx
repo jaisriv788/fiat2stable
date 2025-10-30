@@ -17,6 +17,7 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import useOnlineStatus from "@/hooks/useOnlineStatus";
 import { ImConnection } from "react-icons/im";
 import { useNavigate } from "react-router";
+import { setConnectionSlider } from "@/store/slices/modelSlice";
 
 const Sidebar: React.FC = () => {
   const isOnline = useOnlineStatus();
@@ -96,7 +97,7 @@ const Sidebar: React.FC = () => {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
           onClick={handleClose}
-          className="absolute inset-0 z-50 bg-black/40 backdrop-blur-md"
+          className="absolute inset-0 z-40 bg-black/40 backdrop-blur-md"
         >
           <motion.div
             key="sidebar"
@@ -105,7 +106,7 @@ const Sidebar: React.FC = () => {
             exit={{ x: -80, opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
             onClick={(e) => e.stopPropagation()}
-            className="bg-gray-100 border-r border-gray-300 h-full top-0 z-50 w-75 flex flex-col"
+            className="bg-gray-100 border-r border-gray-300 h-full top-0  w-75 flex flex-col"
           >
             <div className="px-5 py-5 md:py-4 border-b border-gray-300 flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -129,13 +130,20 @@ const Sidebar: React.FC = () => {
                     key={index}
                     onClick={() => {
                       item.click?.();
-                      if (item.id !== 6) handleClose();
+                      if (item.id !== 6) {
+                        handleClose();
+                      } else {
+                        console.log("Opening connection slider");
+                        dispatch(
+                          setConnectionSlider({ showConnectionSlider: true })
+                        );
+                      }
                     }}
                     className="flex items-center px-5 justify-between cursor-pointer transition ease-in-out duration-300 hover:bg-gray-300 py-3"
                   >
-                    <div className="flex items-center gap-3 font-bold">
+                    <div className="flex items-center gap-3 font-semibold">
                       <item.icon className="text-2xl text-[#5728A6]" />
-                      <div className="text-lg">{item.tag}</div>
+                      <div className="text-base">{item.tag}</div>
                     </div>
                     <div>
                       {item.id == 6 ? (
