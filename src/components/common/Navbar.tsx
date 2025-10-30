@@ -34,6 +34,11 @@ const Navbar: React.FC = () => {
     "/buy": "Buy USDT/USDC",
     "/sell": "Sell USDT/USDC",
     "/scan": "Scan & Pay",
+    "/limit":"My Limit",
+    "/transaction":"Transaction",
+    "/refer":"Refer & Earn",
+    "/support":"Help & Support",
+    "/settings":"Settings",
   };
 
   const title = routeTitles[location.pathname];

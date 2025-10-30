@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { CgArrowsExchangeAltV } from "react-icons/cg";
 import { FaRegCreditCard } from "react-icons/fa";
 import { FaGreaterThan } from "react-icons/fa6";
-import { FaBackspace } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import type { RootState } from "@/store/store";
 import Keypad from "@/components/common/Keypad";
+import { useNavigate } from "react-router";
 
 type Currency = "INR" | "USDT" | "USDC";
 
@@ -16,6 +16,8 @@ type Pair = {
 type Amounts = Record<Currency, string>;
 
 const Buy: React.FC = () => {
+  const navigate = useNavigate();
+
   const [pair, setPair] = useState<Pair>({ from: "USDT", to: "INR" });
   const [amounts, setAmounts] = useState<Amounts>({
     INR: "0",
@@ -132,7 +134,12 @@ const Buy: React.FC = () => {
             {amounts[pair.to] !== "0" && amounts[pair.to]} {pair.to}
           </div>
         </div>
-        <div className="bg-purple-200 cursor-pointer hover:scale-105 transition ease=in-out duration-300 rounded-lg items-center py-3 px-2 my-8 md:my-10 flex justify-center gap-3">
+        <div
+          onClick={() => {
+            navigate("/limit");
+          }}
+          className="bg-purple-200 cursor-pointer hover:scale-105 transition ease=in-out duration-300 rounded-lg items-center py-3 px-2 my-8 md:my-10 flex justify-center gap-3"
+        >
           <FaRegCreditCard className="text-xl text-purple-800" />
           <span className="font-semibold text-sm">
             Your Transaction Limit :{" "}

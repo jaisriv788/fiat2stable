@@ -10,18 +10,17 @@ import {
   setWithdrawSlider,
 } from "@/store/slices/modelSlice";
 import WalletModel from "./WalletModel";
+import { useNavigate } from "react-router";
 
 const Action: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
 
   const Data = [
     {
       id: 1,
       icon: FaWallet,
       tag: "Wallet",
-      click: () => {
-        console.log("Wallet");
-      },
     },
     {
       id: 2,
@@ -44,7 +43,7 @@ const Action: React.FC = () => {
       icon: BiSupport,
       tag: "Support",
       click: () => {
-        console.log("Support");
+        navigate("/support");
       },
     },
   ];
@@ -55,7 +54,7 @@ const Action: React.FC = () => {
         return (
           <div
             key={index}
-            onClick={item.click}
+            onClick={item?.click}
             className="flex flex-col gap-1 items-center"
           >
             {item.id == 1 ? (

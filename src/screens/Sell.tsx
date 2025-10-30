@@ -6,6 +6,7 @@ import { FaBackspace } from "react-icons/fa";
 import type { RootState } from "@/store/store";
 import { useSelector } from "react-redux";
 import Keypad from "@/components/common/Keypad";
+import { useNavigate } from "react-router";
 
 type Currency = "INR" | "USDT" | "USDC";
 
@@ -16,6 +17,8 @@ type Pair = {
 type Amounts = Record<Currency, string>;
 
 const Sell: React.FC = () => {
+  const navigate = useNavigate();
+
   const [pair, setPair] = useState<Pair>({ from: "USDT", to: "INR" });
   const [amounts, setAmounts] = useState<Amounts>({
     INR: "0",
@@ -133,7 +136,12 @@ const Sell: React.FC = () => {
             <span className="font-bold text-purple-800">0 USDT</span>
           </div>
         </div>
-        <div className="bg-purple-200 cursor-pointer hover:scale-105 transition ease=in-out duration-300 rounded-lg items-center py-3 px-2 my-8 md:my-10 flex justify-center gap-3">
+        <div
+          onClick={() => {
+            navigate("/limit");
+          }}
+          className="bg-purple-200 cursor-pointer hover:scale-105 transition ease=in-out duration-300 rounded-lg items-center py-3 px-2 my-8 md:my-10 flex justify-center gap-3"
+        >
           <FaRegCreditCard className="text-xl text-purple-800" />
           <span className="font-semibold text-sm">
             Your Transaction Limit :{" "}

@@ -16,17 +16,60 @@ import { IoMdSettings } from "react-icons/io";
 import { FaArrowRightLong } from "react-icons/fa6";
 import useOnlineStatus from "@/hooks/useOnlineStatus";
 import { ImConnection } from "react-icons/im";
+import { useNavigate } from "react-router";
 
-const Data = [
-  { id: 1, icon: SlBadge, tag: "My Limit" },
-  { id: 2, icon: TbTransactionRupee, tag: "Transaction" },
-  { id: 3, icon: GiReceiveMoney, tag: "Refer & Earn" },
-  { id: 4, icon: BiSupport, tag: "Help & Support" },
-  { id: 5, icon: IoMdSettings, tag: "Settings" },
-  { id: 6, icon: ImConnection, tag: "Connection Status" },
-];
 const Sidebar: React.FC = () => {
   const isOnline = useOnlineStatus();
+
+  const navigate = useNavigate();
+
+  const Data = [
+    {
+      id: 1,
+      icon: SlBadge,
+      tag: "My Limit",
+      click: () => {
+        navigate("/limit");
+      },
+    },
+    {
+      id: 2,
+      icon: TbTransactionRupee,
+      tag: "Transaction",
+      click: () => {
+        navigate("/transaction");
+      },
+    },
+    {
+      id: 3,
+      icon: GiReceiveMoney,
+      tag: "Refer & Earn",
+      click: () => {
+        navigate("/refer");
+      },
+    },
+    {
+      id: 4,
+      icon: BiSupport,
+      tag: "Help & Support",
+      click: () => {
+        navigate("/support");
+      },
+    },
+    {
+      id: 5,
+      icon: IoMdSettings,
+      tag: "Settings",
+      click: () => {
+        navigate("/settings");
+      },
+    },
+    {
+      id: 6,
+      icon: ImConnection,
+      tag: "Connection Status",
+    },
+  ];
 
   const username = useSelector((state: RootState) => state.user.username);
   const isSideBarVisible = useSelector(
@@ -84,6 +127,10 @@ const Sidebar: React.FC = () => {
                 return (
                   <div
                     key={index}
+                    onClick={() => {
+                      item.click?.();
+                      if (item.id !== 6) handleClose();
+                    }}
                     className="flex items-center px-5 justify-between cursor-pointer transition ease-in-out duration-300 hover:bg-gray-300 py-3"
                   >
                     <div className="flex items-center gap-3 font-bold">
