@@ -98,7 +98,7 @@ export function LoginDialog() {
               type="submit"
               className="cursor-pointer transition ease-in-out bg-[#5728A6] hover:bg-black duration-300"
             >
-              Save changes
+              Login
             </Button>
           </DialogFooter>
         </form>

@@ -7,11 +7,6 @@ import Faqs from "@/components/support/Faqs";
 const Support: React.FC = () => {
   return (
     <div className="mt-24 sm:mt-30 px-2 flex flex-col gap-7 max-w-lg mx-auto">
-      <div>
-        <div className="font-bold mb-2 text-lg">FAQs</div>
-        <Faqs />
-      </div>
-
       <div className="flex items-center text-sm justify-between bg-gray-200 px-3 py-3 rounded-lg">
         <div className="font-bold ">Need Help?</div>
         <button
@@ -22,6 +17,11 @@ const Support: React.FC = () => {
         >
           <IoChatbubbleEllipses /> Chat with us. →
         </button>
+      </div>
+
+      <div>
+        <div className="font-bold mb-2 text-lg">FAQs</div>
+        <Faqs />
       </div>
 
       <div>
