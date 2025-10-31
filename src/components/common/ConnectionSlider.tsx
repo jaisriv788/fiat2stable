@@ -111,7 +111,7 @@ const ConnectionSlider: React.FC = () => {
             </div>
 
             <button
-              onClick={handleClose}
+              onClick={() => window.open("https://telegram.org/", "_")}
               className="mt-7 bg-black font-semibold text-white w-full py-2 rounded-lg hover:bg-black/90 cursor-pointer transition ease-in-out duration-300"
             >
               Get Quick Help
