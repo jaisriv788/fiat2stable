@@ -28,7 +28,7 @@ export const myLimitsFaq = [
     answer: `Yes — your buy and sell limits are independent and increase based on usage.`,
   },
 ];
-export const depositeAndWithdrawFaq = [
+export const depositAndWithdrawFaq = [
   {
     question: `Are deposits and withdrawals gasless?`,
     answer: `Yes – all transactions on P2P.me are completely gasless, including deposits, withdrawals, and trades when using your in-app wallet on the Base network.`,
@@ -62,7 +62,7 @@ export const allFaq = [
   ...gettingStartedFaq,
   ...generalFaq,
   ...myLimitsFaq,
-  ...depositeAndWithdrawFaq,
+  ...depositAndWithdrawFaq,
   ...referAndEarnFaq,
   ...transactionFaq,
 ];

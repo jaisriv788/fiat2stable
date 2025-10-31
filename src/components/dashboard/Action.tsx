@@ -6,7 +6,7 @@ import { BiSupport } from "react-icons/bi";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "@/store/store";
 import {
-  setDepositeSlider,
+  setDepositSlider,
   setWithdrawSlider,
 } from "@/store/slices/modelSlice";
 import WalletModel from "./WalletModel";
@@ -25,9 +25,9 @@ const Action: React.FC = () => {
     {
       id: 2,
       icon: PiHandDepositFill,
-      tag: "Deposite",
+      tag: "Deposit",
       click: () => {
-        dispatch(setDepositeSlider({ showDepositeSlider: true }));
+        dispatch(setDepositSlider({ showDepositSlider: true }));
       },
     },
     {

@@ -39,6 +39,13 @@ const Navbar: React.FC = () => {
     "/refer": "Refer & Earn",
     "/support": "Help & Support",
     "/settings": "Settings",
+    "/support/gettingstarted": "Help & Support",
+    "/support/general": "Help & Support",
+    "/support/limits": "Help & Support",
+    "/support/deposit&withdraw": "Help & Support",
+    "/support/refer&earn": "Help & Support",
+    "/support/transactions": "Help & Support",
+    "/support/allfaqs": "Help & Support",
   };
 
   const title = routeTitles[location.pathname];
@@ -52,6 +59,13 @@ const Navbar: React.FC = () => {
     "/refer": true,
     "/support": false,
     "/settings": false,
+    "/support/gettingstarted": false,
+    "/support/general": false,
+    "/support/limits": false,
+    "/support/deposit&withdraw": false,
+    "/support/refer&earn": false,
+    "/support/transactions": false,
+    "/support/allfaqs": false,
   };
 
   const show = showHelp[location.pathname];
@@ -162,7 +176,10 @@ const Navbar: React.FC = () => {
           </ShimmerButton>
         ) : (
           show && (
-            <div onClick={() => navigate("/support")} className="flex items-center gap-2 text-gray-600 border border-gray-300 cursor-pointer transition ease-in-out duration-300 hover:bg-gray-200 font-semibold rounded-full px-3 py-0.5">
+            <div
+              onClick={() => navigate("/support")}
+              className="flex items-center gap-2 text-gray-600 border border-gray-300 cursor-pointer transition ease-in-out duration-300 hover:bg-gray-200 font-semibold rounded-full px-3 py-0.5"
+            >
               <IoMdHelpCircle />
               Help
             </div>

@@ -3,14 +3,14 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 
 interface ModelState {
   showSidebar: boolean;
-  showDepositeSlider: boolean;
+  showDepositSlider: boolean;
   showWithdrawSlider: boolean;
   showConnectionSlider: boolean;
 }
 
 const initialState: ModelState = {
   showSidebar: false,
-  showDepositeSlider: false,
+  showDepositSlider: false,
   showWithdrawSlider: false,
   showConnectionSlider: false,
 };
@@ -25,11 +25,11 @@ const modelSlice = createSlice({
     ) => {
       state.showSidebar = action.payload.showSidebar;
     },
-    setDepositeSlider: (
+    setDepositSlider: (
       state,
-      action: PayloadAction<Pick<ModelState, "showDepositeSlider">>
+      action: PayloadAction<Pick<ModelState, "showDepositSlider">>
     ) => {
-      state.showDepositeSlider = action.payload.showDepositeSlider;
+      state.showDepositSlider = action.payload.showDepositSlider;
     },
     setWithdrawSlider: (
       state,
@@ -48,7 +48,7 @@ const modelSlice = createSlice({
 
 export const {
   setSidebar,
-  setDepositeSlider,
+  setDepositSlider,
   setWithdrawSlider,
   setConnectionSlider,
 } = modelSlice.actions;

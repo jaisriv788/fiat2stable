@@ -12,6 +12,13 @@ import Limit from "./screens/Limit";
 import Transaction from "./screens/Transaction";
 import Settings from "./screens/Settings";
 import Refer from "./screens/Refer";
+import GettingStarted from "./screens/Support/GettingStarted";
+import General from "./screens/Support/General";
+import Limits from "./screens/Support/Limits";
+import ReferAndEarn from "./screens/Support/ReferAndEarn";
+import Trx from "./screens/Transaction";
+import DepositAndWithdraw from "./screens/Support/DepositAndWithdraw";
+import AllFaq from "./screens/Support/AllFaq";
 
 const App: React.FC = () => {
   return (
@@ -27,6 +34,18 @@ const App: React.FC = () => {
           <Route path="/scan" element={<ScanAndSell />} />
           <Route path="/sell" element={<Sell />} />
           <Route path="/support" element={<Support />} />
+
+          <Route path="/support/gettingstarted" element={<GettingStarted />} />
+          <Route path="/support/general" element={<General />} />
+          <Route path="/support/limits" element={<Limits />} />
+          <Route path="/support/refer&earn" element={<ReferAndEarn />} />
+          <Route path="/support/transactions" element={<Trx />} />
+          <Route
+            path="/support/deposit&withdraw"
+            element={<DepositAndWithdraw />}
+          />
+          <Route path="/support/allfaqs" element={<AllFaq />} />
+
           <Route path="/limit" element={<Limit />} />
           <Route path="/transaction" element={<Transaction />} />
           <Route path="/refer" element={<Refer />} />
