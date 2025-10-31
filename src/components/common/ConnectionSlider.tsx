@@ -36,9 +36,9 @@ const ConnectionSlider: React.FC = () => {
             exit={{ y: 80, opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
             onClick={(e) => e.stopPropagation()}
-            className="absolute py-4 md:py-5 px-5 bg-gray-100 border-t-2 rounded-t-xl border-gray-300 z-50 w-full bottom-0"
+            className="absolute flex flex-col py-4 md:py-5 px-5 bg-gray-100 border-t-2 rounded-t-xl border-gray-300 z-50 w-full bottom-0"
           >
-            <div>
+            <div className="max-w-lg self-center">
               {isOnline ? (
                 <div>
                   <div className="text-center text-lg font-bold flex items-center gap-2 justify-center">
@@ -52,7 +52,7 @@ const ConnectionSlider: React.FC = () => {
                       ></div>
                     </div>
                   </div>
-                  <div className="text-center text-sm font-semibold text-gray-800">
+                  <div className="text-center mt-2 text-sm font-semibold text-gray-800">
                     You are connected & everything's working great.
                   </div>
                 </div>
@@ -69,15 +69,56 @@ const ConnectionSlider: React.FC = () => {
                       ></div>
                     </div>
                   </div>
-                  <div className="text-center text-sm font-semibold text-gray-800">
+                  <div className="text-center mt-2 text-sm font-semibold text-gray-800">
                     You are disconnected. Please Connect To Internet.
                   </div>
                 </div>
               )}
             </div>
+
+            <div className="max-w-lg self-center  mt-2 text-sm text-center font-semibold">
+              To ensure smooth experience, uninterrupted access & timely
+              updates, we recommend:
+            </div>
+
+            <div className="max-w-lg self-center mt-3 text-sm  w-full">
+              <div className=" font-semibold text-lg">
+                1. Use a VPN(Recommended)
+              </div>
+              <ul className="list-disc list-inside ml-3">
+                <li>Install Turbo VPN(mobile) or Zenmate(desktop).</li>
+                <li>Connect to any server and refresh.</li>
+              </ul>
+            </div>
+
+            <div className="max-w-lg self-center mt-3 text-sm  w-full">
+              <div className=" font-semibold text-lg">2. Change DNS</div>
+              <ul className="ml-3">
+                <li>
+                  <span className="font-semibold">Android:</span> Settings →
+                  Network → Private DNS → Select Private DNS
+                </li>
+                <li className="mt-2">
+                  <span className="font-semibold ">IOS:</span> Settings → Tap
+                  'i' → Configure DNS → Manual → Add
+                </li>
+              </ul>
+            </div>
+
+            <div className="max-w-lg self-center mt-7 text-gray-600 text-sm text-center font-semibold">
+              Already installed the app? It may still work, but we recommend
+              VPN/DNS to keep things updated.
+            </div>
+
             <button
               onClick={handleClose}
-              className="mt-5 bg-[#5728A6] font-semibold text-white w-full py-2 rounded-lg hover:bg-black cursor-pointer transition ease-in-out"
+              className="mt-7 bg-black font-semibold text-white w-full py-2 rounded-lg hover:bg-black/90 cursor-pointer transition ease-in-out duration-300"
+            >
+              Get Quick Help
+            </button>
+            <button
+              onClick={handleClose}
+              className="md:mt-5 mt-3 bg-[#5728A6] font-semibold text-white w-full py-2 rounded-lg hover:bg-[#5728A6]/80 cursor-pointer transition ease-in-out duration-300"
             >
               Close
             </button>

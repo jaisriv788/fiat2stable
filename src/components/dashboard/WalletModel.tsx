@@ -7,10 +7,12 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { FaWallet } from "react-icons/fa6";
-import { Copy } from "lucide-react";
+import { Copy, LogOut } from "lucide-react";
 import { IoMenu } from "react-icons/io5";
 import { LuTimerReset } from "react-icons/lu";
 import { BiSolidWallet } from "react-icons/bi";
+import { useDispatch } from "react-redux";  
+import { setIsUserConnected } from "@/store/slices/userSlice";
 
 const Data = [
   { id: 1, tag: "Transactions", icon: IoMenu },
@@ -19,6 +21,12 @@ const Data = [
 ];
 
 const WalletModel: React.FC = () => {
+  const dispatch = useDispatch()
+
+  function handleLogout() {
+    dispatch(setIsUserConnected({ isConnected: false }));
+  }
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -64,6 +72,15 @@ const WalletModel: React.FC = () => {
                   </div>
                 );
               })}
+              <hr className="bg-gray-300 my-2" />
+
+              <div
+                onClick={handleLogout}
+                className="flex gap-3 cursor-pointer hover:bg-gray-300 px-3 py-2 rounded transition ease-in-out duration-300"
+              >
+                <LogOut className="text-2xl text-[#5728A6]" />
+                <div className="font-semibold">Disconnect Wallet</div>
+              </div>
             </div>
           </div>
         </form>
