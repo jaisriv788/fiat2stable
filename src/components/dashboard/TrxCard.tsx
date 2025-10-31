@@ -8,7 +8,7 @@ const TrxCard: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="mt-6 mx-2 px-3 md:px-5 border-b-2 border-r border-purple-900 py-5 bg-purple-50 shadow-xl rounded-lg">
+    <div className="mt-6 mx-2 px-3 md:px-5 border-b-2 border-r border-[#5728A6] py-5 bg-[#ebe5f7] shadow-xl rounded-lg">
       <div className="font-semibold text-lg">Transaction Limit</div>
       <p className="text-xs text-gray-700 font-semibold">
         This is the maximum amount you can buy, sell, or pay in one order.
@@ -22,7 +22,7 @@ const TrxCard: React.FC = () => {
           </div>
           <div className="">
             <div className="font-semibold">Buy</div>
-            <div className="font-extrabold text-3xl bg-linear-to-b from-purple-900 to-purple-300 text-transparent bg-clip-text">
+            <div className="font-extrabold text-3xl bg-linear-to-b from-[#5728A6] to-[#c9b4ee] text-transparent bg-clip-text">
               $100
             </div>
           </div>
@@ -33,7 +33,7 @@ const TrxCard: React.FC = () => {
           </div>
           <div className="">
             <div className="font-semibold">Sell/Pay</div>
-            <div className="font-extrabold text-3xl bg-linear-to-b from-purple-900 to-purple-300 text-transparent bg-clip-text">
+            <div className="font-extrabold text-3xl bg-linear-to-b from-[#5728A6] to-[#c9b4ee] text-transparent bg-clip-text">
               $100
             </div>
           </div>

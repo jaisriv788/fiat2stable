@@ -115,7 +115,7 @@ const ScanAndSell: React.FC = () => {
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="max-w-lg overflow-hidden w-full px-2">
-        <div className="flex items-center justify-center gap-3 bg-purple-100 rounded-lg py-3 font-semibold text-sm">
+        <div className="flex items-center justify-center gap-3 bg-[#e4d6fc] rounded-lg py-3 font-semibold text-sm">
           <div
             className={`w-4 h-4 bg-indigo-300 rounded-full flex items-center justify-center`}
           >
@@ -129,7 +129,7 @@ const ScanAndSell: React.FC = () => {
 
         <div className="text-center mt-3">
           <div className="font-bold text-xl">
-            <span className="text-5xl font-extrabold text-purple-400 ">
+            <span className="text-5xl font-extrabold text-[#b08cec] ">
               {amounts[pair.from]}
             </span>{" "}
             {pair.from}
@@ -137,13 +137,13 @@ const ScanAndSell: React.FC = () => {
           <div className="mt-2 text-lg gap-2 w-fit flex mx-auto font-semibold items-center">
             <CgArrowsExchangeAltV
               // onClick={handleSwap}
-              className="bg-purple-300 cursor-pointer rounded-full p-.5 text-2xl text-purple-700"
+              className="bg-[#e4d6fc] cursor-pointer rounded-full p-.5 text-2xl text-[#5728A6]"
             />{" "}
             {amounts[pair.to] !== "0" && amounts[pair.to]} {pair.to}
           </div>
           <div className="font-semibold text-gray-600 mt-3">
             Available Balance:{" "}
-            <span className="font-bold text-purple-800">0 USDT</span>
+            <span className="font-bold text-[#5728A6]">0 USDT</span>
           </div>
         </div>
 
@@ -151,12 +151,12 @@ const ScanAndSell: React.FC = () => {
           onClick={() => {
             navigate("/limit");
           }}
-          className="bg-purple-200 cursor-pointer hover:scale-105 transition ease=in-out duration-300 rounded-lg items-center py-3 px-2 my-8 md:my-10 flex justify-center gap-3"
+          className="bg-[#e4d6fc] cursor-pointer hover:scale-105 transition ease=in-out duration-300 rounded-lg items-center py-3 px-2 my-8 md:my-10 flex justify-center gap-3"
         >
-          <FaRegCreditCard className="text-xl text-purple-800" />
+          <FaRegCreditCard className="text-xl text-[#5728A6]" />
           <span className="font-semibold text-sm">
             Your Transaction Limit :{" "}
-            <span className=" text-purple-800">0 USDT/USDC</span>
+            <span className=" text-[#5728A6]">0 USDT/USDC</span>
           </span>
           <FaGreaterThan className="text-sm text-gray-600" />
         </div>
@@ -164,12 +164,12 @@ const ScanAndSell: React.FC = () => {
         <Keypad updateAmount={updateAmount} backspace={backspace} />
 
         <div className="flex gap-3 mt-3">
-          <button className="cursor-pointer flex-1 text-purple-800 hover:bg-gray-300 py-2 rounded-lg transition ease-in-out duration-300 font-semibold">
+          <button className="cursor-pointer flex-1 text-[#5728A6] hover:bg-gray-300 py-2 rounded-lg transition ease-in-out duration-300 font-semibold">
             Max
           </button>
           <button
             onClick={handleClear}
-            className="cursor-pointer flex-1 text-purple-800 hover:bg-gray-300 py-2 rounded-lg transition ease-in-out duration-300 font-semibold"
+            className="cursor-pointer flex-1 text-[#5728A6] hover:bg-gray-300 py-2 rounded-lg transition ease-in-out duration-300 font-semibold"
           >
             Clear
           </button>

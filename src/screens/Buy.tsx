@@ -121,7 +121,7 @@ const Buy: React.FC = () => {
       <div className="max-w-lg overflow-hidden w-full px-2">
         <div className="text-center">
           <div className="font-bold text-xl">
-            <span className="text-5xl font-extrabold text-purple-400 ">
+            <span className="text-5xl font-extrabold text-[#af83fc] ">
               {amounts[pair.from]}
             </span>{" "}
             {pair.from}
@@ -129,7 +129,7 @@ const Buy: React.FC = () => {
           <div className="mt-2 text-lg gap-2 w-fit flex mx-auto font-semibold items-center">
             <CgArrowsExchangeAltV
               // onClick={handleSwap}
-              className="bg-purple-300 cursor-pointer rounded-full p-.5 text-2xl text-purple-700"
+              className="bg-[#dfd0fa] cursor-pointer rounded-full p-.5 text-2xl text-[#5728A6]"
             />{" "}
             {amounts[pair.to] !== "0" && amounts[pair.to]} {pair.to}
           </div>
@@ -138,14 +138,14 @@ const Buy: React.FC = () => {
           onClick={() => {
             navigate("/limit");
           }}
-          className="bg-purple-200 cursor-pointer hover:scale-105 transition ease=in-out duration-300 rounded-lg items-center py-3 px-2 my-8 md:my-10 flex justify-center gap-3"
+          className="bg-[#dfd0fa] relative cursor-pointer hover:scale-105 transition ease=in-out duration-300 rounded-lg items-center py-3 px-2 my-8 md:my-10 flex justify-center gap-3"
         >
-          <FaRegCreditCard className="text-xl text-purple-800" />
+          <FaRegCreditCard className="text-xl text-[#5728A6]" />
           <span className="font-semibold text-sm">
             Your Transaction Limit :{" "}
-            <span className=" text-purple-800">0 USDT/USDC</span>
+            <span className=" text-[#5728A6]">0 USDT/USDC</span>
           </span>
-          <FaGreaterThan className="text-sm text-gray-600" />
+          <FaGreaterThan size={10} className="text-sm text-gray-600 absolute right-10" />
         </div>
 
         <Keypad updateAmount={updateAmount} backspace={backspace} />
@@ -156,7 +156,7 @@ const Buy: React.FC = () => {
           </button> */}
           <button
             onClick={handleClear}
-            className="cursor-pointer bg-gray-200 flex-1 text-purple-800 hover:bg-gray-300 py-4 md:py-3 rounded-lg transition ease-in-out duration-300 font-semibold"
+            className="cursor-pointer bg-gray-200 flex-1 text-[#5728A6] hover:bg-gray-300 py-4 md:py-3 rounded-lg transition ease-in-out duration-300 font-semibold"
           >
             Clear
           </button>
