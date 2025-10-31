@@ -23,7 +23,7 @@ const Transaction: React.FC = () => {
 
   return (
     <div className="mt-24 sm:mt-30 px-2 flex flex-col gap-2 max-w-lg mx-auto">
-      <div className="card mx-2  border-b-2 border-r border-[#5728A6]  bg-[#ebe5f7] shadow-xl rounded-lg">
+      <div className="card border-b-2 border-r border-[#5728A6]  bg-[#ebe5f7] shadow-xl rounded-lg">
         <div className="bg-[#c3afec] px-3 md:px-5 rounded-lg py-5">
           <div className="font-semibold text-lg">Your Activity</div>
           <p className="text-xs text-gray-700 font-semibold txt">
