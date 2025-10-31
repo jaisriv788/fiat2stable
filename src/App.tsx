@@ -16,7 +16,7 @@ import GettingStarted from "./screens/Support/GettingStarted";
 import General from "./screens/Support/General";
 import Limits from "./screens/Support/Limits";
 import ReferAndEarn from "./screens/Support/ReferAndEarn";
-import Trx from "./screens/Transaction";
+import Trx from "./screens/Support/Transaction";
 import DepositAndWithdraw from "./screens/Support/DepositAndWithdraw";
 import AllFaq from "./screens/Support/AllFaq";
 
