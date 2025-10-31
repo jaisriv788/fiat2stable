@@ -138,7 +138,7 @@ const Buy: React.FC = () => {
           onClick={() => {
             navigate("/limit");
           }}
-          className="bg-[#dfd0fa] relative cursor-pointer hover:scale-105 transition ease=in-out duration-300 rounded-lg items-center py-3 px-2 my-8 md:my-10 flex justify-center gap-3"
+          className="card bg-[#dfd0fa] relative cursor-pointer hover:scale-105 transition ease=in-out duration-300 rounded-lg items-center py-3 px-2 my-8 md:my-10 flex justify-center gap-3"
         >
           <FaRegCreditCard className="text-xl text-[#5728A6]" />
           <span className="font-semibold text-sm">

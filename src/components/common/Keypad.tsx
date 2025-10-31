@@ -16,7 +16,7 @@ const Keypad: React.FC<props> = ({ updateAmount, backspace }) => {
           <div
             key={index}
             onClick={() => updateAmount(item)}
-            className="hover:bg-gray-200 cursor-pointer transition ease-in-out duration-300 py-2"
+            className="hover:bg-gray-200 txt2 rounded cursor-pointer transition ease-in-out duration-300 py-2"
           >
             {item}
           </div>

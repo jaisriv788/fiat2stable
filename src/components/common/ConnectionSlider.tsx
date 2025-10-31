@@ -36,7 +36,7 @@ const ConnectionSlider: React.FC = () => {
             exit={{ y: 80, opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
             onClick={(e) => e.stopPropagation()}
-            className="absolute flex flex-col py-4 md:py-5 px-5 bg-gray-100 border-t-2 rounded-t-xl border-gray-300 z-50 w-full bottom-0"
+            className="absolute flex flex-col slider py-4 md:py-5 px-5 bg-gray-100 border-t-2 rounded-t-xl border-gray-300 z-50 w-full bottom-0"
           >
             <div className="max-w-lg self-center">
               {isOnline ? (
@@ -52,7 +52,7 @@ const ConnectionSlider: React.FC = () => {
                       ></div>
                     </div>
                   </div>
-                  <div className="text-center mt-2 text-sm font-semibold text-gray-800">
+                  <div className="text-center txt mt-2 text-sm font-semibold text-gray-800">
                     You are connected & everything's working great.
                   </div>
                 </div>
@@ -105,7 +105,7 @@ const ConnectionSlider: React.FC = () => {
               </ul>
             </div>
 
-            <div className="max-w-lg self-center mt-7 text-gray-600 text-sm text-center font-semibold">
+            <div className="max-w-lg txt self-center mt-7 text-gray-600 text-sm text-center font-semibold">
               Already installed the app? It may still work, but we recommend
               VPN/DNS to keep things updated.
             </div>

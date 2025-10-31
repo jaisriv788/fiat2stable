@@ -115,7 +115,7 @@ const ScanAndSell: React.FC = () => {
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="max-w-lg overflow-hidden w-full px-2">
-        <div className="flex items-center justify-center gap-3 bg-[#e4d6fc] rounded-lg py-3 font-semibold text-sm">
+        <div className="card flex items-center justify-center gap-3 bg-[#e4d6fc] rounded-lg py-3 font-semibold text-sm">
           <div
             className={`w-4 h-4 bg-indigo-300 rounded-full flex items-center justify-center`}
           >
@@ -127,7 +127,7 @@ const ScanAndSell: React.FC = () => {
           Please ask the vendor for the bill amount first.
         </div>
 
-        <div className="text-center mt-3">
+        <div className=" text-center mt-3">
           <div className="font-bold text-xl">
             <span className="text-5xl font-extrabold text-[#b08cec] ">
               {amounts[pair.from]}
@@ -141,7 +141,7 @@ const ScanAndSell: React.FC = () => {
             />{" "}
             {amounts[pair.to] !== "0" && amounts[pair.to]} {pair.to}
           </div>
-          <div className="font-semibold text-gray-600 mt-3">
+          <div className="font-semibold text-gray-600 mt-3 txt">
             Available Balance:{" "}
             <span className="font-bold text-[#5728A6]">0 USDT</span>
           </div>
@@ -151,7 +151,7 @@ const ScanAndSell: React.FC = () => {
           onClick={() => {
             navigate("/limit");
           }}
-          className="bg-[#e4d6fc] cursor-pointer hover:scale-105 transition ease=in-out duration-300 rounded-lg items-center py-3 px-2 my-8 md:my-10 flex justify-center gap-3"
+          className="card bg-[#e4d6fc] cursor-pointer hover:scale-105 transition ease=in-out duration-300 rounded-lg items-center py-3 px-2 my-8 md:my-10 flex justify-center gap-3"
         >
           <FaRegCreditCard className="text-xl text-[#5728A6]" />
           <span className="font-semibold text-sm">

@@ -94,7 +94,7 @@ const Navbar: React.FC = () => {
   }, [buyingPrice, sellingPrice]);
 
   return (
-    <div className="shadow-md shadow-[#ddd4ee] fixed top-0 left-0 bg-white w-full z-30">
+    <nav className="shadow-md shadow-[#ddd4ee] fixed top-0 left-0 bg-white w-full z-30">
       <div className="max-w-lg mx-auto py-4 px-2 flex justify-between items-center">
         {" "}
         <div className="text-xl font-bold flex gap-1 items-center relative">
@@ -137,7 +137,7 @@ const Navbar: React.FC = () => {
         {isDashboard ? (
           <ShimmerButton
             disabled
-            className="shadow-2xl flex gap-1 items-center relative overflow-hidden"
+            className="btn shadow-2xl flex gap-1 items-center relative overflow-hidden"
           >
             <div className="w-4 h-4 bg-[#d8cdeb] rounded-full flex items-center justify-center">
               <div
@@ -178,7 +178,7 @@ const Navbar: React.FC = () => {
           show && (
             <div
               onClick={() => navigate("/support")}
-              className="flex items-center gap-2 text-gray-600 border border-gray-300 cursor-pointer transition ease-in-out duration-300 hover:bg-gray-200 font-semibold rounded-full px-3 py-0.5"
+              className="navbtn flex items-center gap-2 text-gray-600 border border-gray-300 cursor-pointer transition ease-in-out duration-300 hover:bg-gray-200 font-semibold rounded-full px-3 py-0.5"
             >
               <IoMdHelpCircle />
               Help
@@ -186,7 +186,7 @@ const Navbar: React.FC = () => {
           )
         )}
       </div>
-    </div>
+    </nav>
   );
 };
 

@@ -169,3 +169,59 @@ html::-webkit-scrollbar,
 body::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
 }
+
+/* Dark mode overrides */
+body.dark {
+  background-color: black;
+  color: white;
+}
+
+body.dark nav {
+  background-color: black;
+  color: white;
+}
+
+body.dark .card {
+  background-color: #9572d3;
+  color: white;
+}
+
+body.dark .navbtn {
+  background-color: white;
+  color: rgb(90, 89, 89);
+}
+
+body.dark .navbtn:hover {
+  background-color: rgb(214, 213, 213);
+  color: rgb(90, 89, 89);
+}
+
+body.dark .txt {
+  color: white;
+}
+
+body.dark .txt2:hover {
+  color: rgb(70, 69, 69);
+}
+
+body.dark .slider {
+  background: black;
+}
+
+body.dark .txt3:hover {
+  color: white;
+}
+
+body.dark .card1 {
+  border: 2px solid rgb(199, 177, 238);
+  color: #e3d7f7;
+}
+
+body.dark .card1:hover {
+  background: #e3d7f7;
+  color: #7b50c5;
+}
+
+body.dark .txt3 {
+  color: rgb(70, 69, 69);
+}

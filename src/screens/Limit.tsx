@@ -44,7 +44,7 @@ const Limit: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="mt-6 px-3 md:px-5 border-b-2 border-r border-[#5728A6] py-5 bg-[#ebe5f7] shadow-xl rounded-lg">
+      <div className="card mt-6 px-3 md:px-5 border-b-2 border-r border-[#5728A6] py-5 bg-[#ebe5f7] shadow-xl rounded-lg">
         <div className="font-semibold text-lg">
           Verify at least one social account
         </div>

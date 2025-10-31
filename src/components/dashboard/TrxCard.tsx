@@ -8,14 +8,14 @@ const TrxCard: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="mt-6 mx-2 px-3 md:px-5 border-b-2 border-r border-[#5728A6] py-5 bg-[#ebe5f7] shadow-xl rounded-lg">
+    <div className="card mt-6 mx-2 px-3 md:px-5 border-b-2 border-r border-[#5728A6] py-5 bg-[#ebe5f7] shadow-xl rounded-lg">
       <div className="font-semibold text-lg">Transaction Limit</div>
-      <p className="text-xs text-gray-700 font-semibold">
+      <p className="text-xs text-gray-700 font-semibold txt">
         This is the maximum amount you can buy, sell, or pay in one order.
         Increase limit for larger transactions in{" "}
         <TypingAnimation words={["USDC.", "USDT."]} loop />
       </p>
-      <div className="flex mt-8">
+      <div className="flex mt-8 ">
         <div className="flex-1 flex gap-3">
           <div className="bg-white w-15 flex items-center justify-center rounded-full aspect-square p-2">
             <RiLuggageDepositFill className="text-4xl text-[#5728A6]" />

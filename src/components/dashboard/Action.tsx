@@ -60,7 +60,7 @@ const Action: React.FC = () => {
             {item.id == 1 ? (
               <WalletModel />
             ) : (
-              <div className="border-2 hover:scale-110 hover:rotate-6 hover:bg-purple-50 transition-all ease-in-out duration-300 border-[#5728A6] cursor-pointer text-[#5728A6] hover:scale rounded-md p-3">
+              <div className="border-2 card1 hover:scale-110 hover:rotate-6 hover:bg-purple-50 transition-all ease-in-out duration-300 border-[#5728A6] cursor-pointer text-[#5728A6] hover:scale rounded-md p-3">
                 <item.icon className="text-2xl" />
               </div>
             )}

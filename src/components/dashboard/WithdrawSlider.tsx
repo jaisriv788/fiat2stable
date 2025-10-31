@@ -35,7 +35,7 @@ const WithdrawSlider: React.FC = () => {
             exit={{ y: 80, opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
             onClick={(e) => e.stopPropagation()}
-            className="absolute py-4 md:py-5 px-5 bg-gray-100 border-t-2 rounded-t-xl border-gray-300 z-50 w-full bottom-0"
+            className="absolute py-4 md:py-5 px-5 slider bg-gray-100 border-t-2 rounded-t-xl border-gray-300 z-50 w-full bottom-0"
           >
             <div className="">
               <div className="font-bold text-lg flex items-center justify-between">
@@ -45,7 +45,7 @@ const WithdrawSlider: React.FC = () => {
                   className="text-xl hover:text-red-700 transition ease-in-out duration-300 cursor-pointer"
                 />
               </div>
-              <p className="text-xs text-gray-900">
+              <p className="text-xs text-gray-900 txt">
                 Send funds from your in app wallet.
               </p>
             </div>
@@ -54,7 +54,7 @@ const WithdrawSlider: React.FC = () => {
               <FaCircleDollarToSlot className="text-[#5728A6] text-2xl" />
               <div>
                 <div className="font-semibold">Withdraw USDT/USDC</div>
-                <div className="text-sm text-gray-700">
+                <div className="text-sm txt text-gray-700">
                   Withdraw USDT/USDC from your in app wallet
                 </div>
               </div>
