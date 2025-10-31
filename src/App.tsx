@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import { Route, Routes } from "react-router";
 import Login from "./screens/Login";
 import Dashboard from "./screens/Dashboard";
@@ -10,7 +10,7 @@ import Sell from "./screens/Sell";
 import Support from "./screens/Support";
 import Limit from "./screens/Limit";
 import Transaction from "./screens/Transaction";
-import Settings from "./screens/Settings";
+// import Settings from "./screens/Settings";
 import Refer from "./screens/Refer";
 import GettingStarted from "./screens/Support/GettingStarted";
 import General from "./screens/Support/General";
@@ -19,8 +19,15 @@ import ReferAndEarn from "./screens/Support/ReferAndEarn";
 import Trx from "./screens/Support/Transaction";
 import DepositAndWithdraw from "./screens/Support/DepositAndWithdraw";
 import AllFaq from "./screens/Support/AllFaq";
+import { useLocation } from "react-router";
 
 const App: React.FC = () => {
+  const { pathname } = useLocation();
+
+  useLayoutEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [pathname]);
+
   return (
     <>
       <Routes>
@@ -49,7 +56,7 @@ const App: React.FC = () => {
           <Route path="/limit" element={<Limit />} />
           <Route path="/transaction" element={<Transaction />} />
           <Route path="/refer" element={<Refer />} />
-          <Route path="/settings" element={<Settings />} />
+          {/* <Route path="/settings" element={<Settings />} /> */}
         </Route>
       </Routes>
     </>

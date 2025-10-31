@@ -7,25 +7,25 @@ interface FaqItem {
 export const gettingStartedFaq: FaqItem[] = [
   {
     id: "item1-1",
-    question: `Why can't I text on the P2P.me Telegram channel? What should I do?`,
-    answer: `When you join the P2P.me India community channel for the first time, you'll see a welcome message under the "Verify (For New Members)" topic. To start texting in the group, you need to click the verification prompt in that message and complete a simple CAPTCHA.`,
+    question: `Why can't I text on the XYZme Telegram channel? What should I do?`,
+    answer: `When you join the XYZme India community channel for the first time, you'll see a welcome message under the "Verify (For New Members)" topic. To start texting in the group, you need to click the verification prompt in that message and complete a simple CAPTCHA.`,
   },
   {
     id: "item1-2",
-    question: `Where to Find Your Order or Transaction History on P2P.me`,
+    question: `Where to Find Your Order or Transaction History on XYZme`,
     answer: `Go to the 'Transactions' section in the app to see your orders, deposits, withdrawals, and disputes.`,
   },
 ];
 export const generalFaq: FaqItem[] = [
   {
     id: "item2-1",
-    question: `What is P2P.me?`,
-    answer: `P2P.me is a global platform that lets you easily buy, sell, and pay using USDC — securely and privately. It supports popular local payment methods like UPI, PIX, and QRIS, while keeping your funds fully in your control.`,
+    question: `What is XYZme?`,
+    answer: `XYZme is a global platform that lets you easily buy, sell, and pay using USDC — securely and privately. It supports popular local payment methods like UPI, PIX, and QRIS, while keeping your funds fully in your control.`,
   },
   {
     id: "item2-2",
-    question: `Is P2P.me safe to use?`,
-    answer: `Yes. P2P.me is designed with user safety at its core. All merchants on the platform are personally verified. Before onboarding, they must submit zero-knowledge proofs (ZK-proofs) of their banking activity to prove that they are legitimate, active users with no history of bank freezes or fraudulent behavior. This makes merchant funds secure and transactions trustworthy.`,
+    question: `Is XYZme safe to use?`,
+    answer: `Yes. XYZme is designed with user safety at its core. All merchants on the platform are personally verified. Before onboarding, they must submit zero-knowledge proofs (ZK-proofs) of their banking activity to prove that they are legitimate, active users with no history of bank freezes or fraudulent behavior. This makes merchant funds secure and transactions trustworthy.`,
   },
 ];
 export const myLimitsFaq: FaqItem[] = [
@@ -44,7 +44,7 @@ export const depositAndWithdrawFaq: FaqItem[] = [
   {
     id: "item4-1",
     question: `Are deposits and withdrawals gasless?`,
-    answer: `Yes – all transactions on P2P.me are completely gasless, including deposits, withdrawals, and trades when using your in-app wallet on the Base network.`,
+    answer: `Yes – all transactions on XYZme are completely gasless, including deposits, withdrawals, and trades when using your in-app wallet on the Base network.`,
   },
   {
     id: "item4-2",
@@ -55,8 +55,8 @@ export const depositAndWithdrawFaq: FaqItem[] = [
 export const referAndEarnFaq: FaqItem[] = [
   {
     id: "item5-1",
-    question: `What is Refer & Earn on P2P.me?`,
-    answer: `Refer & Earn is your chance to earn passive rewards by inviting trusted users to trade on P2P.me. Once eligible, you can generate a referral link, share it, and earn 1% of the total trading volume of users who join through your link.`,
+    question: `What is Refer & Earn on XYZme?`,
+    answer: `Refer & Earn is your chance to earn passive rewards by inviting trusted users to trade on XYZme. Once eligible, you can generate a referral link, share it, and earn 1% of the total trading volume of users who join through your link.`,
   },
   {
     id: "item5-2",
@@ -67,7 +67,7 @@ export const referAndEarnFaq: FaqItem[] = [
 export const transactionFaq: FaqItem[] = [
   {
     id: "item6-1",
-    question: `Where can I view all my transactions on P2P.me?`,
+    question: `Where can I view all my transactions on XYZme?`,
     answer: `Go to the Transactions section in the app to view all your activity including deposits, withdrawals and disputes.`,
   },
   {

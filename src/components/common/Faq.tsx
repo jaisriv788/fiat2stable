@@ -32,7 +32,7 @@ const Faq: React.FC<FaqProps> = ({ data }) => {
       </div>
       <Accordion type="single" collapsible>
         {data.map((item) => (
-          <AccordionItem value={item.id}>
+          <AccordionItem key={item.id} value={item.id}>
             <AccordionTrigger>{item.question}</AccordionTrigger>
             <AccordionContent>{item.answer}</AccordionContent>
           </AccordionItem>
