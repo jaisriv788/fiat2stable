@@ -56,6 +56,7 @@ export function LoginDialog() {
       showError("Email Field Can't Be Empty.", "");
       return;
     }
+    
     const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
     if (!isValid) {
@@ -70,6 +71,7 @@ export function LoginDialog() {
       });
 
       console.log(response.data);
+
       if (response.data.status != "success") {
         showError("Failed To Send Otp.", "");
         setEmail("");
@@ -95,11 +97,13 @@ export function LoginDialog() {
 
     try {
       setEmailVerificationLoader(true);
+
       const response = await axios.post(`${baseUrl}/register-email`, {
         email,
         otp,
       });
-      console.log(response.data);
+
+      // console.log(response.data);
 
       if (response.data.status == "false") {
         showError("Verification Failed", response.data.message);
@@ -223,7 +227,7 @@ export function LoginDialog() {
             >
               {/* Google "G" logo (SVG) */}
               <svg
-                className="absolute left-4 w-5 h-5"
+                className="w-5 h-5"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 48 48"
               >

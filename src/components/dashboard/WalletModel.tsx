@@ -13,7 +13,7 @@ import { LuTimerReset } from "react-icons/lu";
 import { BiSolidWallet } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "@/store/store";
-import { setIsUserConnected } from "@/store/slices/userSlice";
+import { signout } from "@/store/slices/userSlice";
 
 const Data = [
   { id: 1, tag: "Transactions", icon: IoMenu },
@@ -25,7 +25,7 @@ const WalletModel: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   function handleLogout() {
-    dispatch(setIsUserConnected({ isConnected: false }));
+    dispatch(signout());
   }
 
   const userData = useSelector((state: RootState) => state.user.userData);

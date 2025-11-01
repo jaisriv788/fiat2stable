@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "@/store/store";
 import { setSidebar } from "@/store/slices/modelSlice";
-import { setIsUserConnected } from "@/store/slices/userSlice";
+import { signout } from "@/store/slices/userSlice";
 import { AnimatePresence, motion } from "motion/react";
 import { IoCloseCircleSharp } from "react-icons/io5";
 import { IoLogOut } from "react-icons/io5";
@@ -73,7 +73,7 @@ const Sidebar: React.FC = () => {
     },
   ];
 
-  const username = useSelector((state: RootState) => state.user.username);
+  const userData = useSelector((state: RootState) => state.user.userData);
   const isSideBarVisible = useSelector(
     (state: RootState) => state.model.showSidebar
   );
@@ -84,7 +84,7 @@ const Sidebar: React.FC = () => {
   }
 
   function handleLogout() {
-    dispatch(setIsUserConnected({ isConnected: false }));
+    dispatch(signout());
     handleClose();
   }
 
@@ -172,11 +172,11 @@ const Sidebar: React.FC = () => {
             <div className="px-5 py-3 border-t border-gray-300">
               <div className="bg-[#ddd5ff] card p-2 rounded-lg shadow-lg font-semibold flex gap-3 items-center">
                 <div className="bg-[#5728A6] aspect-square w-7 font-semibold text-white rounded-full flex items-center justify-center">
-                  T
+                  {userData?.email.toString()[0].toUpperCase()}
                 </div>
                 <div>
                   <div className="text-sm">Logged in Via</div>
-                  <div className="text-xs">{username}</div>
+                  <div className="text-xs">{userData?.email}</div>
                 </div>
               </div>
               <div className="mt-5 mb-3 flex items-center justify-between">
