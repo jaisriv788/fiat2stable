@@ -18,7 +18,7 @@ type Amounts = Record<Currency, string>;
 const Buy: React.FC = () => {
   const navigate = useNavigate();
 
-  const [pair, setPair] = useState<Pair>({ from: "USDT", to: "INR" });
+  const pair: Pair = { from: "USDT", to: "INR" };
   const [amounts, setAmounts] = useState<Amounts>({
     INR: "0",
     USDT: "0",
@@ -145,7 +145,10 @@ const Buy: React.FC = () => {
             Your Transaction Limit :{" "}
             <span className=" text-[#5728A6]">0 USDT/USDC</span>
           </span>
-          <FaGreaterThan size={10} className="text-sm text-gray-600 absolute right-10" />
+          <FaGreaterThan
+            size={10}
+            className="text-sm text-gray-600 absolute right-10"
+          />
         </div>
 
         <Keypad updateAmount={updateAmount} backspace={backspace} />

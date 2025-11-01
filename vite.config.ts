@@ -13,6 +13,7 @@ export default defineConfig({
     }),
     tailwindcss(),
   ],
+  base:"/fiat/",
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

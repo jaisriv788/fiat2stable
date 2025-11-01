@@ -113,7 +113,7 @@ const Sidebar: React.FC = () => {
               <div className="flex items-center gap-2">
                 <img
                   className="logo rotate-15"
-                  src="/login/icon2.svg"
+                  src="/fiat/login/icon2.svg"
                   alt="icon"
                   width={28}
                 />

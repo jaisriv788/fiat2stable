@@ -17,7 +17,7 @@ type Amounts = Record<Currency, string>;
 
 const ScanAndSell: React.FC = () => {
   const navigate = useNavigate();
-  const [pair, setPair] = useState<Pair>({ from: "USDT", to: "INR" });
+  const pair: Pair = { from: "USDT", to: "INR" };
   const [amounts, setAmounts] = useState<Amounts>({
     INR: "0",
     USDT: "0",

@@ -20,6 +20,7 @@ import Trx from "./screens/Support/Transaction";
 import DepositAndWithdraw from "./screens/Support/DepositAndWithdraw";
 import AllFaq from "./screens/Support/AllFaq";
 import { useLocation } from "react-router";
+import NotFound from "./components/common/NotFound";
 
 const App: React.FC = () => {
   const { pathname } = useLocation();
@@ -58,6 +59,8 @@ const App: React.FC = () => {
           <Route path="/refer" element={<Refer />} />
           {/* <Route path="/settings" element={<Settings />} /> */}
         </Route>
+
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );

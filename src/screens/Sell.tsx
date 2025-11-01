@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { CgArrowsExchangeAltV } from "react-icons/cg";
 import { FaRegCreditCard } from "react-icons/fa";
 import { FaGreaterThan } from "react-icons/fa6";
-import { FaBackspace } from "react-icons/fa";
 import type { RootState } from "@/store/store";
 import { useSelector } from "react-redux";
 import Keypad from "@/components/common/Keypad";
@@ -19,7 +18,7 @@ type Amounts = Record<Currency, string>;
 const Sell: React.FC = () => {
   const navigate = useNavigate();
 
-  const [pair, setPair] = useState<Pair>({ from: "USDT", to: "INR" });
+  const pair: Pair = { from: "USDT", to: "INR" };
   const [amounts, setAmounts] = useState<Amounts>({
     INR: "0",
     USDT: "0",

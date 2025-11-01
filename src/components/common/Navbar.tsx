@@ -124,7 +124,7 @@ const Navbar: React.FC = () => {
             >
               <img
                 className="logo rotate-15"
-                src="/login/icon2.svg"
+                src="/fiat/login/icon2.svg"
                 alt="icon"
                 width={30}
               />
