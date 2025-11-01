@@ -8,7 +8,7 @@ const TrxCard: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="card mt-6 mx-2 px-3 md:px-5 border-b-2 border-r border-[#5728A6] py-5 bg-[#ebe5f7] shadow-xl rounded-lg">
+    <div className="card mt-5 mx-2 px-3 md:px-5 border-b-2 border-r border-[#5728A6] py-5 bg-[#ebe5f7] shadow-xl rounded-lg">
       <div className="font-semibold text-lg">Transaction Limit</div>
       <p className="text-xs text-gray-700 font-semibold txt">
         This is the maximum amount you can buy, sell, or pay in one order.
@@ -41,7 +41,7 @@ const TrxCard: React.FC = () => {
       </div>
       <button
         onClick={() => navigate("/limit")}
-        className="mt-3 w-full bg-[#5728A6] py-2 rounded-lg font-bold text-white hover:bg-black transition ease-in-out duration-300 cursor-pointer"
+        className="mt-7 w-full bg-[#5728A6] py-2 rounded-lg font-bold text-white hover:bg-black transition ease-in-out duration-300 cursor-pointer"
       >
         Increase Transaction Limit
       </button>

@@ -4,11 +4,13 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 interface UserState {
   username: string;
   isConnected: boolean;
+  userData: Record<string, number | string> | null;
 }
 
 const initialState: UserState = {
   username: "tester@test.com",
   isConnected: false,
+  userData: null,
 };
 
 const userSlice = createSlice({
@@ -24,8 +26,14 @@ const userSlice = createSlice({
     ) => {
       state.isConnected = action.payload.isConnected;
     },
+    setUserData: (
+      state,
+      action: PayloadAction<Pick<UserState, "userData">>
+    ) => {
+      state.userData = action.payload.userData;
+    },
   },
 });
 
-export const { setUser, setIsUserConnected } = userSlice.actions;
+export const { setUser, setIsUserConnected, setUserData } = userSlice.actions;
 export default userSlice.reducer;

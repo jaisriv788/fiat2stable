@@ -139,7 +139,7 @@ const Navbar: React.FC = () => {
             disabled
             className="btn shadow-2xl flex gap-1 items-center relative overflow-hidden"
           >
-            <div className="w-4 h-4 bg-[#d8cdeb] rounded-full flex items-center justify-center">
+            <div className="w-4 h-4 bg-[#f4eefd] rounded-full flex items-center justify-center">
               <div
                 className="w-2.5 h-2.5 bg-[#5728A6] rounded-full animate-ping"
                 style={{ animationDuration: "1.4s" }}

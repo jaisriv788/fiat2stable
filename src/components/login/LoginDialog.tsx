@@ -17,9 +17,9 @@ import {
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { MdEmail, MdPhoneIphone } from "react-icons/md";
 import { useNavigate } from "react-router";
-import { useDispatch } from "react-redux";
-import type { AppDispatch } from "@/store/store";
-import { setIsUserConnected } from "@/store/slices/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch, RootState } from "@/store/store";
+import { setIsUserConnected, setUserData } from "@/store/slices/userSlice";
 import { Input } from "../ui/input";
 import { useShowError } from "@/hooks/useShowError";
 import { useShowSuccess } from "@/hooks/useShowSuccess";
@@ -37,9 +37,12 @@ export function LoginDialog() {
   const [view, setView] = useState(0);
   const [otp, setOtp] = useState("");
   const [otpLoader, setOtpLoader] = useState(false);
+  const [emailVerificationLoader, setEmailVerificationLoader] = useState(false);
 
   const { showError } = useShowError();
   const { showSuccess } = useShowSuccess();
+
+  const baseUrl = useSelector((state: RootState) => state.consts.baseUrl);
 
   const handleGoogleLogin = () => {
     navigate("/dashboard");
@@ -62,16 +65,14 @@ export function LoginDialog() {
 
     try {
       setOtpLoader(true);
-      const response = await axios.post(
-        `https://demo.dsvinfosolutions.com/p2p/api/email-otp`,
-        {
-          email,
-        }
-      );
-      
-      // console.log(response.data);
+      const response = await axios.post(`${baseUrl}/email-otp`, {
+        email,
+      });
+
+      console.log(response.data);
       if (response.data.status != "success") {
         showError("Failed To Send Otp.", "");
+        setEmail("");
         return;
       }
 
@@ -79,17 +80,45 @@ export function LoginDialog() {
       setOtpSent(true);
     } catch (error) {
       console.log(error);
+      setEmail("");
       showError("Failed To Send Otp.", "");
     } finally {
       setOtpLoader(false);
-      setEmail("");
     }
   };
 
-  const handleEmailVerification = () => {
-    console.log(otp);
-    // navigate("/dashboard");
-    // dispatch(setIsUserConnected({ isConnected: true }));
+  const handleEmailVerification = async () => {
+    if (otp.length != 6) {
+      showError("Entered OTP Is Invalid.", "");
+      return;
+    }
+
+    try {
+      setEmailVerificationLoader(true);
+      const response = await axios.post(`${baseUrl}/register-email`, {
+        email,
+        otp,
+      });
+      console.log(response.data);
+
+      if (response.data.status == "false") {
+        showError("Verification Failed", response.data.message);
+        return;
+      }
+
+      showSuccess("Success", response.data.message);
+      dispatch(setUserData({ userData: response.data.data }));
+      navigate("/dashboard");
+      dispatch(setIsUserConnected({ isConnected: true }));
+    } catch (error) {
+      showError("Verification Failed", "");
+      console.log(error);
+    } finally {
+      setEmailVerificationLoader(false);
+      setOtp("");
+      setOtpSent(false);
+      setEmail("");
+    }
   };
 
   //...................................................................................
@@ -113,7 +142,11 @@ export function LoginDialog() {
   };
 
   const handleBack = () => {
+    setOtp("");
     setView(0);
+    setOtpSent(false);
+    setEmail("");
+    setNumber("");
   };
 
   return (
@@ -167,7 +200,7 @@ export function LoginDialog() {
             </DialogTitle>
           )}
           {view == 1 ? (
-            <DialogDescription>
+            <DialogDescription className="text-left">
               Enter the OTP sent to your Email.
             </DialogDescription>
           ) : view == 2 ? (
@@ -279,9 +312,14 @@ export function LoginDialog() {
                 </InputOTP>
                 <button
                   onClick={handleEmailVerification}
+                  disabled={emailVerificationLoader}
                   className="text-base mt-5 bg-[#5728A6] text-white w-full py-2 rounded-lg hover:bg-black cursor-pointer transition ease-in-out duration-300"
                 >
-                  Confirm OTP
+                  {!emailVerificationLoader ? (
+                    "Confirm OTP"
+                  ) : (
+                    <Spinner className="my-1 mx-auto" />
+                  )}
                 </button>
               </>
             )}

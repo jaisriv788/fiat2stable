@@ -11,7 +11,8 @@ import { Copy, LogOut } from "lucide-react";
 import { IoMenu } from "react-icons/io5";
 import { LuTimerReset } from "react-icons/lu";
 import { BiSolidWallet } from "react-icons/bi";
-import { useDispatch } from "react-redux";  
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch, RootState } from "@/store/store";
 import { setIsUserConnected } from "@/store/slices/userSlice";
 
 const Data = [
@@ -21,11 +22,13 @@ const Data = [
 ];
 
 const WalletModel: React.FC = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>();
 
   function handleLogout() {
     dispatch(setIsUserConnected({ isConnected: false }));
   }
+
+  const userData = useSelector((state: RootState) => state.user.userData);
 
   return (
     <Dialog>
@@ -51,8 +54,20 @@ const WalletModel: React.FC = () => {
               </div>
               <div>
                 <div className="font-semibold flex items-center gap-3">
-                  0xA958...85E8{" "}
+                  {userData?.wallet_address.toString().slice(0, 6) +
+                    "..." +
+                    userData?.wallet_address.toString().slice(-6)}
                   <Copy
+                    onClick={() => {
+                      navigator.clipboard
+                        .writeText(userData?.wallet_address.toString() ?? "")
+                        .then(() => {
+                          alert("Address copied to clipboard!");
+                        })
+                        .catch((err) => {
+                          console.error("Failed to copy text:", err);
+                        });
+                    }}
                     size={15}
                     className="text-gray-700 cursor-pointer transition ease-in-out duration-300 hover:text-gray-500"
                   />
