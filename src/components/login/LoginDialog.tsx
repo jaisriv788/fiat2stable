@@ -23,6 +23,8 @@ import { setIsUserConnected } from "@/store/slices/userSlice";
 import { Input } from "../ui/input";
 import { useShowError } from "@/hooks/useShowError";
 import { useShowSuccess } from "@/hooks/useShowSuccess";
+import axios from "axios";
+import { Spinner } from "@/components/ui/spinner";
 
 export function LoginDialog() {
   const navigate = useNavigate();
@@ -34,6 +36,7 @@ export function LoginDialog() {
   const [otpSent, setOtpSent] = useState(false);
   const [view, setView] = useState(0);
   const [otp, setOtp] = useState("");
+  const [otpLoader, setOtpLoader] = useState(false);
 
   const { showError } = useShowError();
   const { showSuccess } = useShowSuccess();
@@ -45,9 +48,42 @@ export function LoginDialog() {
 
   //.................................................................................
 
-  const sendOtpEmail = () => {
-   
-    // setOtpSent(true);
+  const sendOtpEmail = async () => {
+    if (!email) {
+      showError("Email Field Can't Be Empty.", "");
+      return;
+    }
+    const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+    if (!isValid) {
+      showError("Enter A Valid Email.", "");
+      return;
+    }
+
+    try {
+      setOtpLoader(true);
+      const response = await axios.post(
+        `https://demo.dsvinfosolutions.com/p2p/api/email-otp`,
+        {
+          email,
+        }
+      );
+      
+      // console.log(response.data);
+      if (response.data.status != "success") {
+        showError("Failed To Send Otp.", "");
+        return;
+      }
+
+      showSuccess("OTP Sent", response.data.message);
+      setOtpSent(true);
+    } catch (error) {
+      console.log(error);
+      showError("Failed To Send Otp.", "");
+    } finally {
+      setOtpLoader(false);
+      setEmail("");
+    }
   };
 
   const handleEmailVerification = () => {
@@ -212,9 +248,14 @@ export function LoginDialog() {
                 />
                 <button
                   onClick={sendOtpEmail}
+                  disabled={otpLoader}
                   className="text-base my-3 bg-[#5728A6] text-white w-full py-2 rounded-lg hover:bg-black cursor-pointer transition ease-in-out duration-300"
                 >
-                  Send OTP
+                  {!otpLoader ? (
+                    "Send OTP"
+                  ) : (
+                    <Spinner className="my-1 mx-auto" />
+                  )}
                 </button>
               </>
             ) : (
@@ -264,9 +305,14 @@ export function LoginDialog() {
                 />
                 <button
                   onClick={sendOtpNumber}
+                  disabled={otpLoader}
                   className="text-base my-3 bg-[#5728A6] text-white w-full py-2 rounded-lg hover:bg-black cursor-pointer transition ease-in-out duration-300"
                 >
-                  Send OTP
+                  {!otpLoader ? (
+                    "Send OTP"
+                  ) : (
+                    <Spinner className="my-1 mx-auto" />
+                  )}
                 </button>
               </>
             ) : (
