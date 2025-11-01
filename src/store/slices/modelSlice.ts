@@ -6,6 +6,12 @@ interface ModelState {
   showDepositSlider: boolean;
   showWithdrawSlider: boolean;
   showConnectionSlider: boolean;
+  showErrorModel: boolean;
+  showSuccessModel: boolean;
+  showModelMsg: {
+    title: string;
+    msg: string;
+  };
 }
 
 const initialState: ModelState = {
@@ -13,6 +19,12 @@ const initialState: ModelState = {
   showDepositSlider: false,
   showWithdrawSlider: false,
   showConnectionSlider: false,
+  showErrorModel: false,
+  showSuccessModel: false,
+  showModelMsg: {
+    title: "",
+    msg: "",
+  },
 };
 
 const modelSlice = createSlice({
@@ -43,6 +55,24 @@ const modelSlice = createSlice({
     ) => {
       state.showConnectionSlider = action.payload.showConnectionSlider;
     },
+    setErrorModel: (
+      state,
+      action: PayloadAction<Pick<ModelState, "showErrorModel">>
+    ) => {
+      state.showErrorModel = action.payload.showErrorModel;
+    },
+    setSuccessModel: (
+      state,
+      action: PayloadAction<Pick<ModelState, "showSuccessModel">>
+    ) => {
+      state.showSuccessModel = action.payload.showSuccessModel;
+    },
+    setModelMsg: (
+      state,
+      action: PayloadAction<Pick<ModelState, "showModelMsg">>
+    ) => {
+      state.showModelMsg = action.payload.showModelMsg;
+    },
   },
 });
 
@@ -51,5 +81,8 @@ export const {
   setDepositSlider,
   setWithdrawSlider,
   setConnectionSlider,
+  setErrorModel,
+  setSuccessModel,
+  setModelMsg,
 } = modelSlice.actions;
 export default modelSlice.reducer;

@@ -21,6 +21,10 @@ import DepositAndWithdraw from "./screens/Support/DepositAndWithdraw";
 import AllFaq from "./screens/Support/AllFaq";
 import { useLocation } from "react-router";
 import NotFound from "./components/common/NotFound";
+import Error from "./components/common/Error";
+import Success from "./components/common/Success";
+import { useSelector } from "react-redux";
+import type { RootState } from "./store/store";
 
 const App: React.FC = () => {
   const { pathname } = useLocation();
@@ -29,8 +33,19 @@ const App: React.FC = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [pathname]);
 
+  const showError = useSelector(
+    (state: RootState) => state.model.showErrorModel
+  );
+
+  const showSuccess = useSelector(
+    (state: RootState) => state.model.showSuccessModel
+  );
+
   return (
     <>
+      {showError && <Error />}
+      {showSuccess && <Success />}
+
       <Routes>
         <Route element={<PublicRoute />}>
           <Route path="/" element={<Login />} />
