@@ -46,9 +46,7 @@ export function LoginDialog() {
   //.................................................................................
 
   const sendOtpEmail = () => {
-    showError("Error", "Error Occured");
-    // showSuccess("success", "Error Occured");
-
+   
     // setOtpSent(true);
   };
 
