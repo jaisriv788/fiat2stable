@@ -38,25 +38,45 @@ export function LoginDialog() {
   const [otp, setOtp] = useState("");
   const [otpLoader, setOtpLoader] = useState(false);
   const [emailVerificationLoader, setEmailVerificationLoader] = useState(false);
+  const [numberVerificationLoader, setNumberVerificationLoader] =
+    useState(false);
 
   const { showError } = useShowError();
   const { showSuccess } = useShowSuccess();
 
   const baseUrl = useSelector((state: RootState) => state.consts.baseUrl);
 
+  //Oauth google
   const handleGoogleLogin = () => {
     navigate("/dashboard");
     dispatch(setIsUserConnected({ isConnected: true }));
   };
 
-  //.................................................................................
+  //Oauth github
+  const handleGithubLogin = () => {
+    navigate("/dashboard");
+    dispatch(setIsUserConnected({ isConnected: true }));
+  };
 
+  //Oauth linkedin
+  const handleLinkedinLogin = () => {
+    navigate("/dashboard");
+    dispatch(setIsUserConnected({ isConnected: true }));
+  };
+
+  //Oauth facebook
+  const handleFacebookLogin = () => {
+    navigate("/dashboard");
+    dispatch(setIsUserConnected({ isConnected: true }));
+  };
+
+  //Sending otp to email
   const sendOtpEmail = async () => {
     if (!email) {
       showError("Email Field Can't Be Empty.", "");
       return;
     }
-    
+
     const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
     if (!isValid) {
@@ -89,6 +109,7 @@ export function LoginDialog() {
     }
   };
 
+  //signing in via email
   const handleEmailVerification = async () => {
     if (otp.length != 6) {
       showError("Entered OTP Is Invalid.", "");
@@ -125,26 +146,81 @@ export function LoginDialog() {
     }
   };
 
-  //...................................................................................
+  //Sending otp to mobile number
+  const sendOtpNumber = async () => {
+    if (!number) {
+      showError("Phone Number Field Can't Be Empty.", "");
+      return;
+    }
+    try {
+      setOtpLoader(true);
+      const response = await axios.post(`${baseUrl}/mobile-otp`, {
+        phone_no: number,
+      });
 
-  //.................................................................................
+      // console.log(response.data);
 
-  const sendOtpNumber = () => {
-    setOtpSent(true);
+      showSuccess("Success", response.data.message);
+      setOtpSent(true);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        showError(
+          "Error Sending OTP.",
+          error?.response?.data?.message?.phone_no[0]
+        );
+      } else {
+        console.error("Unexpected error:", error);
+      }
+    } finally {
+      setOtpLoader(false);
+    }
+    //
   };
 
-  const handleNumberVerification = () => {
-    console.log(otp);
-    // navigate("/dashboard");
-    // dispatch(setIsUserConnected({ isConnected: true }));
+  //signing in via mobile number
+  const handleNumberVerification = async () => {
+    if (otp.length != 6) {
+      showError("Entered OTP Is Invalid.", "");
+      return;
+    }
+
+    try {
+      setNumberVerificationLoader(true);
+
+      const response = await axios.post(`${baseUrl}/register-mobile`, {
+        phone_no: number,
+        otp,
+      });
+
+      // console.log(response.data);
+
+      showSuccess("Success", response.data.message);
+      dispatch(setUserData({ userData: response.data.data }));
+      navigate("/dashboard");
+      dispatch(setIsUserConnected({ isConnected: true }));
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        showError(
+          "Verification Failed.",
+          error?.response?.data?.message?.phone_no[0]
+        );
+      } else {
+        console.error("Unexpected error:", error);
+      }
+    } finally {
+      setNumberVerificationLoader(false);
+      setOtp("");
+      setOtpSent(false);
+      setNumber("");
+    }
   };
 
-  //.................................................................................
-
+  //initiating type of mode to signin
   const handleOptionClick = (option: number) => {
     setView(option);
   };
 
+  //handle navigation to previous page
   const handleBack = () => {
     setOtp("");
     setView(0);
@@ -208,11 +284,11 @@ export function LoginDialog() {
               Enter the OTP sent to your Email.
             </DialogDescription>
           ) : view == 2 ? (
-            <DialogDescription>
+            <DialogDescription className="text-left">
               Enter the OTP sent to your Phone Number.
             </DialogDescription>
           ) : (
-            <DialogDescription>
+            <DialogDescription className="text-left">
               Choose your preferred login method below.
             </DialogDescription>
           )}
@@ -255,18 +331,68 @@ export function LoginDialog() {
             </Button>
 
             <Button
-              onClick={() => handleOptionClick(1)}
-              className="flex items-center py-6 justify-center cursor-pointer gap-2 bg-[#5728A6] hover:bg-[#3f1c7a] text-white transition ease-in-out duration-300"
+              onClick={handleGithubLogin}
+              className="relative flex items-center justify-center cursor-pointer w-full py-6 border border-gray-300 bg-white rounded-md shadow-sm hover:shadow-md hover:bg-gray-50 transition-all duration-300 ease-in-out"
             >
-              <MdEmail className="text-lg" /> Login with Email
+              <svg
+                className="w-5 h-5 mr-3 fill-current text-gray-800"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+              >
+                <path d="M12 0C5.37 0 0 5.37 0 12a12 12 0 008.21 11.43c.6.11.82-.26.82-.58v-2.04c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.32-1.74-1.32-1.74-1.08-.74.08-.73.08-.73 1.19.08 1.82 1.23 1.82 1.23 1.06 1.82 2.78 1.29 3.46.99.11-.77.42-1.29.76-1.59-2.66-.3-5.47-1.33-5.47-5.91 0-1.31.47-2.38 1.23-3.22-.12-.3-.54-1.52.12-3.17 0 0 1-.32 3.3 1.23A11.5 11.5 0 0112 6.8c1.02 0 2.05.14 3.01.4 2.3-1.55 3.3-1.23 3.3-1.23.66 1.65.24 2.87.12 3.17.77.84 1.23 1.91 1.23 3.22 0 4.59-2.81 5.6-5.49 5.9.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.83.58A12 12 0 0024 12c0-6.63-5.37-12-12-12z" />
+              </svg>
+              <span className="font-medium text-gray-700 text-base">
+                Sign in with GitHub
+              </span>
             </Button>
 
             <Button
-              onClick={() => handleOptionClick(2)}
-              className="flex items-center justify-center cursor-pointer gap-2 py-6 bg-black hover:bg-gray-800 text-white transition ease-in-out duration-300"
+              onClick={handleLinkedinLogin}
+              className="relative flex items-center justify-center cursor-pointer w-full py-6 border border-gray-300 bg-white rounded-md shadow-sm hover:shadow-md hover:bg-gray-50 transition-all duration-300 ease-in-out"
             >
-              <MdPhoneIphone className="text-lg" /> Login with Phone Number
+              <svg
+                className="w-5 h-5 mr-3 fill-[#0A66C2]"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+              >
+                <path d="M19 0h-14c-2.76 0-5 2.24-5 5v14a5 5 0 005 5h14a5 5 0 005-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-9h3v9zm-1.5-10.29c-.97 0-1.75-.79-1.75-1.76S5.53 5.2 6.5 5.2 8.25 6 8.25 6.95c0 .97-.78 1.76-1.75 1.76zM20 19h-3v-4.74c0-1.13-.02-2.58-1.57-2.58-1.58 0-1.82 1.23-1.82 2.5V19h-3v-9h2.88v1.23h.04c.4-.75 1.38-1.54 2.85-1.54 3.04 0 3.6 2 3.6 4.6V19z" />
+              </svg>
+              <span className="font-medium text-gray-700 text-base">
+                Sign in with LinkedIn
+              </span>
             </Button>
+
+            <Button
+              onClick={handleFacebookLogin}
+              className="relative flex items-center justify-center cursor-pointer w-full py-6 border border-gray-300 bg-white rounded-md shadow-sm hover:shadow-md hover:bg-gray-50 transition-all duration-300 ease-in-out"
+            >
+              <svg
+                className="w-5 h-5 mr-3 fill-[#1877F2]"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+              >
+                <path d="M22.675 0h-21.35C.597 0 0 .6 0 1.333v21.333C0 23.4.597 24 1.325 24H12v-9.294H9.294v-3.622H12V8.413c0-2.68 1.634-4.141 4.022-4.141 1.14 0 2.12.084 2.405.122v2.79h-1.651c-1.295 0-1.546.616-1.546 1.52v1.982h3.09l-.403 3.622h-2.687V24h5.27C23.403 24 24 23.4 24 22.667V1.333C24 .6 23.403 0 22.675 0z" />
+              </svg>
+              <span className="font-medium text-gray-700 text-base">
+                Sign in with Facebook
+              </span>
+            </Button>
+
+            <div className="flex gap-3">
+              <Button
+                onClick={() => handleOptionClick(1)}
+                className="flex-1 flex items-center py-6 justify-center cursor-pointer gap-2 bg-[#5728A6] hover:bg-[#3f1c7a] text-white transition ease-in-out duration-300"
+              >
+                <MdEmail className="text-lg" /> Login with Email
+              </Button>
+
+              <Button
+                onClick={() => handleOptionClick(2)}
+                className="flex-1 flex items-center justify-center cursor-pointer gap-2 py-6 bg-black hover:bg-gray-800 text-white transition ease-in-out duration-300"
+              >
+                <MdPhoneIphone className="text-lg" /> Login with Phone No.
+              </Button>
+            </div>
           </div>
         )}
 
@@ -362,7 +488,6 @@ export function LoginDialog() {
                 <InputOTP
                   value={otp}
                   onChange={(value) => setOtp(value.replace(/\D/g, ""))}
-                  type="number"
                   maxLength={6}
                 >
                   <InputOTPGroup>
@@ -381,7 +506,11 @@ export function LoginDialog() {
                   onClick={handleNumberVerification}
                   className="text-base mt-5 bg-[#5728A6] text-white w-full py-2 rounded-lg hover:bg-black cursor-pointer transition ease-in-out duration-300"
                 >
-                  Confirm OTP
+                  {!numberVerificationLoader ? (
+                    "Confirm OTP"
+                  ) : (
+                    <Spinner className="my-1 mx-auto" />
+                  )}
                 </button>
               </>
             )}

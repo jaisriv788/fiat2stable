@@ -172,11 +172,15 @@ const Sidebar: React.FC = () => {
             <div className="px-5 py-3 border-t border-gray-300">
               <div className="bg-[#ddd5ff] card p-2 rounded-lg shadow-lg font-semibold flex gap-3 items-center">
                 <div className="bg-[#5728A6] aspect-square w-7 font-semibold text-white rounded-full flex items-center justify-center">
-                  {userData?.email.toString()[0].toUpperCase()}
+                  {userData?.email
+                    ? userData?.email.toString()[0].toUpperCase()
+                    : userData?.phone_no.toString()[0].toUpperCase()}
                 </div>
                 <div>
-                  <div className="text-sm">Logged in Via</div>
-                  <div className="text-xs">{userData?.email}</div>
+                  <div className="text-sm">Logged in Via {userData?.email ? "E-Mail" : "Phone No."}</div>
+                  <div className="text-xs">
+                    {userData?.email || userData?.phone_no}
+                  </div>
                 </div>
               </div>
               <div className="mt-5 mb-3 flex items-center justify-between">
