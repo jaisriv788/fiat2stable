@@ -73,6 +73,12 @@ const Sidebar: React.FC = () => {
     },
   ];
 
+  const authType: Record<string, string> = {
+    email: "E-Mail",
+    mobile: "Phone No.",
+    google: "Google Auth",
+  };
+
   const userData = useSelector((state: RootState) => state.user.userData);
   const isSideBarVisible = useSelector(
     (state: RootState) => state.model.showSidebar
@@ -177,7 +183,9 @@ const Sidebar: React.FC = () => {
                     : userData?.phone_no.toString()[0].toUpperCase()}
                 </div>
                 <div>
-                  <div className="text-sm">Logged in Via {userData?.email ? "E-Mail" : "Phone No."}</div>
+                  <div className="text-sm">
+                    Logged in Via {authType[userData?.type ?? ""]}
+                  </div>
                   <div className="text-xs">
                     {userData?.email || userData?.phone_no}
                   </div>

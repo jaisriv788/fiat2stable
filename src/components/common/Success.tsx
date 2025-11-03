@@ -1,5 +1,5 @@
 import React from "react";
-import { AlertCircleIcon } from "lucide-react";
+import { CheckCircle2Icon } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useSelector } from "react-redux";
 import type { RootState } from "@/store/store";
@@ -21,7 +21,7 @@ const Success: React.FC = () => {
           className="border-emerald-500 z-500 text-emerald-600 bg-emerald-200 absolute top-3 w-fit right-0"
           variant="default"
         >
-          <AlertCircleIcon />
+          <CheckCircle2Icon />
           <AlertTitle>{msg.title}</AlertTitle>
           <AlertDescription>
             <p>{msg?.msg}</p>

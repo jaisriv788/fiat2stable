@@ -54,7 +54,7 @@ export function LoginDialog() {
   const handleGoogleLogin = async () => {
     try {
       const response = await axios.get(`${baseUrl}/auth/google`);
-      console.log(response);
+
       if (response.status !== 200) {
         showError("Google Authentication failed.", "");
         return;
@@ -104,7 +104,7 @@ export function LoginDialog() {
         email,
       });
 
-      // console.log(response.data);
+      console.log(response.data);
 
       if (response.data.status != "success") {
         showError("Failed To Send Otp.", "");
@@ -145,11 +145,11 @@ export function LoginDialog() {
         return;
       }
 
-      showSuccess("Success", response.data.message);
+      showSuccess("Login Successful.", "");
       dispatch(setUserData({ userData: response.data.data }));
       dispatch(setToken({ token: response.data.token }));
-      navigate("/dashboard");
       dispatch(setIsUserConnected({ isConnected: true }));
+      navigate("/dashboard");
     } catch (error) {
       showError("Verification Failed", "");
       console.log(error);
@@ -207,13 +207,13 @@ export function LoginDialog() {
         otp,
       });
 
-      console.log(response.data);
+      // console.log(response.data);
 
-      showSuccess("Success", response.data.message);
+      showSuccess("Login Successful.", "");
       dispatch(setToken({ token: response.data.token }));
       dispatch(setUserData({ userData: response.data.data }));
-      navigate("/dashboard");
       dispatch(setIsUserConnected({ isConnected: true }));
+      navigate("/dashboard");
     } catch (error) {
       if (axios.isAxiosError(error)) {
         showError(

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
 import { Spinner } from "../ui/spinner";
@@ -17,6 +17,7 @@ const Verification: React.FC = () => {
   const dispatch = useDispatch();
   const { showError } = useShowError();
   const { showSuccess } = useShowSuccess();
+  const executedRef = useRef(false);
 
   const text = "....";
   const letters = Array.from(text);
@@ -36,28 +37,32 @@ const Verification: React.FC = () => {
   };
 
   useEffect(() => {
+    if (executedRef.current) return;
+    executedRef.current = true;
+    
     const params = new URLSearchParams(window.location.search);
 
     const allParams = {
       status: params.get("status"),
       message: params.get("message"),
       token: params.get("token"),
-      user: JSON.parse(decodeURIComponent(params.get("data") || "{}")),
+      data: JSON.parse(decodeURIComponent(params.get("data") || "{}")),
     };
 
     // console.log(allParams);
 
-    if (allParams.status?.toLowerCase() != "success") {
+    if (allParams.status !== "success") {
       showError("Authntication Failed", "");
       navigate("/");
       return;
     }
 
     showSuccess("Success", "User Authentication Successful.");
-    dispatch(setUserData({ userData: allParams.user }));
+    dispatch(setUserData({ userData: allParams.data }));
     dispatch(setToken({ token: allParams?.token ?? "" }));
-    navigate("/dashboard");
     dispatch(setIsUserConnected({ isConnected: true }));
+
+    navigate("/dashboard");
   }, []);
 
   return (
