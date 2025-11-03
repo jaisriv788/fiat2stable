@@ -275,6 +275,11 @@ export function LoginDialog() {
     setNumber("");
   };
 
+  //testing
+  function handleTestingLogin() {
+    dispatch(setIsUserConnected({ isConnected: true }));
+    navigate("/dashboard");
+  }
   return (
     <Dialog
       open={open}
@@ -343,6 +348,15 @@ export function LoginDialog() {
         {/* Conditional rendering based on view */}
         {view === 0 && (
           <div className="flex flex-col gap-3 mt-4">
+            <Button
+              onClick={handleTestingLogin}
+              className="relative flex items-center justify-center w-full cursor-pointer py-6 border border-gray-300 bg-white rounded-md shadow-sm hover:shadow-md hover:bg-gray-50 transition-all duration-300 ease-in-out"
+            >
+              <span className="font-medium text-gray-700 text-base">
+                Testing Login
+              </span>
+            </Button>
+
             <Button
               onClick={handleGoogleLogin}
               className="relative flex items-center justify-center w-full cursor-pointer py-6 border border-gray-300 bg-white rounded-md shadow-sm hover:shadow-md hover:bg-gray-50 transition-all duration-300 ease-in-out"
