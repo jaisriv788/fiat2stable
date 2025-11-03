@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from "@/store/store";
 import { FaArrowLeft } from "react-icons/fa";
 import { IoMdHelpCircle } from "react-icons/io";
+import axios from "axios";
 
 const Navbar: React.FC = () => {
   const [showSelling, setShowSelling] = useState(true);
@@ -27,6 +28,7 @@ const Navbar: React.FC = () => {
   const buyingPrice = useSelector(
     (state: RootState) => state.price.buyingPrice
   );
+  const baseUrl = useSelector((state: RootState) => state?.consts?.baseUrl);
 
   const isDashboard = location.pathname == "/dashboard";
 
@@ -76,19 +78,29 @@ const Navbar: React.FC = () => {
   }, []);
 
   async function fetchData() {
-    const buyPrice = parseFloat(buyingPrice) + 1;
-    const sellPrice = parseFloat(sellingPrice) + 2;
-
-    // console.log({ buyingPrice, buyPrice, sellingPrice, sellPrice });
-
-    dispatch(setSellingPrice({ sellingPrice: sellPrice.toString() }));
-    dispatch(setBuyingPrice({ buyingPrice: buyPrice.toString() }));
+    try {
+      const response = await axios.get(`${baseUrl}/buy-sell-rate`);
+      console.log(response);
+      if (response?.data?.status != "success") {
+        return;
+      }
+      dispatch(
+        setSellingPrice({
+          sellingPrice: response.data.data.sell_rate.toString(),
+        })
+      );
+      dispatch(
+        setBuyingPrice({ buyingPrice: response.data.data.buy_rate.toString() })
+      );
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   useEffect(() => {
     if (sellingPrice == "0.00" || buyingPrice == "0.00") fetchData();
 
-    const interval = setInterval(fetchData, 30000);
+    const interval = setInterval(fetchData, 5000);
 
     return () => clearInterval(interval);
   }, [buyingPrice, sellingPrice]);

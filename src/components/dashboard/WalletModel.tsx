@@ -36,10 +36,7 @@ const WalletModel: React.FC = () => {
           <FaWallet className="text-2xl" />
         </div>
       </DialogTrigger>
-      <DialogContent
-        className="sm:max-w-[425px]"
-        onOpenAutoFocus={(e: Event) => e.preventDefault()}
-      >
+      <DialogContent onOpenAutoFocus={(e: Event) => e.preventDefault()}>
         <DialogHeader>
           <DialogTitle className="flex items-center font-bold gap-2">
             {view == 0 && "App Wallet"}
