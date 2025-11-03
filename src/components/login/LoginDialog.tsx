@@ -19,7 +19,11 @@ import { MdEmail, MdPhoneIphone } from "react-icons/md";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "@/store/store";
-import { setIsUserConnected, setUserData } from "@/store/slices/userSlice";
+import {
+  setIsUserConnected,
+  setToken,
+  setUserData,
+} from "@/store/slices/userSlice";
 import { Input } from "../ui/input";
 import { useShowError } from "@/hooks/useShowError";
 import { useShowSuccess } from "@/hooks/useShowSuccess";
@@ -47,9 +51,19 @@ export function LoginDialog() {
   const baseUrl = useSelector((state: RootState) => state.consts.baseUrl);
 
   //Oauth google
-  const handleGoogleLogin = () => {
-    navigate("/dashboard");
-    dispatch(setIsUserConnected({ isConnected: true }));
+  const handleGoogleLogin = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}/auth/google`);
+      console.log(response);
+      if (response.status !== 200) {
+        showError("Google Authentication failed.", "");
+        return;
+      }
+      window.location.href = response.data;
+    } catch (error) {
+      showError("Google Authentication failed.", "");
+      console.log(error);
+    }
   };
 
   //Oauth github
@@ -90,7 +104,7 @@ export function LoginDialog() {
         email,
       });
 
-      console.log(response.data);
+      // console.log(response.data);
 
       if (response.data.status != "success") {
         showError("Failed To Send Otp.", "");
@@ -126,13 +140,14 @@ export function LoginDialog() {
 
       // console.log(response.data);
 
-      if (response.data.status == "false") {
+      if (response.data.status !== "success") {
         showError("Verification Failed", response.data.message);
         return;
       }
 
       showSuccess("Success", response.data.message);
       dispatch(setUserData({ userData: response.data.data }));
+      dispatch(setToken({ token: response.data.token }));
       navigate("/dashboard");
       dispatch(setIsUserConnected({ isConnected: true }));
     } catch (error) {
@@ -158,7 +173,7 @@ export function LoginDialog() {
         phone_no: number,
       });
 
-      // console.log(response.data);
+      console.log(response.data);
 
       showSuccess("Success", response.data.message);
       setOtpSent(true);
@@ -192,9 +207,10 @@ export function LoginDialog() {
         otp,
       });
 
-      // console.log(response.data);
+      console.log(response.data);
 
       showSuccess("Success", response.data.message);
+      dispatch(setToken({ token: response.data.token }));
       dispatch(setUserData({ userData: response.data.data }));
       navigate("/dashboard");
       dispatch(setIsUserConnected({ isConnected: true }));
@@ -299,7 +315,7 @@ export function LoginDialog() {
           <div className="flex flex-col gap-3 mt-4">
             <Button
               onClick={handleGoogleLogin}
-              className="relative flex items-center justify-center cursor-pointer w-full py-6 border border-gray-300 bg-white rounded-md shadow-sm hover:shadow-md hover:bg-gray-50 transition-all duration-300 ease-in-out"
+              className="relative flex items-center justify-center w-full cursor-pointer py-6 border border-gray-300 bg-white rounded-md shadow-sm hover:shadow-md hover:bg-gray-50 transition-all duration-300 ease-in-out"
             >
               {/* Google "G" logo (SVG) */}
               <svg
@@ -378,17 +394,17 @@ export function LoginDialog() {
               </span>
             </Button>
 
-            <div className="flex gap-3">
+            <div className="flex md:flex-row flex-col gap-3">
               <Button
                 onClick={() => handleOptionClick(1)}
-                className="flex-1 flex items-center py-6 justify-center cursor-pointer gap-2 bg-[#5728A6] hover:bg-[#3f1c7a] text-white transition ease-in-out duration-300"
+                className="md:flex-1 flex items-center py-6 justify-center cursor-pointer gap-2 bg-[#5728A6] hover:bg-[#3f1c7a] text-white transition ease-in-out duration-300"
               >
                 <MdEmail className="text-lg" /> Login with Email
               </Button>
 
               <Button
                 onClick={() => handleOptionClick(2)}
-                className="flex-1 flex items-center justify-center cursor-pointer gap-2 py-6 bg-black hover:bg-gray-800 text-white transition ease-in-out duration-300"
+                className="md:flex-1 flex items-center justify-center cursor-pointer gap-2 py-6 bg-black hover:bg-gray-800 text-white transition ease-in-out duration-300"
               >
                 <MdPhoneIphone className="text-lg" /> Login with Phone No.
               </Button>

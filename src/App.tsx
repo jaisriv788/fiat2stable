@@ -23,6 +23,7 @@ import { useLocation } from "react-router";
 import NotFound from "./components/common/NotFound";
 import Error from "./components/common/Error";
 import Success from "./components/common/Success";
+import Verification from "./components/common/Verification";
 import { useSelector } from "react-redux";
 import type { RootState } from "./store/store";
 
@@ -49,6 +50,7 @@ const App: React.FC = () => {
       <Routes>
         <Route element={<PublicRoute />}>
           <Route path="/" element={<Login />} />
+          <Route path="/auth/verification" element={<Verification />} />
         </Route>
 
         <Route element={<ProtectedRoute />}>
