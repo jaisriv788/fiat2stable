@@ -56,32 +56,62 @@ export function LoginDialog() {
       const response = await axios.get(`${baseUrl}/auth/google`);
 
       if (response.status !== 200) {
-        showError("Google Authentication failed.", "");
+        showError("Google Authentication Failed.", "");
         return;
       }
       window.location.href = response.data;
     } catch (error) {
-      showError("Google Authentication failed.", "");
+      showError("Google Authentication Failed.", "");
       console.log(error);
     }
   };
 
   //Oauth github
-  const handleGithubLogin = () => {
-    navigate("/dashboard");
-    dispatch(setIsUserConnected({ isConnected: true }));
+  const handleGithubLogin = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}/auth/github`);
+
+      if (response.status !== 200) {
+        showError("Github Authentication Failed.", "");
+        return;
+      }
+      window.location.href = response.data;
+    } catch (error) {
+      showError("Github Authentication Failed.", "");
+      console.log(error);
+    }
   };
 
   //Oauth linkedin
-  const handleLinkedinLogin = () => {
-    navigate("/dashboard");
-    dispatch(setIsUserConnected({ isConnected: true }));
+  const handleLinkedinLogin = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}/auth/github`);
+
+      if (response.status !== 200) {
+        showError("LinkedIn Authentication Failed.", "");
+        return;
+      }
+      window.location.href = response.data;
+    } catch (error) {
+      showError("LinkedIn Authentication Failed.", "");
+      console.log(error);
+    }
   };
 
   //Oauth facebook
-  const handleFacebookLogin = () => {
-    navigate("/dashboard");
-    dispatch(setIsUserConnected({ isConnected: true }));
+  const handleFacebookLogin = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}/auth/github`);
+
+      if (response.status !== 200) {
+        showError("Facebook Authentication Failed.", "");
+        return;
+      }
+      window.location.href = response.data;
+    } catch (error) {
+      showError("Facebook Authentication Failed.", "");
+      console.log(error);
+    }
   };
 
   //Sending otp to email

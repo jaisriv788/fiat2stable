@@ -36,10 +36,10 @@ const Verification: React.FC = () => {
     }),
   };
 
-  useEffect(() => {
+  function redirect() {
     if (executedRef.current) return;
     executedRef.current = true;
-    
+
     const params = new URLSearchParams(window.location.search);
 
     const allParams = {
@@ -63,6 +63,12 @@ const Verification: React.FC = () => {
     dispatch(setIsUserConnected({ isConnected: true }));
 
     navigate("/dashboard");
+  }
+
+  useEffect(() => {
+    setTimeout(() => {
+      redirect();
+    }, 1000);
   }, []);
 
   return (

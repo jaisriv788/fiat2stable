@@ -77,6 +77,7 @@ const Sidebar: React.FC = () => {
     email: "E-Mail",
     mobile: "Phone No.",
     google: "Google Auth",
+    github: "Github Auth"
   };
 
   const userData = useSelector((state: RootState) => state.user.userData);

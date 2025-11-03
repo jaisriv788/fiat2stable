@@ -26,6 +26,7 @@ import Success from "./components/common/Success";
 import Verification from "./components/common/Verification";
 import { useSelector } from "react-redux";
 import type { RootState } from "./store/store";
+// import WalletTransaction from "./screens/WalletTransaction";
 
 const App: React.FC = () => {
   const { pathname } = useLocation();
@@ -75,6 +76,8 @@ const App: React.FC = () => {
           <Route path="/transaction" element={<Transaction />} />
           <Route path="/refer" element={<Refer />} />
           {/* <Route path="/settings" element={<Settings />} /> */}
+
+          {/* <Route path="/wallet/transactions" element={<WalletTransaction />} /> */}
         </Route>
 
         <Route path="*" element={<NotFound />} />

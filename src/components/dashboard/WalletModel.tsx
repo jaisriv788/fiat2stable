@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -7,31 +7,30 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { FaWallet } from "react-icons/fa6";
-import { Copy, LogOut } from "lucide-react";
-import { IoMenu } from "react-icons/io5";
-import { LuTimerReset } from "react-icons/lu";
-import { BiSolidWallet } from "react-icons/bi";
-import { useDispatch, useSelector } from "react-redux";
-import type { AppDispatch, RootState } from "@/store/store";
-import { signout } from "@/store/slices/userSlice";
 
-const Data = [
-  { id: 1, tag: "Transactions", icon: IoMenu },
-  { id: 2, tag: "View Assets", icon: LuTimerReset },
-  { id: 3, tag: "Manage Wallet", icon: BiSolidWallet },
-];
+import { IoMdArrowRoundBack } from "react-icons/io";
+import WalletModelMainView from "./WalletModelMainView";
+import WalletModelTransactionView from "./WalletModelTransactionView";
+import WalletModelAssetsView from "./WalletModelAssetsView";
+import WalletModelWalletManageView from "./WalletModelWalletManageView";
 
 const WalletModel: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
-
-  function handleLogout() {
-    dispatch(signout());
-  }
-
-  const userData = useSelector((state: RootState) => state.user.userData);
+  const [view, setView] = useState(0);
+  const [open, setOpen] = useState(false);
 
   return (
-    <Dialog>
+    <Dialog
+      open={open}
+      onOpenChange={(isOpen) => {
+        setOpen(isOpen);
+        if (!isOpen) {
+          setOpen(false);
+          setTimeout(() => {
+            setView(0);
+          }, 500);
+        }
+      }}
+    >
       <DialogTrigger asChild>
         <div className="border-2 card1 hover:scale-110 hover:rotate-6 hover:bg-purple-50 transition-all ease-in-out duration-300 border-[#5728A6] cursor-pointer text-[#5728A6] hover:scale rounded-md p-3">
           <FaWallet className="text-2xl" />
@@ -41,64 +40,42 @@ const WalletModel: React.FC = () => {
         className="sm:max-w-[425px]"
         onOpenAutoFocus={(e: Event) => e.preventDefault()}
       >
-        <form>
-          <DialogHeader>
-            <DialogTitle className="flex items-center font-bold gap-2">
-              App Wallet
-            </DialogTitle>
-          </DialogHeader>
-          <div className="mt-3 flex flex-col gap-2">
-            <div className="flex gap-3 ">
-              <div className="aspect-square w-10 text-lg rounded-full flex items-center justify-center font-semibold text-white bg-[#5728A6]">
-                T
+        <DialogHeader>
+          <DialogTitle className="flex items-center font-bold gap-2">
+            {view == 0 && "App Wallet"}
+            {view == 1 && (
+              <div className="flex gap-2 items-center">
+                <IoMdArrowRoundBack
+                  className="cursor-pointer hover:text-[#5728A6] transition ease-in-out duration-300"
+                  onClick={() => setView(0)}
+                />
+                <div>Transactions</div>
               </div>
-              <div>
-                <div className="font-semibold flex items-center gap-3">
-                  {userData?.wallet_address.toString().slice(0, 6) +
-                    "..." +
-                    userData?.wallet_address.toString().slice(-6)}
-                  <Copy
-                    onClick={() => {
-                      navigator.clipboard
-                        .writeText(userData?.wallet_address.toString() ?? "")
-                        .then(() => {
-                          alert("Address copied to clipboard!");
-                        })
-                        .catch((err) => {
-                          console.error("Failed to copy text:", err);
-                        });
-                    }}
-                    size={15}
-                    className="text-gray-700 cursor-pointer transition ease-in-out duration-300 hover:text-gray-500"
-                  />
-                </div>
-                <div className="text-xs text-gray-700">Smart Account</div>
+            )}
+            {view == 2 && (
+              <div className="flex gap-2 items-center">
+                <IoMdArrowRoundBack
+                  className="cursor-pointer hover:text-[#5728A6] transition ease-in-out duration-300"
+                  onClick={() => setView(0)}
+                />
+                <div>Assets</div>
               </div>
-            </div>
-            <div className="flex flex-col gap-1 mt-3">
-              {Data.map((item, index) => {
-                return (
-                  <div
-                    key={index}
-                    className="flex gap-3 cursor-pointer hover:bg-gray-300 px-3 py-2 rounded transition ease-in-out duration-300"
-                  >
-                    <item.icon className="text-2xl text-[#5728A6]" />
-                    <div className="font-semibold">{item.tag}</div>
-                  </div>
-                );
-              })}
-              <hr className="bg-gray-300 my-2" />
-
-              <div
-                onClick={handleLogout}
-                className="flex gap-3 cursor-pointer hover:bg-gray-300 px-3 py-2 rounded transition ease-in-out duration-300"
-              >
-                <LogOut className="text-2xl text-[#5728A6]" />
-                <div className="font-semibold">Disconnect Wallet</div>
+            )}
+            {view == 3 && (
+              <div className="flex gap-2 items-center">
+                <IoMdArrowRoundBack
+                  className="cursor-pointer hover:text-[#5728A6] transition ease-in-out duration-300"
+                  onClick={() => setView(0)}
+                />
+                <div>Manage Wallet</div>
               </div>
-            </div>
-          </div>
-        </form>
+            )}
+          </DialogTitle>
+        </DialogHeader>
+        {view == 0 && <WalletModelMainView setView={setView} />}
+        {view == 1 && <WalletModelTransactionView />}
+        {view == 2 && <WalletModelAssetsView />}
+        {view == 3 && <WalletModelWalletManageView />}
       </DialogContent>
     </Dialog>
   );
