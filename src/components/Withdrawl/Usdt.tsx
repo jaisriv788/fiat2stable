@@ -43,8 +43,8 @@ const Usdt: React.FC<UsdtProps> = ({
           <div className="flex w-full gap-2">
             <button
               onClick={() => {
-                const val = parseFloat(assetsData?.total_usdt ?? "0")/2;
-                setUsdt(val.toString())
+                const val = parseFloat(assetsData?.total_usdt ?? "0") / 2;
+                setUsdt(val.toString());
               }}
               className="md:flex-none flex-1 transition h-fit ease-in-out duration-300 font-semibold bg-white px-5 hover:bg-gray-300 py-2 md:py-1 rounded-lg cursor-pointer "
             >
@@ -69,7 +69,7 @@ const Usdt: React.FC<UsdtProps> = ({
         <Input
           value={receiverAddress}
           onChange={(e) => setReceiverAddress(e.target.value)}
-          placeholder="Enter the Reciver Address ..."
+          placeholder="Enter the Receiver Address ..."
           className="border-gray-400 text-[#5728A6] font-semibold"
         />
       </div>

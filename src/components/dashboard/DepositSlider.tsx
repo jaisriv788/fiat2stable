@@ -129,7 +129,7 @@ const DepositSlider: React.FC = () => {
               >
                 Close
               </button>{" "}
-            </motion.div>s
+            </motion.div>
           </motion.div>
         </motion.div>
       )}

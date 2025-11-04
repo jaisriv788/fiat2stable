@@ -69,7 +69,7 @@ const Usdc: React.FC<UsdcProps> = ({
         <Input
           value={receiverAddress}
           onChange={(e) => setReceiverAddress(e.target.value)}
-          placeholder="Enter the Reciver Address ..."
+          placeholder="Enter the Receiver Address ..."
           className="border-gray-400 text-[#5728A6] font-semibold"
         />
       </div>

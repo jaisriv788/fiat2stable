@@ -20,6 +20,7 @@ interface Transaction {
   trans_id: string; //
   transaction_type: "USDT" | "USDC";
   transaction_hash: string;
+  payment_method: string;
 }
 
 const TrxTable: React.FC = () => {
@@ -92,7 +93,9 @@ const TrxTable: React.FC = () => {
                 return (
                   <TableRow key={index}>
                     <TableCell>{item?.trans_id ?? "-"}</TableCell>
-                    <TableCell>{item?.transaction_type ?? "-"}</TableCell>
+                    <TableCell>
+                      {item?.payment_method?.toString()?.toUpperCase() ?? "-"}
+                    </TableCell>
                     <TableCell>
                       {item?.type[0].toUpperCase() + item?.type.slice(1)}
                     </TableCell>
