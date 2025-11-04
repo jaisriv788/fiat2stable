@@ -9,6 +9,7 @@ interface Assets {
 }
 const WalletModelAssetsView: React.FC = () => {
   const [assetsData, setAssetsData] = useState<Assets | null>(null);
+  
   const baseUrl = useSelector((state: RootState) => state.consts.baseUrl);
   const userData = useSelector((state: RootState) => state.user.userData);
   const token = useSelector((state: RootState) => state?.user?.token);
