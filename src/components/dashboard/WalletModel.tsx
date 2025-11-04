@@ -12,7 +12,9 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 import WalletModelMainView from "./WalletModelMainView";
 import WalletModelTransactionView from "./WalletModelTransactionView";
 import WalletModelAssetsView from "./WalletModelAssetsView";
-// import WalletModelWalletManageView from "./WalletModelWalletManageView";
+import Send from "./WalletModelWalletManageView";
+import Buy from "./Buy";
+import Receive from "./Receive";
 
 const WalletModel: React.FC = () => {
   const [view, setView] = useState(0);
@@ -64,7 +66,25 @@ const WalletModel: React.FC = () => {
                   className="cursor-pointer hover:text-[#5728A6] transition ease-in-out duration-300"
                   onClick={() => setView(0)}
                 />
-                <div>Manage Wallet</div>
+                <div>Send</div>
+              </div>
+            )}
+            {view == 4 && (
+              <div className="flex gap-2 items-center">
+                <IoMdArrowRoundBack
+                  className="cursor-pointer hover:text-[#5728A6] transition ease-in-out duration-300"
+                  onClick={() => setView(0)}
+                />
+                <div>Receive</div>
+              </div>
+            )}
+            {view == 5 && (
+              <div className="flex gap-2 items-center">
+                <IoMdArrowRoundBack
+                  className="cursor-pointer hover:text-[#5728A6] transition ease-in-out duration-300"
+                  onClick={() => setView(0)}
+                />
+                <div>Buy</div>
               </div>
             )}
           </DialogTitle>
@@ -72,7 +92,9 @@ const WalletModel: React.FC = () => {
         {view == 0 && <WalletModelMainView setView={setView} />}
         {view == 1 && <WalletModelTransactionView />}
         {view == 2 && <WalletModelAssetsView />}
-        {/* {view == 3 && <WalletModelWalletManageView />} */}
+        {view == 3 && <Send />}
+        {view == 4 && <Receive />}
+        {view == 5 && <Buy />}
       </DialogContent>
     </Dialog>
   );
