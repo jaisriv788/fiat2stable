@@ -7,30 +7,34 @@ interface Assets {
   total_usdt: string;
   total_usdc: string;
 }
+
 const WalletModelAssetsView: React.FC = () => {
   const [assetsData, setAssetsData] = useState<Assets | null>(null);
-  
+
   const baseUrl = useSelector((state: RootState) => state.consts.baseUrl);
   const userData = useSelector((state: RootState) => state.user.userData);
   const token = useSelector((state: RootState) => state?.user?.token);
 
   const fetchAssets = async () => {
-    const response = await axios.post(
-      `${baseUrl}/user-currency-list`,
-      {
-        user_id: userData?.id,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
+    try {
+      const response = await axios.post(
+        `${baseUrl}/user-currency-list`,
+        {
+          user_id: userData?.id,
         },
-      }
-    );
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-    console.log(response.data.data);
-
-    setAssetsData(response.data.data);
+      // console.log(response.data.data);
+      setAssetsData(response.data.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {

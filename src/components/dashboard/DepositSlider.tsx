@@ -1,18 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "@/store/store";
 import { setDepositSlider } from "@/store/slices/modelSlice";
 import { AnimatePresence, motion } from "motion/react";
 import { IoCloseCircleSharp } from "react-icons/io5";
-import { FaCircleDollarToSlot } from "react-icons/fa6";
+import { FaCircleDollarToSlot, FaGreaterThan } from "react-icons/fa6";
+import { IoMdArrowRoundBack } from "react-icons/io";
+import { QRCodeCanvas } from "qrcode.react";
+import { CopyIcon } from "lucide-react";
 
 const DepositSlider: React.FC = () => {
+  const [view, setView] = useState(0);
+
   const isDepositSliderVisible = useSelector(
     (state: RootState) => state.model.showDepositSlider
   );
+  const userData = useSelector((state: RootState) => state.user.userData);
+
   const dispatch = useDispatch<AppDispatch>();
 
   function handleClose() {
+    setView(0);
     dispatch(setDepositSlider({ showDepositSlider: false }));
   }
 
@@ -37,34 +45,91 @@ const DepositSlider: React.FC = () => {
             onClick={(e) => e.stopPropagation()}
             className="absolute py-4 md:py-5 px-5 slider bg-gray-100 border-t-2 rounded-t-xl border-gray-300 z-50 w-full bottom-0"
           >
-            <div className="">
-              <div className="font-bold text-lg flex items-center justify-between">
-                Deposit Fund{" "}
-                <IoCloseCircleSharp
-                  onClick={handleClose}
-                  className="text-xl hover:text-red-700 transition ease-in-out duration-300 cursor-pointer"
-                />
-              </div>
-              <p className="text-xs text-gray-900 txt">
-                Receive funds in your in app wallet.
-              </p>
-            </div>
-
-            <div className="flex items-center mt-5 gap-3 md:gap-5 border border-gray-300 p-3 rounded-lg hover:bg-gray-300 transition ease-in-out duration-300 cursor-pointer">
-              <FaCircleDollarToSlot className="text-[#5728A6] text-2xl" />
+            {view === 0 ? (
               <div>
-                <div className="font-semibold">Deposit USDT/USDC</div>
-                <div className="text-sm text-gray-700 txt">
-                  Deposit USDT/USDC to your in app wallet
+                <div className="font-bold text-lg flex items-center justify-between">
+                  Deposit Fund
+                  <IoCloseCircleSharp
+                    onClick={handleClose}
+                    className="text-xl hover:text-red-700 transition ease-in-out duration-300 cursor-pointer"
+                  />
                 </div>
+                <p className="text-xs text-gray-900 txt">
+                  Receive funds in your in app wallet.
+                </p>
               </div>
-            </div>
-            <button
-              onClick={handleClose}
-              className="mt-5 bg-[#5728A6] font-semibold text-white w-full py-2 rounded-lg hover:bg-black cursor-pointer transition ease-in-out"
+            ) : (
+              <div
+                onClick={() => setView(0)}
+                className="relative font-bold text-lg flex justify-center items-center"
+              >
+                <IoMdArrowRoundBack className="absolute left-0 hover:text-[#5728A6] transition ease-in-out duration-300 border-2 border-gray-800 rounded-full size-6 cursor-pointer hover:border-[#5728A6] hover:bg-gray-300" />
+                <div className="self-center w-fit">Deposit USDT/USDC</div>
+              </div>
+            )}
+
+            <motion.div
+              key={view}
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.35, ease: "easeInOut" }}
+              className="overflow-hidden"
             >
-              Close
-            </button>
+              {view === 0 ? (
+                <div
+                  onClick={() => setView(1)}
+                  className="group flex items-center mt-5 gap-3 md:gap-5 border border-gray-300 p-3 rounded-lg hover:bg-gray-300 transition ease-in-out duration-300 cursor-pointer justify-between"
+                >
+                  <div className="flex items-center gap-5">
+                    <FaCircleDollarToSlot className="text-[#5728A6] text-2xl" />
+                    <div>
+                      <div className="font-semibold">Deposit USDT/USDC</div>
+                      <div className="text-sm text-gray-700">
+                        Deposit USDT/USDC to your in app wallet
+                      </div>
+                    </div>
+                  </div>
+                  <FaGreaterThan className="group-hover:text-[#5728A6] transition ease-in-out duration-300" />
+                </div>
+              ) : (
+                <div className="mt-5 text-gray-700 text-sm flex flex-col gap-5 items-center">
+                  <QRCodeCanvas
+                    value={userData?.wallet_address.toString() ?? ""}
+                    size={200}
+                    bgColor="transparent"
+                    fgColor="#000000"
+                    level="H"
+                    includeMargin={true}
+                  />
+                  <div className="flex justify-between bg-[#d2c3ec] rounded-lg w-full px-5 py-2">
+                    <span className="font-semibold">
+                      {userData?.wallet_address.toString()}
+                    </span>
+                    <CopyIcon
+                      size={15}
+                      className="hover:text-[#5728A6] cursor-pointer transition ease-in-out duration-300"
+                      onClick={() => {
+                        navigator.clipboard
+                          .writeText(userData?.wallet_address.toString() ?? "")
+                          .then(() => {
+                            alert("Address copied to clipboard!");
+                          })
+                          .catch((err) => {
+                            console.error("Failed to copy: ", err);
+                          });
+                      }}
+                    />
+                  </div>
+                </div>
+              )}
+              <button
+                onClick={handleClose}
+                className="mt-5 bg-[#5728A6] font-semibold text-white w-full py-2 rounded-lg hover:bg-black cursor-pointer transition ease-in-out"
+              >
+                Close
+              </button>{" "}
+            </motion.div>s
           </motion.div>
         </motion.div>
       )}
