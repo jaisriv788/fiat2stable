@@ -5,7 +5,7 @@ import { signout } from "@/store/slices/userSlice";
 import { Copy, LogOut } from "lucide-react";
 import { IoMenu } from "react-icons/io5";
 import { LuTimerReset } from "react-icons/lu";
-import { BiSolidWallet } from "react-icons/bi";
+// import { BiSolidWallet } from "react-icons/bi";
 
 interface WalletModelMainViewProps {
   setView: React.Dispatch<React.SetStateAction<number>>;
@@ -35,14 +35,14 @@ const WalletModelMainView: React.FC<WalletModelMainViewProps> = ({
         setView(2);
       },
     },
-    {
-      id: 3,
-      tag: "Manage Wallet",
-      icon: BiSolidWallet,
-      click: () => {
-        setView(3);
-      },
-    },
+    // {
+    //   id: 3,
+    //   tag: "Manage Wallet",
+    //   icon: BiSolidWallet,
+    //   click: () => {
+    //     setView(3);
+    //   },
+    // },
   ];
 
   function handleLogout() {

@@ -12,7 +12,7 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 import WalletModelMainView from "./WalletModelMainView";
 import WalletModelTransactionView from "./WalletModelTransactionView";
 import WalletModelAssetsView from "./WalletModelAssetsView";
-import WalletModelWalletManageView from "./WalletModelWalletManageView";
+// import WalletModelWalletManageView from "./WalletModelWalletManageView";
 
 const WalletModel: React.FC = () => {
   const [view, setView] = useState(0);
@@ -72,7 +72,7 @@ const WalletModel: React.FC = () => {
         {view == 0 && <WalletModelMainView setView={setView} />}
         {view == 1 && <WalletModelTransactionView />}
         {view == 2 && <WalletModelAssetsView />}
-        {view == 3 && <WalletModelWalletManageView />}
+        {/* {view == 3 && <WalletModelWalletManageView />} */}
       </DialogContent>
     </Dialog>
   );

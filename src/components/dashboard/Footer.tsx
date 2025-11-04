@@ -8,7 +8,7 @@ const Footer: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="fixed bottom-0 z-30 left-0 w-full shadow-[0_-3px_9px_#ddd4ee] ">
+    <div className="fixed bottom-0 z-30 bg-white left-0 w-full shadow-[0_-3px_9px_#ddd4ee] ">
       <div className="max-w-lg relative mx-auto px-4 py-3 md:py-5 flex justify-between">
         <button
           onClick={() => navigate("/buy")}
