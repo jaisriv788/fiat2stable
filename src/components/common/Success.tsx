@@ -16,15 +16,16 @@ const Success: React.FC = () => {
         animate={{ x: 0, opacity: 1 }}
         exit={{ x: 80, opacity: 0 }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
+        className="absolute z-500 top-0 right-0"
       >
         <Alert
-          className="border-emerald-500 z-500 text-emerald-600 bg-emerald-200 absolute top-3 w-fit right-0"
+          className="border-emerald-500  text-emerald-600 bg-emerald-200 absolute top-3 w-fit right-0"
           variant="default"
         >
           <CheckCircle2Icon />
-          <AlertTitle>{msg.title}</AlertTitle>
+          <AlertTitle className="text-nowrap">{msg.title}</AlertTitle>
           <AlertDescription>
-            <p>{msg?.msg}</p>
+            <p className="text-nowrap">{msg?.msg}</p>
           </AlertDescription>
         </Alert>{" "}
       </motion.div>

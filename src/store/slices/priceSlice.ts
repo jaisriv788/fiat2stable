@@ -1,18 +1,67 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import axios from "axios";
+// import type { RootState } from "../store";
+
+interface BalanceData {
+  total_usdt: string;
+  total_inr: string;
+}
 
 interface PriceState {
   sellingPrice: string;
   buyingPrice: string;
+  fetchBalance: boolean;
+  balance: BalanceData | null;
+  loading: boolean;
+  error: string | null;
 }
 
 const initialState: PriceState = {
   sellingPrice: "0.00",
   buyingPrice: "0.00",
+  balance: null,
+  fetchBalance: false,
+  loading: false,
+  error: null,
 };
 
+export const fetchBalanceThunk = createAsyncThunk<
+  BalanceData,
+  { baseUrl: string; userId: string; token: string },
+  { rejectValue: string }
+>(
+  "price/fetchBalanceThunk",
+  async ({ baseUrl, userId, token }, { rejectWithValue }) => {
+    try {
+      
+      console.log({ baseUrl, userId, token });
+      const response = await axios.post(
+        `${baseUrl}/user-available-balance`,
+        { user_id: userId },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      console.log({ response });
+      const data = response.data?.data;
+      if (!data || !data.total_usdt || !data.total_inr) {
+        return rejectWithValue("Invalid balance data");
+      }
+      return data;
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue("Failed to fetch balance");
+    }
+  }
+);
+
 const priceSlice = createSlice({
-  name: "user",
+  name: "price",
   initialState,
   reducers: {
     setSellingPrice: (
@@ -27,8 +76,34 @@ const priceSlice = createSlice({
     ) => {
       state.buyingPrice = action.payload.buyingPrice;
     },
+    getBalance: (
+      state,
+      action: PayloadAction<Pick<PriceState, "fetchBalance">>
+    ) => {
+      state.fetchBalance = action.payload.fetchBalance;
+    },
+    setBalance: (state, action: PayloadAction<Pick<PriceState, "balance">>) => {
+      state.balance = action.payload.balance;
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchBalanceThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchBalanceThunk.fulfilled, (state, action) => {
+        state.loading = false;
+        state.balance = action.payload;
+      })
+      .addCase(fetchBalanceThunk.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || "Error fetching balance";
+        state.balance = state.balance ?? { total_usdt: "0", total_inr: "0" };
+      });
   },
 });
 
-export const { setSellingPrice, setBuyingPrice } = priceSlice.actions;
+export const { setSellingPrice, setBuyingPrice, setBalance, getBalance } =
+  priceSlice.actions;
 export default priceSlice.reducer;

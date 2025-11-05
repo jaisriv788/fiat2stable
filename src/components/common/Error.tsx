@@ -16,15 +16,16 @@ const Error: React.FC = () => {
         animate={{ x: 0, opacity: 1 }}
         exit={{ x: 80, opacity: 0 }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
+        className="absolute z-500 top-0 right-0"
       >
         <Alert
-          className="border-red-500 z-500 bg-red-300/60 absolute top-3 w-fit right-0"
+          className="border-red-500 z-500 bg-red-300/90 absolute top-3 w-fit right-0"
           variant="destructive"
         >
           <AlertCircleIcon />
-          <AlertTitle>{msg.title}</AlertTitle>
+          <AlertTitle className="text-nowrap">{msg.title}</AlertTitle>
           <AlertDescription>
-            <p>{msg.msg}</p>
+            <p className="text-nowrap">{msg.msg}</p>
           </AlertDescription>
         </Alert>
       </motion.div>

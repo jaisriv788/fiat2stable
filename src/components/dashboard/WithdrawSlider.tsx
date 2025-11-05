@@ -50,7 +50,7 @@ const WithdrawSlider: React.FC = () => {
         {
           user_id: userData?.id,
           amount,
-          from_wallet_address: userData?.wallet_address,
+          from_wallet_address: String(userData?.wallet_address || ""),
           transaction_hash: "0x86g86g288p218y278e29762769uwh",
           to_wallet_address: receiverAddress,
           type,
@@ -211,7 +211,11 @@ const WithdrawSlider: React.FC = () => {
                   disabled={(!usdc || !usdt) && !receiverAddress}
                   className="disabled:bg-gray-300 disabled:cursor-not-allowed disabled:text-gray-500 disabled:border-gray-500 mt-5 bg-white text-[#5728A6] font-semibold border-2 border-[#5728A6] w-full py-2 rounded-lg hover:bg-black hover:border-black hover:text-white cursor-pointer transition ease-in-out duration-300"
                 >
-                  {loading ? <Spinner className="size-6 mx-auto"/> : "Withdraw"}
+                  {loading ? (
+                    <Spinner className="size-6 mx-auto" />
+                  ) : (
+                    "Withdraw"
+                  )}
                 </button>
               )}
               <button

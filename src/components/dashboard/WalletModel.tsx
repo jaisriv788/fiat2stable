@@ -92,7 +92,7 @@ const WalletModel: React.FC = () => {
         {view == 0 && <WalletModelMainView setView={setView} />}
         {view == 1 && <WalletModelTransactionView />}
         {view == 2 && <WalletModelAssetsView />}
-        {view == 3 && <Send />}
+        {view == 3 && <Send setOpen={setOpen} setView={setView} />}
         {view == 4 && <Receive />}
         {view == 5 && <Buy />}
       </DialogContent>

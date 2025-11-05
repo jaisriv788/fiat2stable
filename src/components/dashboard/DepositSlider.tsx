@@ -95,7 +95,11 @@ const DepositSlider: React.FC = () => {
               ) : (
                 <div className="mt-5 text-gray-700 text-sm flex flex-col gap-5 items-center">
                   <QRCodeCanvas
-                    value={userData?.wallet_address.toString() ?? ""}
+                    value={
+                      userData?.wallet_address
+                        ? String(userData.wallet_address)
+                        : ""
+                    }
                     size={200}
                     bgColor="transparent"
                     fgColor="#000000"
@@ -111,7 +115,11 @@ const DepositSlider: React.FC = () => {
                       className="hover:text-[#5728A6] cursor-pointer transition ease-in-out duration-300"
                       onClick={() => {
                         navigator.clipboard
-                          .writeText(userData?.wallet_address.toString() ?? "")
+                          .writeText(
+                            userData?.wallet_address
+                              ? String(userData.wallet_address)
+                              : ""
+                          )
                           .then(() => {
                             alert("Address copied to clipboard!");
                           })
