@@ -3,7 +3,6 @@ import { TextAnimate } from "@/components/ui/text-animate";
 import { LoginDialog } from "@/components/login/LoginDialog";
 
 const Login: React.FC = () => {
-
   return (
     <div className="flex min-h-screen ">
       <div className="flex flex-col justify-center items-center flex-1 sm:min-h-screen max-w-lg mx-auto">

@@ -29,10 +29,13 @@ import { useShowError } from "@/hooks/useShowError";
 import { useShowSuccess } from "@/hooks/useShowSuccess";
 import axios from "axios";
 import { Spinner } from "@/components/ui/spinner";
+import { useParams } from "react-router";
 
 export function LoginDialog() {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
+
+  const { id } = useParams();
 
   const [open, setOpen] = useState(false);
   const [email, setEmail] = useState("");
@@ -153,7 +156,7 @@ export function LoginDialog() {
         email,
       });
 
-      console.log(response.data);
+      // console.log(response.data);
 
       if (response.data.status != "success") {
         showError("Failed To Send Otp.", "");
@@ -185,6 +188,7 @@ export function LoginDialog() {
       const response = await axios.post(`${baseUrl}/register-email`, {
         email,
         otp,
+        referred_id: id ? id : "",
       });
 
       // console.log(response.data);
@@ -222,7 +226,7 @@ export function LoginDialog() {
         phone_no: number,
       });
 
-      console.log(response.data);
+      // console.log(response.data);
 
       showSuccess("Success", response.data.message);
       setOtpSent(true);
@@ -254,6 +258,7 @@ export function LoginDialog() {
       const response = await axios.post(`${baseUrl}/register-mobile`, {
         phone_no: number,
         otp,
+        referred_id: id ? id : "",
       });
 
       // console.log(response.data);
