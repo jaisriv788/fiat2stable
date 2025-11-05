@@ -13,6 +13,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { ExternalLink } from "lucide-react";
+import { Link } from "react-router";
 
 interface Transaction {
   amount: number; //
@@ -37,6 +38,7 @@ const WalletModelTransactionView: React.FC = () => {
         `${baseUrl}/transactions-list`,
         {
           user_id: userData?.id,
+          count: 1,
         },
         {
           headers: {
@@ -75,9 +77,17 @@ const WalletModelTransactionView: React.FC = () => {
           No Data Found.
         </div>
       ) : (
-        <div className="max-h-75 overflow-y-auto overflow-x-auto">
+        <div className="max-h-115 overflow-y-auto overflow-x-auto">
           <Table>
-            <TableCaption>A list of your recent transactions.</TableCaption>
+            <TableCaption>
+              A list of your recent transactions. To see more{" "}
+              <Link
+                to="/transaction"
+                className="text-blue-800 font-semibold cursor-pointer"
+              >
+                click here.
+              </Link>
+            </TableCaption>
             <TableHeader>
               <TableRow>
                 <TableHead>Trx Id</TableHead>
@@ -100,10 +110,12 @@ const WalletModelTransactionView: React.FC = () => {
                     </TableCell>
                     <TableCell>${item?.amount ?? "-"}</TableCell>
                     <TableCell className="flex items-center gap-1">
-                      <ExternalLink size={14} />
-                      {item?.transaction_hash.slice(0, 4) +
-                        "..." +
-                        item?.transaction_hash.slice(-4)}
+                      {item?.transaction_hash && <ExternalLink size={14} />}
+                      {item?.transaction_hash
+                        ? item?.transaction_hash.slice(0, 4) +
+                          "..." +
+                          item?.transaction_hash.slice(-4)
+                        : "-"}
                     </TableCell>
                   </TableRow>
                 );

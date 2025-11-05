@@ -18,6 +18,7 @@ import useOnlineStatus from "@/hooks/useOnlineStatus";
 import { ImConnection } from "react-icons/im";
 import { useNavigate } from "react-router";
 import { setConnectionSlider } from "@/store/slices/modelSlice";
+import { setLimit } from "@/store/slices/priceSlice";
 // import ThemeSwitcher from "./ThemeSwitcher";
 
 const Sidebar: React.FC = () => {
@@ -77,7 +78,7 @@ const Sidebar: React.FC = () => {
     email: "E-Mail",
     mobile: "Phone No.",
     google: "Google Auth",
-    github: "Github Auth"
+    github: "Github Auth",
   };
 
   const userData = useSelector((state: RootState) => state.user.userData);
@@ -91,6 +92,11 @@ const Sidebar: React.FC = () => {
   }
 
   function handleLogout() {
+    dispatch(
+      setLimit({
+        limit: null,
+      })
+    );
     dispatch(signout());
     handleClose();
   }

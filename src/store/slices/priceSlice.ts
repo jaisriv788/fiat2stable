@@ -8,6 +8,12 @@ interface BalanceData {
   total_inr: string;
 }
 
+interface LimitData {
+  buy_limit: string;
+  sell_limit: string;
+  verified_social_media: string;
+}
+
 interface PriceState {
   sellingPrice: string;
   buyingPrice: string;
@@ -15,6 +21,7 @@ interface PriceState {
   balance: BalanceData | null;
   loading: boolean;
   error: string | null;
+  limit: LimitData | null;
 }
 
 const initialState: PriceState = {
@@ -24,6 +31,7 @@ const initialState: PriceState = {
   fetchBalance: false,
   loading: false,
   error: null,
+  limit: null,
 };
 
 export const fetchBalanceThunk = createAsyncThunk<
@@ -34,7 +42,6 @@ export const fetchBalanceThunk = createAsyncThunk<
   "price/fetchBalanceThunk",
   async ({ baseUrl, userId, token }, { rejectWithValue }) => {
     try {
-      
       // console.log({ baseUrl, userId, token });
       const response = await axios.post(
         `${baseUrl}/user-available-balance`,
@@ -85,6 +92,9 @@ const priceSlice = createSlice({
     setBalance: (state, action: PayloadAction<Pick<PriceState, "balance">>) => {
       state.balance = action.payload.balance;
     },
+    setLimit: (state, action: PayloadAction<Pick<PriceState, "limit">>) => {
+      state.limit = action.payload.limit;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -104,6 +114,11 @@ const priceSlice = createSlice({
   },
 });
 
-export const { setSellingPrice, setBuyingPrice, setBalance, getBalance } =
-  priceSlice.actions;
+export const {
+  setSellingPrice,
+  setBuyingPrice,
+  setLimit,
+  setBalance,
+  getBalance,
+} = priceSlice.actions;
 export default priceSlice.reducer;

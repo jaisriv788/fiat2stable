@@ -8,6 +8,7 @@ import { LuTimerReset } from "react-icons/lu";
 import { IoIosSend } from "react-icons/io";
 import { MdOutlineAdd } from "react-icons/md";
 import { HiDownload } from "react-icons/hi";
+import { setLimit } from "@/store/slices/priceSlice";
 // import { BiSolidWallet } from "react-icons/bi";
 
 interface WalletModelMainViewProps {
@@ -50,6 +51,11 @@ const WalletModelMainView: React.FC<WalletModelMainViewProps> = ({
 
   function handleLogout() {
     dispatch(signout());
+    dispatch(
+      setLimit({
+        limit: null,
+      })
+    );
   }
   return (
     <div className="mt-3 flex flex-col gap-2">
