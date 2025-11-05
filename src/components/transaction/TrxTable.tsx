@@ -69,7 +69,9 @@ const TrxTable: React.FC = () => {
 
   return (
     <div
-      className={`flex flex-col  gap-2 overflow-hidden my-15 ${transaction.length !== 10 ? "h-fit":"min-h-118"}`}
+      className={`flex flex-col  gap-2 overflow-hidden my-15 ${
+        transaction.length !== 10 ? "h-fit" : "min-h-118"
+      }`}
     >
       {loading ? (
         <div className="h-full flex-1 bg-gray-200 rounded-lg flex justify-center items-center gap-2 py-30">
@@ -111,7 +113,7 @@ const TrxTable: React.FC = () => {
                 <TableHead>Trx Type</TableHead>
                 <TableHead>Type</TableHead>
                 <TableHead>Amount</TableHead>
-                <TableHead>Hash</TableHead>
+                <TableHead className="text-center">Hash</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -126,13 +128,15 @@ const TrxTable: React.FC = () => {
                       {item?.type[0].toUpperCase() + item?.type.slice(1)}
                     </TableCell>
                     <TableCell>${item?.amount ?? "-"}</TableCell>
-                    <TableCell className="flex items-center gap-1">
+                    <TableCell className="flex items-center gap-1 hover:text-gray-600 cursor-pointer transition ease-in-out duration-300">
                       {item?.transaction_hash && <ExternalLink size={14} />}
-                      {item?.transaction_hash
-                        ? item?.transaction_hash.slice(0, 6) +
-                          "..." +
-                          item?.transaction_hash.slice(-6)
-                        : "-"}
+                      {item?.transaction_hash ? (
+                        item?.transaction_hash.slice(0, 6) +
+                        "..." +
+                        item?.transaction_hash.slice(-6)
+                      ) : (
+                        <p className="w-full text-center">-</p>
+                      )}
                     </TableCell>
                   </TableRow>
                 );

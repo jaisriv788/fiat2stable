@@ -94,13 +94,13 @@ const WalletModelTransactionView: React.FC = () => {
                 <TableHead>Trx Type</TableHead>
                 <TableHead>Type</TableHead>
                 <TableHead>Amount</TableHead>
-                <TableHead>Hash</TableHead>
+                <TableHead className="text-center">Hash</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {transaction.map((item, index) => {
                 return (
-                  <TableRow key={index}>
+                  <TableRow key={index} className="odd:bg-gray-200">
                     <TableCell>{item?.trans_id ?? "-"}</TableCell>
                     <TableCell>
                       {item?.payment_method?.toString()?.toUpperCase() ?? "-"}
@@ -109,13 +109,15 @@ const WalletModelTransactionView: React.FC = () => {
                       {item?.type[0].toUpperCase() + item?.type.slice(1)}
                     </TableCell>
                     <TableCell>${item?.amount ?? "-"}</TableCell>
-                    <TableCell className="flex items-center gap-1">
+                    <TableCell className="flex items-center gap-1 cursor-pointer hover:text-gray-600 transition ease-in-out duration-300">
                       {item?.transaction_hash && <ExternalLink size={14} />}
-                      {item?.transaction_hash
-                        ? item?.transaction_hash.slice(0, 4) +
-                          "..." +
-                          item?.transaction_hash.slice(-4)
-                        : "-"}
+                      {item?.transaction_hash ? (
+                        item?.transaction_hash.slice(0, 4) +
+                        "..." +
+                        item?.transaction_hash.slice(-4)
+                      ) : (
+                        <p className="text-center w-full">-</p>
+                      )}
                     </TableCell>
                   </TableRow>
                 );

@@ -11,9 +11,15 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { myLimitsFaq } from "@/Data/faq";
+import type { RootState } from "@/store/store";
+import { useSelector } from "react-redux";
 
 const Limit: React.FC = () => {
   const navigate = useNavigate();
+
+  const limit = useSelector((state: RootState) => state.price.limit);
+
+  const barPercentage = (parseFloat(limit?.verified_social_media) / 5) * 100;
 
   return (
     <div className="mt-24 sm:mt-30 px-2 flex flex-col gap-2 max-w-lg mx-auto">
@@ -28,7 +34,7 @@ const Limit: React.FC = () => {
           <div className="">
             <div className="font-semibold">Buy</div>
             <div className="font-extrabold text-3xl bg-linear-to-b from-[#5728A6] to-[#c9b4ee] text-transparent bg-clip-text">
-              $100
+              ${limit.buy_limit}
             </div>
           </div>
         </div>
@@ -39,7 +45,7 @@ const Limit: React.FC = () => {
           <div className="">
             <div className="font-semibold">Sell/Pay</div>
             <div className="font-extrabold text-3xl bg-linear-to-b from-[#5728A6] to-[#c9b4ee] text-transparent bg-clip-text">
-              $100
+              ${limit.sell_limit}
             </div>
           </div>
         </div>
@@ -59,9 +65,9 @@ const Limit: React.FC = () => {
           </p>
           <div className="flex items-center gap-2 mt-3">
             <p className="bg-[#5728A6] text-white font-semibold px-5 rounded-full">
-              0/1
+              {limit?.verified_social_media}/5
             </p>
-            <Progress value={0} className="" />
+            <Progress value={barPercentage} className="" />
           </div>
         </div>
       </div>

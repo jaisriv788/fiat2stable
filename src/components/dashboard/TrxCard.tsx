@@ -3,9 +3,13 @@ import { TypingAnimation } from "../ui/typing-animation";
 import { RiLuggageDepositFill } from "react-icons/ri";
 import { BiMoneyWithdraw } from "react-icons/bi";
 import { useNavigate } from "react-router";
+import { useSelector } from "react-redux";
+import type { RootState } from "@/store/store";
 
 const TrxCard: React.FC = () => {
   const navigate = useNavigate();
+
+  const limit = useSelector((state: RootState) => state.price.limit);
 
   return (
     <div className="card mt-5 mx-2 px-3 md:px-5 border-b-2 border-r border-[#5728A6] py-5 bg-[#ebe5f7] shadow-xl rounded-lg">
@@ -23,7 +27,7 @@ const TrxCard: React.FC = () => {
           <div className="">
             <div className="font-semibold">Buy</div>
             <div className="font-extrabold text-3xl bg-linear-to-b from-[#5728A6] to-[#c9b4ee] text-transparent bg-clip-text">
-              $100
+              ${limit?.buy_limit ?? 0}
             </div>
           </div>
         </div>
@@ -34,7 +38,7 @@ const TrxCard: React.FC = () => {
           <div className="">
             <div className="font-semibold">Sell/Pay</div>
             <div className="font-extrabold text-3xl bg-linear-to-b from-[#5728A6] to-[#c9b4ee] text-transparent bg-clip-text">
-              $100
+              ${limit?.sell_limit ?? 0}
             </div>
           </div>
         </div>
