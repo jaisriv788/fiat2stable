@@ -44,7 +44,7 @@ const App: React.FC = () => {
   );
 
   return (
-    <>
+    <div>
       {showError && <Error />}
       {showSuccess && <Success />}
 
@@ -82,7 +82,7 @@ const App: React.FC = () => {
 
         <Route path="*" element={<NotFound />} />
       </Routes>
-    </>
+    </div>
   );
 };
 

@@ -26,11 +26,7 @@ import { useShowSuccess } from "@/hooks/useShowSuccess";
 import { useSelector, useDispatch } from "react-redux";
 import type { RootState, AppDispatch } from "@/store/store";
 import { Spinner } from "../ui/spinner";
-import {
-  fetchBalanceThunk,
-  getBalance,
-  setBalance,
-} from "@/store/slices/priceSlice";
+import { getBalance, setBalance } from "@/store/slices/priceSlice";
 
 const formSchema = z.object({
   walletAddress: z.string().length(42, {
@@ -54,6 +50,7 @@ const WalletModelWalletManageView: React.FC<WalletModelViewProps> = ({
   setOpen,
 }) => {
   const [loading, setLoading] = useState(false);
+  const [showModel, setShowModel] = useState<boolean>(false);
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -75,6 +72,19 @@ const WalletModelWalletManageView: React.FC<WalletModelViewProps> = ({
       token: "usdt",
     },
   });
+
+  const { watch } = form;
+  const walletAddress = watch("walletAddress");
+  const amount = watch("amount");
+  const selectedToken = watch("token");
+
+  const isDisabled =
+    loading ||
+    !walletAddress ||
+    walletAddress.length !== 42 ||
+    !amount ||
+    Number(amount) <= 0 ||
+    !selectedToken;
 
   const onSubmit: SubmitHandler<FormSchema> = async (values) => {
     if (loading) {
@@ -117,7 +127,7 @@ const WalletModelWalletManageView: React.FC<WalletModelViewProps> = ({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="">
         <FormField
           control={form.control}
           name="token"
@@ -151,7 +161,7 @@ const WalletModelWalletManageView: React.FC<WalletModelViewProps> = ({
           control={form.control}
           name="walletAddress"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="mt-3">
               <FormLabel>Wallet Address</FormLabel>
               <FormControl>
                 <Input
@@ -168,7 +178,7 @@ const WalletModelWalletManageView: React.FC<WalletModelViewProps> = ({
           control={form.control}
           name="amount"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="mt-3">
               <FormLabel>Amount</FormLabel>
               <FormControl>
                 <Input
@@ -181,12 +191,42 @@ const WalletModelWalletManageView: React.FC<WalletModelViewProps> = ({
             </FormItem>
           )}
         />
+
+        {showModel && (
+          <div
+            onClick={() => setShowModel(false)}
+            className="bg-gray-900/60 flex z-50 justify-center items-center backdrop-blur-lg absolute inset-0 rounded-lg"
+          >
+            <div
+              onClick={(e) => e.stopPropagation()}
+              className="bg-white rounded-lg px-5 py-3 max-w-md mx-2 w-full"
+            >
+              <div className="font-semibold">
+                Are you sure you want to proceed?
+              </div>
+              <div className="text-sm my-2 text-gray-600">
+                By clicking on the tranfer fund button the funds will be
+                transfered to the address provided with the provided amount.
+              </div>
+              <Button
+                disabled={loading}
+                className="w-full mt-3 cursor-pointer bg-[#5728A6] hover:bg-black transition ease-in-out duration-300"
+                type="submit"
+              >
+                {loading ? <Spinner className="size-6" /> : "Transfer Fund"}
+              </Button>
+            </div>
+          </div>
+        )}
         <Button
-          disabled={loading}
-          className="w-full cursor-pointer bg-[#5728A6] hover:bg-black transition ease-in-out duration-300"
-          type="submit"
+          disabled={isDisabled}
+          type="button"
+          onClick={() => {
+            if (!isDisabled) setShowModel(true);
+          }}
+          className="w-full disabled:cursor-not-allowed mt-3 cursor-pointer bg-[#5728A6] hover:bg-black transition ease-in-out duration-300"
         >
-          {loading ? <Spinner className="size-6" /> : "Submit"}
+          Submit
         </Button>
       </form>
     </Form>

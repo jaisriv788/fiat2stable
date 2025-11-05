@@ -93,7 +93,7 @@ const DepositSlider: React.FC = () => {
                   <FaGreaterThan className="group-hover:text-[#5728A6] transition ease-in-out duration-300" />
                 </div>
               ) : (
-                <div className="mt-5 text-gray-700 text-sm flex flex-col gap-5 items-center">
+                <div className="mt-5 text-gray-700 text-sm flex flex-col items-center">
                   <QRCodeCanvas
                     value={
                       userData?.wallet_address
@@ -106,9 +106,14 @@ const DepositSlider: React.FC = () => {
                     level="H"
                     includeMargin={true}
                   />
+                  <span className="self-start font-semibold text-[16px] mt-5">
+                    Wallet Address
+                  </span>
                   <div className="flex justify-between bg-[#d2c3ec] rounded-lg w-full px-5 py-2">
                     <span className="font-semibold">
-                      {userData?.wallet_address.toString()}
+                      {userData?.wallet_address.toString().slice(0, 14) +
+                        "..." +
+                        userData?.wallet_address.toString().slice(-14)}
                     </span>
                     <CopyIcon
                       size={15}

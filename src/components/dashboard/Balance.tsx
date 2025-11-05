@@ -10,9 +10,7 @@ interface Balance {
 const Balance: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
 
-  const { balance, loading, error } = useSelector(
-    (state: RootState) => state.price
-  );
+  const { balance, loading } = useSelector((state: RootState) => state.price);
   const baseUrl = useSelector((state: RootState) => state.consts.baseUrl);
   const userData = useSelector((state: RootState) => state.user.userData);
   const token = useSelector((state: RootState) => state?.user?.token);
@@ -28,11 +26,11 @@ const Balance: React.FC = () => {
     }
   }, [dispatch, baseUrl, userData, token, refetchBalance]);
 
-  useEffect(() => {
-    console.log("Loading:", loading);
-    console.log("Balance:", balance);
-    console.log("Error:", error);
-  }, [loading, balance, error]);
+  // useEffect(() => {
+  //   console.log("Loading:", loading);
+  //   console.log("Balance:", balance);
+  //   console.log("Error:", error);
+  // }, [loading, balance, error]);
 
   if (!balance || loading) {
     return (

@@ -35,7 +35,7 @@ export const fetchBalanceThunk = createAsyncThunk<
   async ({ baseUrl, userId, token }, { rejectWithValue }) => {
     try {
       
-      console.log({ baseUrl, userId, token });
+      // console.log({ baseUrl, userId, token });
       const response = await axios.post(
         `${baseUrl}/user-available-balance`,
         { user_id: userId },
@@ -47,7 +47,7 @@ export const fetchBalanceThunk = createAsyncThunk<
         }
       );
 
-      console.log({ response });
+      // console.log({ response });
       const data = response.data?.data;
       if (!data || !data.total_usdt || !data.total_inr) {
         return rejectWithValue("Invalid balance data");

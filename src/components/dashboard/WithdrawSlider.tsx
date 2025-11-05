@@ -12,6 +12,7 @@ import Usdc from "../Withdrawl/Usdc";
 import { useShowError } from "@/hooks/useShowError";
 import { useShowSuccess } from "@/hooks/useShowSuccess";
 import { Spinner } from "../ui/spinner";
+import { X } from "lucide-react";
 
 interface Assets {
   total_usdt: string;
@@ -20,6 +21,7 @@ interface Assets {
 
 const WithdrawSlider: React.FC = () => {
   const [view, setView] = useState<number>(0);
+  const [showModel, setShowModel] = useState<boolean>(false);
   const [assetsData, setAssetsData] = useState<Assets | null>(null);
   const [usdt, setUsdt] = useState<string>("");
   const [usdc, setUsdc] = useState<string>("");
@@ -45,7 +47,7 @@ const WithdrawSlider: React.FC = () => {
       const type = view == 1 ? "usdt" : "usdc";
       const amount = view === 1 ? usdt : usdc;
 
-      const response = await axios.post(
+      await axios.post(
         `${baseUrl}/withdraw`,
         {
           user_id: userData?.id,
@@ -63,13 +65,14 @@ const WithdrawSlider: React.FC = () => {
         }
       );
 
-      console.log(response.data);
+      // console.log(response.data);
 
-      showSuccess("Withdraw Successful.", "");
       setUsdt("");
       setUsdc("");
       setReceiverAddress("");
+      setShowModel(false);
       setRefresh((prev) => !prev);
+      showSuccess("Withdraw Successful.", "");
     } catch (error) {
       console.log(error);
       showError("Withdraw Failed.", "");
@@ -108,6 +111,7 @@ const WithdrawSlider: React.FC = () => {
     setReceiverAddress("");
     setUsdc("");
     setUsdt("");
+    setShowModel(false);
     dispatch(setWithdrawSlider({ showWithdrawSlider: false }));
   }
 
@@ -152,6 +156,7 @@ const WithdrawSlider: React.FC = () => {
                 onClick={() => {
                   setView(0);
                   setUsdt("");
+                  setShowModel(false);
                   setReceiverAddress("");
                 }}
                 className="relative font-bold text-lg flex justify-center items-center"
@@ -166,6 +171,7 @@ const WithdrawSlider: React.FC = () => {
                 onClick={() => {
                   setView(0);
                   setUsdc("");
+                  setShowModel(false);
                   setReceiverAddress("");
                 }}
                 className="relative font-bold text-lg flex justify-center items-center"
@@ -181,8 +187,63 @@ const WithdrawSlider: React.FC = () => {
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.35, ease: "easeInOut" }}
-              className="overflow-hidden"
+              className="overflow-hidden relative"
             >
+              {showModel && (
+                <div
+                  onClick={() => setShowModel(false)}
+                  className="bg-gray-900/60 flex justify-center items-center backdrop-blur-lg absolute inset-0 rounded-lg"
+                >
+                  <div
+                    onClick={(e) => e.stopPropagation()}
+                    className="relative bg-white mx-2 max-w-lg w-full px-6 py-4 rounded-2xl shadow-md space-y-3"
+                  >
+                    <X
+                      onClick={() => setShowModel(false)}
+                      className="absolute right-3 cursor-pointer hover:text-[#5728A6] transition ease-in-out duraiton-300 top-3"
+                      size={18}
+                    />
+                    <div className="font-semibold text-lg text-gray-800">
+                      Are you sure you want to withdraw?
+                    </div>
+
+                    <div className="flex justify-between items-center text-sm text-gray-600">
+                      <span className="font-medium">Amount:</span>
+                      <span className="text-[#5728A6] font-semibold text-base">
+                        ${usdc || usdt}
+                      </span>
+                    </div>
+
+                    <div className="flex justify-between items-center text-sm text-gray-600">
+                      <span className="font-medium">Token:</span>
+                      <span className="text-[#5728A6] font-semibold text-base">
+                        {usdc ? "USDC" : "USDT"}
+                      </span>
+                    </div>
+
+                    <div className="flex justify-between items-center text-sm text-gray-600">
+                      <span className="font-medium">To:</span>
+                      <span className="text-[#5728A6] font-semibold">
+                        {receiverAddress.slice(0, 5) +
+                          "..." +
+                          receiverAddress.slice(-5)}
+                      </span>
+                    </div>
+
+                    <button
+                      onClick={handleWithdraw}
+                      className="disabled:bg-gray-300 disabled:cursor-not-allowed disabled:text-gray-500 disabled:border-gray-500 mt-5 bg-white text-[#5728A6] font-semibold border-2 border-[#5728A6] w-full py-2 rounded-lg hover:bg-black hover:border-black hover:text-white cursor-pointer transition ease-in-out duration-300"
+                    >
+                      {loading ? (
+                        <Spinner className="size-6 mx-auto" />
+                      ) : (
+                        "Withdraw"
+                      )}
+                    </button>
+                  </div>
+                </div>
+              )}
+
               {view == 0 && <Tabs setView={setView} />}
 
               {view == 1 && (
@@ -207,15 +268,11 @@ const WithdrawSlider: React.FC = () => {
 
               {view != 0 && (
                 <button
-                  onClick={handleWithdraw}
+                  onClick={() => setShowModel(true)}
                   disabled={(!usdc || !usdt) && !receiverAddress}
                   className="disabled:bg-gray-300 disabled:cursor-not-allowed disabled:text-gray-500 disabled:border-gray-500 mt-5 bg-white text-[#5728A6] font-semibold border-2 border-[#5728A6] w-full py-2 rounded-lg hover:bg-black hover:border-black hover:text-white cursor-pointer transition ease-in-out duration-300"
                 >
-                  {loading ? (
-                    <Spinner className="size-6 mx-auto" />
-                  ) : (
-                    "Withdraw"
-                  )}
+                  Withdraw
                 </button>
               )}
               <button

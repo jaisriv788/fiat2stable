@@ -16,10 +16,10 @@ const Error: React.FC = () => {
         animate={{ x: 0, opacity: 1 }}
         exit={{ x: 80, opacity: 0 }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
-        className="absolute z-500 top-0 right-0"
+        className="absolute z-500 top-2 right-3"
       >
         <Alert
-          className="border-red-500 z-500 bg-red-300/90 absolute top-3 w-fit right-0"
+          className="border-red-500 z-500 bg-red-300/90"
           variant="destructive"
         >
           <AlertCircleIcon />
