@@ -50,7 +50,7 @@ const App: React.FC = () => {
 
       <Routes>
         <Route element={<PublicRoute />}>
-          <Route path="/" element={<Login />} />
+          <Route path="/:id?" element={<Login />} />
           <Route path="/auth/verification" element={<Verification />} />
         </Route>
 

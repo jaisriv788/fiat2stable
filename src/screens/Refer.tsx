@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -7,9 +7,27 @@ import {
 } from "@/components/ui/accordion";
 import { useNavigate } from "react-router";
 import { referAndEarnFaq } from "@/Data/faq";
+import { Spinner } from "@/components/ui/spinner";
+import { useSelector } from "react-redux";
+import type { RootState } from "@/store/store";
+import { Copy } from "lucide-react";
 
 const Refer: React.FC = () => {
+  const [generateLink, setGenerateLink] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const userData = useSelector((state: RootState) => state.user.userData);
+
   const navigate = useNavigate();
+
+  const handleGenerateLink = () => {
+    setLoading(true);
+
+    setTimeout(() => {
+      setGenerateLink(true);
+      setLoading(false);
+    }, 1000);
+  };
 
   return (
     <div className="mt-24 sm:mt-30 px-2 flex flex-col gap-2 max-w-lg mx-auto">
@@ -24,10 +42,42 @@ const Refer: React.FC = () => {
           trade.
         </p>
         <div className="py-3 px-3 mt-3 bg-white rounded-lg">
-          <div className="font-semibold text-sm">Invite via referral link</div>
-          <button className="bg-[#5728A6] font-semibold cursor-pointer text-white w-full py-2 rounded-lg mt-3 hover:bg-black transition ease-in-out duration-300">
-            Generate Link
-          </button>
+          <div className="font-bold text-sm">Invite via referral link</div>
+          {generateLink ? (
+            <div className="flex justify-between text-sm font-semibold mt-3 py-2 bg-[#ebe5f7]  px-2 rounded-lg items-center">
+              http://localhost:5173/fiat/{userData.id}{" "}
+              <Copy
+                className="cursor-pointer hover:text-[#5728A6] transition ease-in-out duration-300"
+                onClick={() => {
+                  navigator.clipboard
+                    .writeText(
+                      userData?.id
+                        ? String(`http://localhost:5173/fiat/${userData.id}`)
+                        : ""
+                    )
+                    .then(() => {
+                      alert("Link copied to clipboard!");
+                    })
+                    .catch((err) => {
+                      console.error("Failed to copy: ", err);
+                    });
+                }}
+                size={15}
+              />
+            </div>
+          ) : (
+            <button
+              onClick={handleGenerateLink}
+              disabled={loading}
+              className="bg-[#5728A6] font-semibold cursor-pointer text-white w-full py-2 rounded-lg mt-3 hover:bg-black transition ease-in-out duration-300"
+            >
+              {loading ? (
+                <Spinner className="size-6 mx-auto" />
+              ) : (
+                "Generate Link"
+              )}
+            </button>
+          )}
         </div>
         <div className="py-3 px-3 bg-white rounded-lg mt-3 flex items-center">
           <div className="flex-1">
@@ -37,7 +87,18 @@ const Refer: React.FC = () => {
             <div className="text-[#5728A6] font-extrabold text-lg">0 USDC</div>
           </div>
           <button className="bg-[#5728A6] font-semibold cursor-pointer text-white  py-1.5 px-3 rounded-lg hover:bg-black transition ease-in-out duration-300">
-            Claim
+            Claim USDC
+          </button>
+        </div>
+        <div className="py-3 px-3 bg-white rounded-lg mt-3 flex items-center">
+          <div className="flex-1">
+            <div className="text-sm font-semibold text-gray-700">
+              Claimable Rewards
+            </div>
+            <div className="text-[#5728A6] font-extrabold text-lg">0 USDT</div>
+          </div>
+          <button className="bg-[#5728A6] font-semibold cursor-pointer text-white  py-1.5 px-3 rounded-lg hover:bg-black transition ease-in-out duration-300">
+            Claim USDT
           </button>
         </div>
       </div>
