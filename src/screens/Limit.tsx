@@ -22,7 +22,7 @@ const Limit: React.FC = () => {
   const barPercentage = (parseFloat(limit?.verified_social_media) / 5) * 100;
 
   return (
-    <div className="mt-24 sm:mt-30 px-2 flex flex-col gap-2 max-w-lg mx-auto">
+    <div className="mt-24 px-2 flex flex-col gap-2 max-w-lg mx-auto">
       <div className="text-center text-xl font-bold">
         Per Transaction Limits
       </div>

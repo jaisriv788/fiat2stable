@@ -40,10 +40,10 @@ const Balance: React.FC = () => {
         </div>
         <div className="font-extrabold flex items-center gap-1 text-5xl">
           {" "}
-          $<Skeleton className="h-12 bg-gray-300 w-40" />
+          $<Skeleton className="h-12 bg-[#5728A6]/30 w-40" />
         </div>
         <div className="font-semibold flex items-center gap-1 text-lg">
-          ~ ₹<Skeleton className="h-5 bg-gray-300 w-[100px]" />
+          ~ ₹<Skeleton className="h-5 bg-[#5728A6]/30 w-[100px]" />
         </div>
       </div>
     );
@@ -53,7 +53,7 @@ const Balance: React.FC = () => {
       <div className="txt text-lg font-semibold text-gray-700">
         Available Balance
       </div>
-      <div className="font-extrabold text-5xl">
+      <div className="font-bold text-5xl">
         {" "}
         ${Number(balance?.total_usdt ?? 0).toFixed(2)}{" "}
       </div>

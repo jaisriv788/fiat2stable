@@ -517,7 +517,7 @@ export function LoginDialog() {
 
               <Button
                 onClick={() => handleOptionClick(2)}
-                className="md:flex-1 flex items-center justify-center cursor-pointer gap-2 py-6 bg-[#4D43EF]/70 hover:bg-gray-800 text-white transition ease-in-out duration-300"
+                className="md:flex-1 flex items-center justify-center cursor-pointer gap-2 py-6 bg-black hover:bg-gray-800 text-white transition ease-in-out duration-300"
               >
                 <MdPhoneIphone className="text-lg" /> Login with Phone No.
               </Button>

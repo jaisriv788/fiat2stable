@@ -21,7 +21,7 @@ const Login: React.FC = () => {
           </TextAnimate>
         </div>
         <div className="my-10 sm:my-15">
-          <img src="/fiat/login/tx6.svg" width={300} />
+          <img src="/fiat/login/tx2.svg" width={300} />
         </div>
         <div className="">
           <LoginDialog />

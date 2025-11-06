@@ -6,7 +6,7 @@ import Faqs from "@/components/support/Faqs";
 
 const Support: React.FC = () => {
   return (
-    <div className="mt-24 sm:mt-30 px-2 flex flex-col gap-7 max-w-lg mx-auto">
+    <div className="mt-24 px-2 flex flex-col gap-7 max-w-lg mx-auto">
       <div className="flex items-center text-sm justify-between bg-gray-200 px-3 py-3 rounded-lg">
         <div className="font-bold txt3">Need Help?</div>
         <button
