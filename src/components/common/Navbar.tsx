@@ -116,7 +116,7 @@ const Navbar: React.FC = () => {
                 dispatch(setSidebar({ showSidebar: !isSidebarVisible }));
               }}
               size={30}
-              className="md:absolute border hover:bg-gray-100 rounded p-1 -left-10 cursor-pointer hover:text-[#9371cf] transition ease-in-out duration-300"
+              className="md:absolute border hover:bg-gray-100 rounded p-1 -left-10 cursor-pointer hover:text-[#4D43EF] transition ease-in-out duration-300"
             />
           ) : (
             <FaArrowLeft
@@ -124,7 +124,7 @@ const Navbar: React.FC = () => {
                 navigate(-1);
               }}
               size={30}
-              className="md:absolute p-1 border rounded-full hover:bg-gray-100 -left-10 cursor-pointer hover:text-[#9371cf] transition ease-in-out duration-300"
+              className="md:absolute p-1 border rounded-full hover:bg-gray-100 -left-10 cursor-pointer hover:text-[#4D43EF] transition ease-in-out duration-300"
             />
           )}
           {isDashboard ? (
@@ -151,9 +151,9 @@ const Navbar: React.FC = () => {
             disabled
             className="btn shadow-2xl flex gap-1 items-center relative overflow-hidden"
           >
-            <div className="w-4 h-4 bg-[#f4eefd] rounded-full flex items-center justify-center">
+            <div className="w-4 h-4 bg-[#dcdbfa] rounded-full flex items-center justify-center">
               <div
-                className="w-2.5 h-2.5 bg-[#5728A6] rounded-full animate-ping"
+                className="w-2.5 h-2.5 bg-[#4D43EF] rounded-full animate-ping"
                 style={{ animationDuration: "1.4s" }}
               ></div>
             </div>

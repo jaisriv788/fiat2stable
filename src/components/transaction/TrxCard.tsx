@@ -44,54 +44,65 @@ const TrxCard: React.FC = () => {
   }, []);
 
   return (
-    <div className="card border-b-2 border-r border-[#5728A6]  bg-[#ebe5f7] shadow-xl rounded-lg">
-      <div className="bg-[#c3afec] px-3 md:px-5 rounded-lg py-5">
-        <div className="font-semibold text-lg">Your Activity</div>
-        <p className="text-xs text-gray-700 font-semibold txt">
-          Non-cancelled transactions from this month
-        </p>
-      </div>
-      <div className="px-3 md:px-5 rounded-lg py-3 text-center grid grid-cols-3">
-        <div className="col-span-2 grid grid-cols-2">
-          <div>
-            <div className="font-extrabold text-4xl text-[#5728A6]">
-              {data ? data.buy_volume_usdt : "0"}
-            </div>
-            <div className="text-xs font-semibold text-gray-600">
-              Buy Volume USDT
-            </div>
-          </div>
-          <div>
-            <div className="font-extrabold text-4xl text-[#5728A6]">
-              {data ? data.sell_pay_volume_usdt : "0"}
-            </div>
-            <div className="text-xs font-semibold text-gray-600">
-              Sell & Pay Volume USDT
-            </div>
-          </div>
-          <div>
-            <div className="font-extrabold text-4xl text-[#5728A6]">
-              {data ? data.buy_volume_usdc : "0"}
-            </div>
-            <div className="text-xs font-semibold text-gray-600">
-              Buy Volume USDC
-            </div>
-          </div>
-          <div>
-            <div className="font-extrabold text-4xl text-[#5728A6]">
-              {data ? data.sell_pay_volume_usdc : "0"}
-            </div>
-            <div className="text-xs font-semibold text-gray-600">
-              Sell & Pay Volume USDC
-            </div>
-          </div>
+    <div className="card relative overflow-hidden border-b-2 border-r border-[#4D43EF] bg-[#ebe5f7] shadow-2xl rounded-2xl">
+      <div className="absolute inset-0 bg-gradient-to-br from-[#7728E2] via-[#5C5AD7] to-[#22BDCF] opacity-90 rounded-2xl" />
+
+      <div className="relative z-10 p-4 sm:p-5 md:p-6 text-white">
+        <div className="mb-4 text-center sm:text-left">
+          <h3 className="font-semibold text-lg sm:text-xl tracking-wide">
+            Your Activity
+          </h3>
+          <p className="text-xs sm:text-sm text-gray-100 font-medium">
+            Non-cancelled transactions from this month
+          </p>
         </div>
-        <div>
-          <div className="font-extrabold text-4xl text-[#5728A6]">
-            {data ? data.complete_transaction : "0"}
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+          <div className="sm:col-span-2 grid grid-cols-2 xs:grid-cols-2 gap-4">
+            <div className="bg-white/10 backdrop-blur-md rounded-lg p-3 sm:p-4">
+              <div className="font-extrabold text-2xl sm:text-3xl text-gray-100">
+                {data ? data.buy_volume_usdt : "0"}
+              </div>
+              <div className="text-xs sm:text-sm font-semibold text-gray-200 mt-1">
+                Buy Volume USDT
+              </div>
+            </div>
+
+            <div className="bg-white/10 backdrop-blur-md rounded-lg p-3 sm:p-4">
+              <div className="font-extrabold text-2xl sm:text-3xl text-gray-100">
+                {data ? data.sell_pay_volume_usdt : "0"}
+              </div>
+              <div className="text-xs sm:text-sm font-semibold text-gray-200 mt-1">
+                Sell & Pay Volume USDT
+              </div>
+            </div>
+
+            <div className="bg-white/10 backdrop-blur-md rounded-lg p-3 sm:p-4">
+              <div className="font-extrabold text-2xl sm:text-3xl text-gray-100">
+                {data ? data.buy_volume_usdc : "0"}
+              </div>
+              <div className="text-xs sm:text-sm font-semibold text-gray-200 mt-1">
+                Buy Volume USDC
+              </div>
+            </div>
+
+            <div className="bg-white/10 backdrop-blur-md rounded-lg p-3 sm:p-4">
+              <div className="font-extrabold text-2xl sm:text-3xl text-gray-100">
+                {data ? data.sell_pay_volume_usdc : "0"}
+              </div>
+              <div className="text-xs sm:text-sm font-semibold text-gray-200 mt-1">
+                Sell & Pay Volume USDC
+              </div>
+            </div>
           </div>
-          <div className="text-xs font-semibold text-gray-600">
-            Successful USDC Trx.
+
+          <div className="flex flex-col justify-center bg-white/10 backdrop-blur-md rounded-lg p-4">
+            <div className="font-extrabold text-2xl sm:text-3xl text-gray-100">
+              {data ? data.complete_transaction : "0"}
+            </div>
+            <div className="text-xs sm:text-sm font-semibold text-gray-200 mt-1">
+              Successful USDC Trx.
+            </div>
           </div>
         </div>
       </div>

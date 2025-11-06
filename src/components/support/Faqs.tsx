@@ -44,10 +44,10 @@ const Faqs: React.FC = () => {
           className="flex items-center px-2 py-3 rounded justify-between cursor-pointer hover:bg-gray-200 transition ease-in-out duration-300"
         >
           <div className="flex items-center gap-3">
-            <item.icon size={20} className="text-[#5728A6]" />
+            <item.icon size={20} className="text-[#4D43EF]" />
             <div className="text-sm font-semibold">{item.tag}</div>
           </div>
-          <FaGreaterThan size={12} className="text-[#5728A6]" />
+          <FaGreaterThan size={12} className="text-[#4D43EF]" />
         </div>
       ))}
     </div>

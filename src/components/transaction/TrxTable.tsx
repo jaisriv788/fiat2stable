@@ -74,11 +74,11 @@ const TrxTable: React.FC = () => {
       }`}
     >
       {loading ? (
-        <div className="h-full flex-1 bg-gray-200 rounded-lg flex justify-center items-center gap-2 py-30">
+        <div className="h-full flex-1 font-semibold bg-[#4D43EF]/10 rounded-lg flex justify-center items-center gap-2 py-30">
           <Spinner className="size-6" /> Loading...
         </div>
       ) : transaction.length == 0 ? (
-        <div className="h-full bg-gray-200 flex-1 flex justify-center rounded-lg items-center gap-2">
+        <div className="h-full font-semibold bg-[#4D43EF]/10 flex-1 flex justify-center rounded-lg items-center gap-2 py-30">
           No Data Found.
         </div>
       ) : (
@@ -91,7 +91,7 @@ const TrxTable: React.FC = () => {
                     setCount((prev) => prev - 1);
                   }}
                   disabled={count == 1}
-                  className="border-2 px-3 rounded cursor-pointer border-[#5728A6] hover:bg-black hover:border-black disabled:opacity-80 disabled:cursor-not-allowed disabled:hover:border-[#5728A6] disabled:hover:bg-[#5728A6] text-white bg-[#5728A6] transtion ease-in-out duration-300"
+                  className="border-2 px-3 rounded cursor-pointer border-[#4D43EF] hover:bg-[#4D43EF]/90 hover:border-[#4D43EF]/70 disabled:opacity-80 disabled:cursor-not-allowed disabled:hover:border-[#4D43EF] disabled:hover:bg-[#4D43EF] text-white bg-[#4D43EF] transtion ease-in-out duration-300"
                 >
                   Prev
                 </button>
@@ -101,7 +101,7 @@ const TrxTable: React.FC = () => {
                   onClick={() => {
                     setCount((prev) => prev + 1);
                   }}
-                  className="border-2 px-3 rounded cursor-pointer border-[#5728A6] hover:bg-black hover:border-black disabled:opacity-80 disabled:cursor-not-allowed disabled:hover:border-[#5728A6] disabled:hover:bg-[#5728A6] text-white bg-[#5728A6] transtion ease-in-out duration-300"
+                  className="border-2 px-3 rounded cursor-pointer border-[#4D43EF] hover:bg-[#4D43EF]/90 hover:border-[#4D43EF]/70 disabled:opacity-80 disabled:cursor-not-allowed disabled:hover:border-[#4D43EF] disabled:hover:bg-[#4D43EF] text-white bg-[#4D43EF] transtion ease-in-out duration-300"
                 >
                   Next
                 </button>
@@ -119,16 +119,21 @@ const TrxTable: React.FC = () => {
             <TableBody>
               {transaction.map((item, index) => {
                 return (
-                  <TableRow className="odd:bg-gray-200" key={index}>
+                  <TableRow
+                    className="odd:bg-[#4D43EF]/10 hover:bg-gray-100"
+                    key={index}
+                  >
                     <TableCell>{item?.trans_id ?? "-"}</TableCell>
-                    <TableCell>
+                    <TableCell className="text-center">
                       {item?.payment_method?.toString()?.toUpperCase() ?? "-"}
                     </TableCell>
                     <TableCell>
                       {item?.type[0].toUpperCase() + item?.type.slice(1)}
                     </TableCell>
-                    <TableCell>${item?.amount ?? "-"}</TableCell>
-                    <TableCell className="flex items-center gap-1 hover:text-gray-600 cursor-pointer transition ease-in-out duration-300">
+                    <TableCell>
+                      ${item?.amount?.toFixed(2) ?? "00.00"}
+                    </TableCell>
+                    <TableCell className="flex items-center gap-1 hover:text-[#4D43EF] cursor-pointer transition ease-in-out duration-300">
                       {item?.transaction_hash && <ExternalLink size={14} />}
                       {item?.transaction_hash ? (
                         item?.transaction_hash.slice(0, 6) +

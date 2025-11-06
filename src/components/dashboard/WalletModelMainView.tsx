@@ -60,7 +60,7 @@ const WalletModelMainView: React.FC<WalletModelMainViewProps> = ({
   return (
     <div className="mt-3 flex flex-col gap-2">
       <div className="flex gap-3 ">
-        <div className="aspect-square w-10 text-lg rounded-full flex items-center justify-center font-semibold text-white bg-[#5728A6]">
+        <div className="aspect-square w-10 text-lg rounded-full flex items-center justify-center font-semibold text-white bg-[#4D43EF]">
           {userData?.email?.toString()[0].toUpperCase() ||
             userData?.phone_no?.toString()[0].toUpperCase()}
         </div>
@@ -81,7 +81,7 @@ const WalletModelMainView: React.FC<WalletModelMainViewProps> = ({
                   });
               }}
               size={15}
-              className="text-gray-700 cursor-pointer transition ease-in-out duration-300 hover:text-gray-500"
+              className="text-gray-700 cursor-pointer transition ease-in-out duration-300 hover:text-[#4D43EF]"
             />
           </div>
           <div className="text-xs text-gray-700">Smart Account</div>
@@ -121,7 +121,7 @@ const WalletModelMainView: React.FC<WalletModelMainViewProps> = ({
               onClick={item.click}
               className="flex gap-3 cursor-pointer hover:bg-gray-300 px-3 py-2 rounded transition ease-in-out duration-300"
             >
-              <item.icon className="text-2xl text-[#5728A6]" />
+              <item.icon className="text-2xl text-[#4D43EF]" />
               <div className="font-semibold">{item.tag}</div>
             </div>
           );
@@ -132,7 +132,7 @@ const WalletModelMainView: React.FC<WalletModelMainViewProps> = ({
           onClick={handleLogout}
           className="flex gap-3 cursor-pointer hover:bg-gray-300 px-3 py-2 rounded transition ease-in-out duration-300"
         >
-          <LogOut className="text-2xl text-[#5728A6]" />
+          <LogOut className="text-2xl text-[#4D43EF]" />
           <div className="font-semibold">Disconnect Wallet</div>
         </div>
       </div>

@@ -51,7 +51,7 @@ const DepositSlider: React.FC = () => {
                   Deposit Fund
                   <IoCloseCircleSharp
                     onClick={handleClose}
-                    className="text-xl hover:text-red-700 transition ease-in-out duration-300 cursor-pointer"
+                    className="text-xl hover:text-[#4D43EF] transition ease-in-out duration-300 cursor-pointer"
                   />
                 </div>
                 <p className="text-xs text-gray-900 txt">
@@ -63,7 +63,7 @@ const DepositSlider: React.FC = () => {
                 onClick={() => setView(0)}
                 className="relative font-bold text-lg flex justify-center items-center"
               >
-                <IoMdArrowRoundBack className="absolute left-0 hover:text-[#5728A6] transition ease-in-out duration-300 border-2 border-gray-800 rounded-full size-6 cursor-pointer hover:border-[#5728A6] hover:bg-gray-300" />
+                <IoMdArrowRoundBack className="absolute left-0 hover:text-[#4D43EF] transition ease-in-out duration-300 border-2 border-gray-800 rounded-full size-6 cursor-pointer hover:border-[#4D43EF] hover:bg-gray-300" />
                 <div className="self-center w-fit">Deposit USDT/USDC</div>
               </div>
             )}
@@ -82,7 +82,7 @@ const DepositSlider: React.FC = () => {
                   className="group flex items-center mt-5 gap-3 md:gap-5 border border-gray-300 p-3 rounded-lg hover:bg-gray-300 transition ease-in-out duration-300 cursor-pointer justify-between"
                 >
                   <div className="flex items-center gap-5">
-                    <FaCircleDollarToSlot className="text-[#5728A6] text-2xl" />
+                    <FaCircleDollarToSlot className="text-[#4D43EF] text-2xl" />
                     <div>
                       <div className="font-semibold">Deposit USDT/USDC</div>
                       <div className="text-sm text-gray-700">
@@ -90,7 +90,7 @@ const DepositSlider: React.FC = () => {
                       </div>
                     </div>
                   </div>
-                  <FaGreaterThan className="group-hover:text-[#5728A6] transition ease-in-out duration-300" />
+                  <FaGreaterThan className="group-hover:text-[#4D43EF] transition ease-in-out duration-300" />
                 </div>
               ) : (
                 <div className="mt-5 text-gray-700 text-sm flex flex-col items-center">
@@ -109,7 +109,7 @@ const DepositSlider: React.FC = () => {
                   <span className="self-start font-semibold text-[16px] mt-5">
                     Wallet Address
                   </span>
-                  <div className="flex justify-between items-center bg-[#d2c3ec] rounded-lg w-full px-5 py-2">
+                  <div className="flex justify-between items-center bg-[#dad8f8] rounded-lg w-full px-5 py-2">
                     <span className="font-semibold">
                       {userData?.wallet_address.toString().slice(0, 14) +
                         "..." +
@@ -117,7 +117,7 @@ const DepositSlider: React.FC = () => {
                     </span>
                     <CopyIcon
                       size={15}
-                      className="hover:text-[#5728A6] cursor-pointer transition ease-in-out duration-300"
+                      className="hover:text-[#4D43EF] cursor-pointer transition ease-in-out duration-300"
                       onClick={() => {
                         navigator.clipboard
                           .writeText(
@@ -138,7 +138,7 @@ const DepositSlider: React.FC = () => {
               )}
               <button
                 onClick={handleClose}
-                className="mt-5 bg-[#5728A6] font-semibold text-white w-full py-2 rounded-lg hover:bg-black cursor-pointer transition ease-in-out"
+                className="mt-5 bg-[#4D43EF] font-semibold text-white w-full py-2 rounded-lg hover:bg-[#4D43EF]/70 cursor-pointer transition ease-in-out"
               >
                 Close
               </button>{" "}

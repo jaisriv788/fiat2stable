@@ -169,9 +169,10 @@ input[type="number"] {
     @apply bg-background text-foreground;
   }
 }
+
 .logo {
-  filter: brightness(0) saturate(100%) invert(16%) sepia(83%) saturate(9000%)
-    hue-rotate(251deg) brightness(90%) contrast(105%);
+  filter: brightness(0) saturate(100%) invert(30%) sepia(80%) saturate(7000%)
+    hue-rotate(240deg) brightness(100%) contrast(105%);
 }
 
 html,

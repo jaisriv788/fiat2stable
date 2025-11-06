@@ -73,9 +73,9 @@ const Verification: React.FC = () => {
 
   return (
     <div className="flex gap-3 items-center text-xl font-bold justify-center h-screen">
-      <Spinner className="my-1 size-6 text-[#5728A6]" />
+      <Spinner className="my-1 size-6 text-[#4D43EF]" />
 
-      <div className="flex text-[#5728A6]">
+      <div className="flex text-[#4D43EF]">
         Authenticating{" "}
         <>
           {letters.map((char, i) => (

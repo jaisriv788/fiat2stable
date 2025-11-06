@@ -34,7 +34,7 @@ const WalletModel: React.FC = () => {
       }}
     >
       <DialogTrigger asChild>
-        <div className="border-2 card1 hover:scale-110 hover:rotate-6 hover:bg-purple-50 transition-all ease-in-out duration-300 border-[#5728A6] cursor-pointer text-[#5728A6] hover:scale rounded-md p-3">
+        <div className="border-2 card1 hover:scale-110 hover:rotate-6 hover:bg-emerald-100 transition-all ease-in-out duration-300 border-emerald-500 cursor-pointer text-emerald-500 hover:scale rounded-md p-3">
           <FaWallet className="text-2xl" />
         </div>
       </DialogTrigger>
@@ -45,7 +45,7 @@ const WalletModel: React.FC = () => {
             {view == 1 && (
               <div className="flex gap-2 items-center">
                 <IoMdArrowRoundBack
-                  className="cursor-pointer hover:text-[#5728A6] transition ease-in-out duration-300"
+                  className="cursor-pointer hover:text-[#4D43EF] transition ease-in-out duration-300"
                   onClick={() => setView(0)}
                 />
                 <div>Transactions</div>
@@ -54,7 +54,7 @@ const WalletModel: React.FC = () => {
             {view == 2 && (
               <div className="flex gap-2 items-center">
                 <IoMdArrowRoundBack
-                  className="cursor-pointer hover:text-[#5728A6] transition ease-in-out duration-300"
+                  className="cursor-pointer hover:text-[#4D43EF] transition ease-in-out duration-300"
                   onClick={() => setView(0)}
                 />
                 <div>Assets</div>
@@ -63,7 +63,7 @@ const WalletModel: React.FC = () => {
             {view == 3 && (
               <div className="flex gap-2 items-center">
                 <IoMdArrowRoundBack
-                  className="cursor-pointer hover:text-[#5728A6] transition ease-in-out duration-300"
+                  className="cursor-pointer hover:text-[#4D43EF] transition ease-in-out duration-300"
                   onClick={() => setView(0)}
                 />
                 <div>Send</div>
@@ -72,7 +72,7 @@ const WalletModel: React.FC = () => {
             {view == 4 && (
               <div className="flex gap-2 items-center">
                 <IoMdArrowRoundBack
-                  className="cursor-pointer hover:text-[#5728A6] transition ease-in-out duration-300"
+                  className="cursor-pointer hover:text-[#4D43EF] transition ease-in-out duration-300"
                   onClick={() => setView(0)}
                 />
                 <div>Receive</div>
@@ -81,7 +81,7 @@ const WalletModel: React.FC = () => {
             {view == 5 && (
               <div className="flex gap-2 items-center">
                 <IoMdArrowRoundBack
-                  className="cursor-pointer hover:text-[#5728A6] transition ease-in-out duration-300"
+                  className="cursor-pointer hover:text-[#4D43EF] transition ease-in-out duration-300"
                   onClick={() => setView(0)}
                 />
                 <div>Buy</div>

@@ -118,7 +118,7 @@ const ConnectionSlider: React.FC = () => {
             </button>
             <button
               onClick={handleClose}
-              className="md:mt-5 mt-3 bg-[#5728A6] font-semibold text-white w-full py-2 rounded-lg hover:bg-[#5728A6]/80 cursor-pointer transition ease-in-out duration-300"
+              className="md:mt-5 mt-3 bg-[#4D43EF] font-semibold text-white w-full py-2 rounded-lg hover:bg-[#4D43EF]/80 cursor-pointer transition ease-in-out duration-300"
             >
               Close
             </button>

@@ -24,7 +24,7 @@ const Usdt: React.FC<UsdtProps> = ({
       <div>
         <img src="usdt.svg" className="w-15 mt-3 aspect-square mx-auto" />
       </div>
-      <div className="flex md:flex-row flex-col mt-3 gap-2 px-5 py-3 bg-[#eae2f8] rounded-lg">
+      <div className="flex md:flex-row flex-col mt-3 gap-2 px-5 py-3 bg-[#deddfd] rounded-lg">
         <div className="flex-1">
           <div className="font-semibold">Enter Amount</div>
           <Input
@@ -32,7 +32,7 @@ const Usdt: React.FC<UsdtProps> = ({
             onChange={(e) => setUsdt(e.target.value)}
             placeholder="Enter the amount"
             type="number"
-            className="w-full border-gray-400 text-[#5728A6] font-semibold"
+            className="w-full border-gray-400 text-[#4D43EF] font-semibold"
           />
           <div className="mt-3 font-semibold text-sm">
             USDT Balance:{" "}
@@ -65,12 +65,12 @@ const Usdt: React.FC<UsdtProps> = ({
           </div>
         </div>
       </div>
-      <div className="mt-3 bg-[#eae2f8] px-2 py-3 rounded-lg">
+      <div className="mt-3 bg-[#deddfd] px-2 py-3 rounded-lg">
         <Input
           value={receiverAddress}
           onChange={(e) => setReceiverAddress(e.target.value)}
           placeholder="Enter the Receiver Address ..."
-          className="border-gray-400 text-[#5728A6] font-semibold"
+          className="border-gray-400 text-[#4D43EF] font-semibold"
         />
       </div>
     </div>

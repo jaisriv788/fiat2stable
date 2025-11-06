@@ -27,7 +27,7 @@ const Login: React.FC = () => {
           <LoginDialog />
           <p className="text-sm text-center mt-4">
             By logging in, you agree to our{" "}
-            <span className="cursor-pointer text-[#5728A6]">
+            <span className="cursor-pointer font-semibold text-[#4D43EF]">
               Terms & Conditions
             </span>
           </p>

@@ -5,10 +5,7 @@ import { PiHandDepositFill } from "react-icons/pi";
 import { BiSupport } from "react-icons/bi";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "@/store/store";
-import {
-  setDepositSlider,
-  setWithdrawSlider,
-} from "@/store/slices/modelSlice";
+import { setDepositSlider, setWithdrawSlider } from "@/store/slices/modelSlice";
 import WalletModel from "./WalletModel";
 import { useNavigate } from "react-router";
 
@@ -21,6 +18,7 @@ const Action: React.FC = () => {
       id: 1,
       icon: FaWallet,
       tag: "Wallet",
+      theme: "",
     },
     {
       id: 2,
@@ -29,6 +27,7 @@ const Action: React.FC = () => {
       click: () => {
         dispatch(setDepositSlider({ showDepositSlider: true }));
       },
+      theme: "text-orange-700 border-orange-700 hover:bg-orange-100",
     },
     {
       id: 3,
@@ -37,6 +36,7 @@ const Action: React.FC = () => {
       click: () => {
         dispatch(setWithdrawSlider({ showWithdrawSlider: true }));
       },
+      theme: "text-indigo-500 border-indigo-500 hover:bg-indigo-100",
     },
     {
       id: 4,
@@ -45,6 +45,7 @@ const Action: React.FC = () => {
       click: () => {
         navigate("/support");
       },
+      theme: "border-teal-500 text-teal-500 hover:bg-teal-100",
     },
   ];
 
@@ -60,7 +61,9 @@ const Action: React.FC = () => {
             {item.id == 1 ? (
               <WalletModel />
             ) : (
-              <div className="border-2 card1 hover:scale-110 hover:rotate-6 hover:bg-purple-50 transition-all ease-in-out duration-300 border-[#5728A6] cursor-pointer text-[#5728A6] hover:scale rounded-md p-3">
+              <div
+                className={`border-2 card1 hover:rotate-6 hover:scale-110 transition-all ease-in-out duration-300 cursor-pointer hover:scale rounded-md p-3 ${item.theme}`}
+              >
                 <item.icon className="text-2xl" />
               </div>
             )}

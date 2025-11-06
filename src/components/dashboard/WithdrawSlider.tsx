@@ -142,7 +142,7 @@ const WithdrawSlider: React.FC = () => {
                   Withdraw Fund{" "}
                   <IoCloseCircleSharp
                     onClick={handleClose}
-                    className="text-xl hover:text-red-700 transition ease-in-out duration-300 cursor-pointer"
+                    className="text-xl hover:text-[#4D43EF] transition ease-in-out duration-300 cursor-pointer"
                   />
                 </div>
                 <p className="text-xs text-gray-900 txt">
@@ -161,7 +161,7 @@ const WithdrawSlider: React.FC = () => {
                 }}
                 className="relative font-bold text-lg flex justify-center items-center"
               >
-                <IoMdArrowRoundBack className="absolute left-0 hover:text-[#5728A6] transition ease-in-out duration-300 border-2 border-gray-800 rounded-full size-6 cursor-pointer hover:border-[#5728A6] hover:bg-gray-300" />
+                <IoMdArrowRoundBack className="absolute left-0 hover:text-[#4D43EF] transition ease-in-out duration-300 border-2 border-gray-800 rounded-full size-6 cursor-pointer hover:border-[#4D43EF] hover:bg-gray-300" />
                 <div className="self-center w-fit">Withdraw USDT</div>
               </div>
             )}
@@ -176,7 +176,7 @@ const WithdrawSlider: React.FC = () => {
                 }}
                 className="relative font-bold text-lg flex justify-center items-center"
               >
-                <IoMdArrowRoundBack className="absolute left-0 hover:text-[#5728A6] transition ease-in-out duration-300 border-2 border-gray-800 rounded-full size-6 cursor-pointer hover:border-[#5728A6] hover:bg-gray-300" />
+                <IoMdArrowRoundBack className="absolute left-0 hover:text-[#4D43EF] transition ease-in-out duration-300 border-2 border-gray-800 rounded-full size-6 cursor-pointer hover:border-[#4D43EF] hover:bg-gray-300" />
                 <div className="self-center w-fit">Withdraw USDC</div>
               </div>
             )}
@@ -270,14 +270,15 @@ const WithdrawSlider: React.FC = () => {
                 <button
                   onClick={() => setShowModel(true)}
                   disabled={(!usdc || !usdt) && !receiverAddress}
-                  className="disabled:bg-gray-300 disabled:cursor-not-allowed disabled:text-gray-500 disabled:border-gray-500 mt-5 bg-white text-[#5728A6] font-semibold border-2 border-[#5728A6] w-full py-2 rounded-lg hover:bg-black hover:border-black hover:text-white cursor-pointer transition ease-in-out duration-300"
+                  className="disabled:bg-gray-300 disabled:cursor-not-allowed disabled:text-gray-500 disabled:border-gray-500 mt-5 bg-white text-[#4D43EF] font-semibold border-2 border-[#4D43EF] w-full py-2 rounded-lg hover:bg-black hover:border-black hover:text-white cursor-pointer transition ease-in-out duration-300"
                 >
                   Withdraw
                 </button>
               )}
+
               <button
                 onClick={handleClose}
-                className="mt-2 bg-[#5728A6] font-semibold text-white w-full py-2 rounded-lg hover:bg-black cursor-pointer transition ease-in-out duration-300"
+                className="mt-2 bg-[#4D43EF] font-semibold text-white w-full py-2 rounded-lg hover:bg-[#4D43EF]/70 cursor-pointer transition ease-in-out duration-300"
               >
                 Close
               </button>

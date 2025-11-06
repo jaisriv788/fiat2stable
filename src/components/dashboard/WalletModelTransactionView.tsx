@@ -83,7 +83,7 @@ const WalletModelTransactionView: React.FC = () => {
               A list of your recent transactions. To see more{" "}
               <Link
                 to="/transaction"
-                className="text-blue-800 font-semibold cursor-pointer"
+                className="text-[#4D43EF] font-semibold cursor-pointer"
               >
                 click here.
               </Link>
@@ -100,7 +100,10 @@ const WalletModelTransactionView: React.FC = () => {
             <TableBody>
               {transaction.map((item, index) => {
                 return (
-                  <TableRow key={index} className="odd:bg-gray-200">
+                  <TableRow
+                    key={index}
+                    className="odd:bg-[#4D43EF]/10 hover:bg-gray-100 cursor-pointer"
+                  >
                     <TableCell>{item?.trans_id ?? "-"}</TableCell>
                     <TableCell>
                       {item?.payment_method?.toString()?.toUpperCase() ?? "-"}
@@ -109,7 +112,7 @@ const WalletModelTransactionView: React.FC = () => {
                       {item?.type[0].toUpperCase() + item?.type.slice(1)}
                     </TableCell>
                     <TableCell>${item?.amount ?? "-"}</TableCell>
-                    <TableCell className="flex items-center gap-1 cursor-pointer hover:text-gray-600 transition ease-in-out duration-300">
+                    <TableCell className="flex items-center gap-1 cursor-pointer hover:text-[#4D43EF] transition ease-in-out duration-300">
                       {item?.transaction_hash && <ExternalLink size={14} />}
                       {item?.transaction_hash ? (
                         item?.transaction_hash.slice(0, 4) +

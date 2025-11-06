@@ -20,7 +20,7 @@ const Receive: React.FC = () => {
       <span className="self-start font-semibold text-[16px] mt-5">
         Wallet Address
       </span>
-      <div className="flex justify-between items-center bg-[#d2c3ec] rounded-lg w-full px-5 py-2">
+      <div className="flex justify-between items-center bg-[#cbc8f8] rounded-lg w-full px-5 py-2">
         <span className="font-semibold">
           {userData?.wallet_address.toString().slice(0, 14) +
             "..." +

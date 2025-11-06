@@ -58,7 +58,9 @@ export function LoginDialog() {
   const handleGoogleLogin = async () => {
     try {
       setLoadingButton("google");
-      const response = await axios.get(`${baseUrl}/auth/google`);
+      const response = await axios.post(`${baseUrl}/auth/google`, {
+        referred_id: id ? id : "",
+      });
 
       if (response.status !== 200) {
         showError("Google Authentication Failed.", "");
@@ -80,7 +82,9 @@ export function LoginDialog() {
   const handleGithubLogin = async () => {
     try {
       setLoadingButton("github");
-      const response = await axios.get(`${baseUrl}/auth/github`);
+      const response = await axios.post(`${baseUrl}/auth/github`, {
+        referred_id: id ? id : "",
+      });
 
       if (response.status !== 200) {
         showError("Github Authentication Failed.", "");
@@ -320,7 +324,7 @@ export function LoginDialog() {
       }}
     >
       <DialogTrigger asChild>
-        <Button className="w-full bg-[#5728A6] cursor-pointer transition ease-in-out duration-300">
+        <Button className="w-full bg-[#4D43EF] cursor-pointer transition ease-in-out duration-300">
           Login
         </Button>
       </DialogTrigger>
@@ -333,7 +337,7 @@ export function LoginDialog() {
           {view != 0 ? (
             <DialogTitle className="flex items-center font-bold gap-2">
               <IoMdArrowRoundBack
-                className="cursor-pointer hover:text-[#5728A6] transition ease-in-out duration-300"
+                className="cursor-pointer hover:text-[#4D43EF] transition ease-in-out duration-300"
                 onClick={handleBack}
               />
               <img
@@ -355,6 +359,7 @@ export function LoginDialog() {
               Login
             </DialogTitle>
           )}
+
           {view == 1 ? (
             <DialogDescription className="text-left">
               Enter the OTP sent to your Email.
@@ -505,14 +510,14 @@ export function LoginDialog() {
             <div className="flex md:flex-row flex-col gap-3">
               <Button
                 onClick={() => handleOptionClick(1)}
-                className="md:flex-1 flex items-center py-6 justify-center cursor-pointer gap-2 bg-[#5728A6] hover:bg-[#3f1c7a] text-white transition ease-in-out duration-300"
+                className="md:flex-1 flex items-center py-6 justify-center cursor-pointer gap-2 bg-[#4D43EF] hover:bg-[#4D43EF]/80 text-white transition ease-in-out duration-300"
               >
                 <MdEmail className="text-lg" /> Login with Email
               </Button>
 
               <Button
                 onClick={() => handleOptionClick(2)}
-                className="md:flex-1 flex items-center justify-center cursor-pointer gap-2 py-6 bg-black hover:bg-gray-800 text-white transition ease-in-out duration-300"
+                className="md:flex-1 flex items-center justify-center cursor-pointer gap-2 py-6 bg-[#4D43EF]/70 hover:bg-gray-800 text-white transition ease-in-out duration-300"
               >
                 <MdPhoneIphone className="text-lg" /> Login with Phone No.
               </Button>
@@ -536,7 +541,7 @@ export function LoginDialog() {
                 <button
                   onClick={sendOtpEmail}
                   disabled={otpLoader}
-                  className="text-base my-3 bg-[#5728A6] text-white w-full py-2 rounded-lg hover:bg-black cursor-pointer transition ease-in-out duration-300"
+                  className="text-base my-3 bg-[#4D43EF] text-white w-full py-2 rounded-lg hover:bg-[#4D43EF]/70 cursor-pointer transition ease-in-out duration-300"
                 >
                   {!otpLoader ? (
                     "Send OTP"
@@ -567,7 +572,7 @@ export function LoginDialog() {
                 <button
                   onClick={handleEmailVerification}
                   disabled={emailVerificationLoader}
-                  className="text-base mt-5 bg-[#5728A6] text-white w-full py-2 rounded-lg hover:bg-black cursor-pointer transition ease-in-out duration-300"
+                  className="text-base mt-5 bg-[#4D43EF] text-white w-full py-2 rounded-lg hover:bg-[#4D43EF]/70 cursor-pointer transition ease-in-out duration-300"
                 >
                   {!emailVerificationLoader ? (
                     "Confirm OTP"
@@ -598,7 +603,7 @@ export function LoginDialog() {
                 <button
                   onClick={sendOtpNumber}
                   disabled={otpLoader}
-                  className="text-base my-3 bg-[#5728A6] text-white w-full py-2 rounded-lg hover:bg-black cursor-pointer transition ease-in-out duration-300"
+                  className="text-base my-3 bg-[#4D43EF] text-white w-full py-2 rounded-lg hover:bg-[#4D43EF]/70 cursor-pointer transition ease-in-out duration-300"
                 >
                   {!otpLoader ? (
                     "Send OTP"
@@ -628,7 +633,7 @@ export function LoginDialog() {
                 </InputOTP>
                 <button
                   onClick={handleNumberVerification}
-                  className="text-base mt-5 bg-[#5728A6] text-white w-full py-2 rounded-lg hover:bg-black cursor-pointer transition ease-in-out duration-300"
+                  className="text-base mt-5 bg-[#4D43EF] text-white w-full py-2 rounded-lg hover:bg-[#4D43EF]/70 cursor-pointer transition ease-in-out duration-300"
                 >
                   {!numberVerificationLoader ? (
                     "Confirm OTP"

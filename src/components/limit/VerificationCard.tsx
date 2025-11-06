@@ -23,7 +23,7 @@ const VerificationCard: React.FC = () => {
           className="border border-gray-400 py-4 px-3 rounded-lg flex items-start"
         >
           <div className="flex-1 flex items-center gap-3">
-            <div className="text-[#5728A6] bg-[#e5d7fd] p-3 rounded-full">
+            <div className="text-[#4D43EF] bg-[#d5d3f8] p-3 rounded-full">
               <item.icon size={20} />
             </div>
             <span className="font-semibold text-lg">{item.tag}</span>
@@ -38,7 +38,7 @@ const VerificationCard: React.FC = () => {
               </div>
             </div>
             <div>
-              <button className="text-sm font-bold border-2 px-7 py-2 rounded-lg text-[#5728A6] border-[#5728A6] cursor-pointer hover:text-white hover:bg-[#5728A6] transition ease-in-out duration-300">
+              <button className="text-sm font-bold border-2 px-7 py-2 rounded-lg text-[#4D43EF] border-[#4D43EF] cursor-pointer hover:text-white hover:bg-[#4D43EF] transition ease-in-out duration-300">
                 Get Verified
               </button>
             </div>

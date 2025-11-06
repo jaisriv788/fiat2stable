@@ -134,7 +134,7 @@ const Sidebar: React.FC = () => {
               </div>
               <IoCloseCircleSharp
                 onClick={handleClose}
-                className="text-xl hover:text-red-700 transition ease-in-out duration-300 cursor-pointer"
+                className="text-xl hover:text-[#4D43EF] transition ease-in-out duration-300 cursor-pointer"
               />
               {/* <ThemeSwitcher /> */}
             </div>
@@ -157,7 +157,7 @@ const Sidebar: React.FC = () => {
                     className="txt2 flex items-center px-5 justify-between cursor-pointer transition ease-in-out duration-300 hover:bg-gray-300 py-3"
                   >
                     <div className="flex items-center gap-3 font-semibold">
-                      <item.icon className="text-2xl text-[#5728A6]" />
+                      <item.icon className="text-2xl text-[#4D43EF]" />
                       <div className="text-base">{item.tag}</div>
                     </div>
                     <div>
@@ -183,8 +183,8 @@ const Sidebar: React.FC = () => {
               })}
             </div>
             <div className="px-5 py-3 border-t border-gray-300">
-              <div className="bg-[#ddd5ff] card p-2 rounded-lg shadow-lg font-semibold flex gap-3 items-center">
-                <div className="bg-[#5728A6] aspect-square w-7 font-semibold text-white rounded-full flex items-center justify-center">
+              <div className="bg-[#dfddfa] card p-2 rounded-lg shadow-lg font-semibold flex gap-3 items-center">
+                <div className="bg-[#4D43EF] aspect-square w-7 font-semibold text-white rounded-full flex items-center justify-center">
                   {userData?.email
                     ? userData?.email.toString()[0].toUpperCase()
                     : userData?.phone_no.toString()[0].toUpperCase()}
@@ -204,18 +204,18 @@ const Sidebar: React.FC = () => {
                   <div className="flex gap-3 mt-2">
                     <RiTwitterXFill
                       onClick={() => window.open("https://x.com/", "_")}
-                      className="text-2xl txt3 cursor-pointer text-[#5728A6] hover:text-black transition ease-in-out duration-300"
+                      className="text-2xl txt3 cursor-pointer text-[#4D43EF] hover:text-[#4D43EF]/70 transition ease-in-out duration-300"
                     />
                     <FaTelegramPlane
                       onClick={() => window.open("https://telegram.org/", "_")}
-                      className="text-2xl txt3 cursor-pointer text-[#5728A6] hover:text-black transition ease-in-out duration-300"
+                      className="text-2xl txt3 cursor-pointer text-[#4D43EF] hover:text-[#4D43EF]/70 transition ease-in-out duration-300"
                     />
                   </div>
                 </div>
                 <div>
                   <IoLogOut
                     onClick={handleLogout}
-                    className="text-3xl txt3 cursor-pointer  text-[#5728A6] hover:text-black transition ease-in-out duration-300"
+                    className="text-3xl txt3 cursor-pointer  text-[#4D43EF] hover:text-[#4D43EF]/70 transition ease-in-out duration-300"
                   />
                 </div>
               </div>

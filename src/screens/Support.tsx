@@ -13,7 +13,7 @@ const Support: React.FC = () => {
           onClick={() => {
             window.open("https://telegram.org/", "_");
           }}
-          className="font-semibold cursor-pointer transition ease-in-out duration-300 hover:bg-[#5728A6] hover:text-white hover:border-[#5728A6] text-[#5728A6] flex items-center gap-1 px-2 py-1.5 rounded-lg border border-[#5728A6]"
+          className="font-semibold cursor-pointer transition ease-in-out duration-300 hover:bg-[#4D43EF] hover:text-white hover:border-[#4D43EF] text-[#4D43EF] flex items-center gap-1 px-2 py-1.5 rounded-lg border border-[#4D43EF]"
         >
           <IoChatbubbleEllipses /> Chat with us. →
         </button>
@@ -29,11 +29,11 @@ const Support: React.FC = () => {
         <div className="flex gap-3 mt-2">
           <RiTwitterXFill
             onClick={() => window.open("https://x.com/", "_")}
-            className="text-2xl cursor-pointer text-[#5728A6] hover:text-black transition ease-in-out duration-300"
+            className="text-2xl cursor-pointer text-[#4D43EF] hover:text-[#4D43EF]/70 transition ease-in-out duration-300"
           />
           <FaTelegramPlane
             onClick={() => window.open("https://telegram.org/", "_")}
-            className="text-2xl cursor-pointer text-[#5728A6] hover:text-black transition ease-in-out duration-300"
+            className="text-2xl cursor-pointer text-[#4D43EF] hover:text-[#4D43EF]/70 transition ease-in-out duration-300"
           />
         </div>
       </div>

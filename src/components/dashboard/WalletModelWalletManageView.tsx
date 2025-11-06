@@ -210,7 +210,7 @@ const WalletModelWalletManageView: React.FC<WalletModelViewProps> = ({
               </div>
               <Button
                 disabled={loading}
-                className="w-full mt-3 cursor-pointer bg-[#5728A6] hover:bg-black transition ease-in-out duration-300"
+                className="w-full mt-3 cursor-pointer bg-[#4D43EF] hover:bg-[#4D43EF]/70 transition ease-in-out duration-300"
                 type="submit"
               >
                 {loading ? <Spinner className="size-6" /> : "Transfer Fund"}
@@ -224,7 +224,7 @@ const WalletModelWalletManageView: React.FC<WalletModelViewProps> = ({
           onClick={() => {
             if (!isDisabled) setShowModel(true);
           }}
-          className="w-full disabled:cursor-not-allowed mt-3 cursor-pointer bg-[#5728A6] hover:bg-black transition ease-in-out duration-300"
+          className="w-full disabled:cursor-not-allowed mt-3 cursor-pointer bg-[#4D43EF] hover:bg-[#4D43EF]/70 transition ease-in-out duration-300"
         >
           Submit
         </Button>

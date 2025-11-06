@@ -121,7 +121,7 @@ const Buy: React.FC = () => {
       <div className="max-w-lg overflow-hidden w-full px-2">
         <div className="text-center">
           <div className="font-bold text-xl">
-            <span className="text-5xl font-extrabold text-[#af83fc] ">
+            <span className="text-5xl font-extrabold text-[#847ef1] ">
               {amounts[pair.from]}
             </span>{" "}
             {pair.from}
@@ -129,7 +129,7 @@ const Buy: React.FC = () => {
           <div className="mt-2 text-lg gap-2 w-fit flex mx-auto font-semibold items-center">
             <CgArrowsExchangeAltV
               // onClick={handleSwap}
-              className="bg-[#dfd0fa] cursor-pointer rounded-full p-.5 text-2xl text-[#5728A6]"
+              className="bg-[#e0defa] cursor-pointer rounded-full p-.5 text-2xl text-[#4D43EF]"
             />{" "}
             {amounts[pair.to] !== "0" && amounts[pair.to]} {pair.to}
           </div>
@@ -138,12 +138,12 @@ const Buy: React.FC = () => {
           onClick={() => {
             navigate("/limit");
           }}
-          className="card bg-[#dfd0fa] relative cursor-pointer hover:scale-105 transition ease=in-out duration-300 rounded-lg items-center py-3 px-2 my-8 md:my-10 flex justify-center gap-3"
+          className="card bg-[#e0defa] relative cursor-pointer hover:scale-105 transition ease=in-out duration-300 rounded-lg items-center py-3 px-2 my-8 md:my-10 flex justify-center gap-3"
         >
-          <FaRegCreditCard className="text-xl text-[#5728A6]" />
+          <FaRegCreditCard className="text-xl text-[#4D43EF]" />
           <span className="font-semibold text-sm">
             Your Transaction Limit :{" "}
-            <span className=" text-[#5728A6]">0 USDT/USDC</span>
+            <span className=" text-[#4D43EF]">0 USDT/USDC</span>
           </span>
           <FaGreaterThan
             size={10}
@@ -159,7 +159,7 @@ const Buy: React.FC = () => {
           </button> */}
           <button
             onClick={handleClear}
-            className="cursor-pointer bg-gray-200 flex-1 text-[#5728A6] hover:bg-gray-300 py-4 md:py-3 rounded-lg transition ease-in-out duration-300 font-semibold"
+            className="cursor-pointer bg-gray-200 flex-1 text-[#4D43EF] hover:bg-gray-300 py-4 md:py-3 rounded-lg transition ease-in-out duration-300 font-semibold"
           >
             Clear
           </button>
@@ -167,7 +167,7 @@ const Buy: React.FC = () => {
         <div>
           <button
             disabled
-            className="w-full mt-5 disabled:bg-[#5728A6]/60 disabled:cursor-not-allowed bg-[#5728A6] text-white font-semibold py-4 md:py-3 rounded-lg hover:bg-black transition ease-in-out duration-300 cursor-pointer"
+            className="w-full mt-5 disabled:bg-[#4D43EF]/60 disabled:cursor-not-allowed bg-[#4D43EF] text-white font-semibold py-4 md:py-3 rounded-lg hover:bg-[#4D43EF]/70 transition ease-in-out duration-300 cursor-pointer"
           >
             Continue
           </button>
