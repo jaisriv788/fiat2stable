@@ -30,6 +30,7 @@ const Buy: React.FC = () => {
   const buyingPrice = useSelector(
     (state: RootState) => state.price.buyingPrice
   );
+  const limit = useSelector((state: RootState) => state.price.limit);
 
   useEffect(() => {
     if (amounts[pair.from] == "0") {
@@ -142,8 +143,10 @@ const Buy: React.FC = () => {
         >
           <FaRegCreditCard className="text-xl text-[#4D43EF]" />
           <span className="font-semibold text-sm">
-            Your Transaction Limit :{" "}
-            <span className=" text-[#4D43EF]">0 USDT/USDC</span>
+            Your Buy Limit :{" "}
+            <span className=" text-[#4D43EF]">
+              {limit?.buy_limit} USDT/USDC
+            </span>
           </span>
           <FaGreaterThan
             size={10}
@@ -166,7 +169,10 @@ const Buy: React.FC = () => {
         </div>
         <div>
           <button
-            disabled
+            disabled={
+              parseFloat(limit?.buy_limit) < 1 ||
+              (amounts["USDT"] == "0" && amounts["USDC"] == "0")
+            }
             className="w-full mt-5 disabled:bg-[#4D43EF]/60 disabled:cursor-not-allowed bg-[#4D43EF] text-white font-semibold py-4 md:py-3 rounded-lg hover:bg-[#4D43EF]/70 transition ease-in-out duration-300 cursor-pointer"
           >
             Continue

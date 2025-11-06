@@ -6,8 +6,14 @@ import type { RootState } from "@/store/store";
 import { useSelector } from "react-redux";
 import Keypad from "@/components/common/Keypad";
 import { useNavigate } from "react-router";
+import axios from "axios";
 
 type Currency = "INR" | "USDT" | "USDC";
+
+interface Assets {
+  total_usdt: string;
+  total_usdc: string;
+}
 
 type Pair = {
   from: Currency;
@@ -24,12 +30,45 @@ const Sell: React.FC = () => {
     USDT: "0",
     USDC: "0",
   });
+  const [assetsData, setAssetsData] = useState<Assets | null>(null);
+  
+  //@ts-ignorets ignore
+  const [refresh, setRefresh] = useState<boolean>(false);
 
   const currentAmount = amounts[pair.from];
 
   const sellingPrice = useSelector(
     (state: RootState) => state.price.sellingPrice
   );
+  const limit = useSelector((state: RootState) => state.price.limit);
+  const baseUrl = useSelector((state: RootState) => state?.consts?.baseUrl);
+  const userData = useSelector((state: RootState) => state?.user?.userData);
+  const token = useSelector((state: RootState) => state?.user?.token);
+
+  async function fetchBalance() {
+    try {
+      const response = await axios.post(
+        `${baseUrl}/user-currency-list`,
+        {
+          user_id: userData?.id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      setAssetsData(response.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    fetchBalance();
+  }, [refresh]);
 
   useEffect(() => {
     if (amounts[pair.from] == "0") {
@@ -132,7 +171,7 @@ const Sell: React.FC = () => {
           </div>
           <div className="font-semibold text-gray-600 mt-3 txt">
             Available Balance:{" "}
-            <span className="font-bold text-[#4D43EF]">0 USDT</span>
+            <span className="font-bold text-[#4D43EF]">{assetsData?.total_usdt ?? "00.00"} USDT</span>
           </div>
         </div>
         <div
@@ -144,7 +183,9 @@ const Sell: React.FC = () => {
           <FaRegCreditCard className="text-xl text-[#4D43EF]" />
           <span className="font-semibold text-sm">
             Your Transaction Limit :{" "}
-            <span className=" text-[#4D43EF]">0 USDT/USDC</span>
+            <span className=" text-[#4D43EF]">
+              {limit?.sell_limit} USDT/USDC
+            </span>
           </span>
           <FaGreaterThan className="text-sm text-gray-600" />
         </div>
@@ -164,7 +205,10 @@ const Sell: React.FC = () => {
         </div>
         <div>
           <button
-            disabled
+            disabled={
+              parseFloat(limit?.buy_limit) < 1 ||
+              (amounts["USDT"] == "0" && amounts["USDC"] == "0")
+            }
             className="w-full mt-5 disabled:bg-[#4D43EF]/60 disabled:cursor-not-allowed bg-[#4D43EF] text-white font-semibold py-4 md:py-3 rounded-lg hover:bg-[#4D43EF]/70 transition ease-in-out duration-300 cursor-pointer"
           >
             Continue
