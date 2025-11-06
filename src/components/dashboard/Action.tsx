@@ -27,7 +27,7 @@ const Action: React.FC = () => {
       click: () => {
         dispatch(setDepositSlider({ showDepositSlider: true }));
       },
-      theme: "text-orange-700 border-orange-700 hover:bg-orange-100",
+      theme: "text-sky-500 border-sky-500 hover:bg-sky-100",
     },
     {
       id: 3,
@@ -45,7 +45,7 @@ const Action: React.FC = () => {
       click: () => {
         navigate("/support");
       },
-      theme: "border-teal-500 text-teal-500 hover:bg-teal-100",
+      theme: "border-fuchsia-500 text-fuchsia-500 hover:bg-fuchsia-100",
     },
   ];
 
