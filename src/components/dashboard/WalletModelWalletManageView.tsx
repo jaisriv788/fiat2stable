@@ -49,7 +49,7 @@ const WalletModelWalletManageView: React.FC<WalletModelViewProps> = ({
   setView,
   setOpen,
 }) => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [showModel, setShowModel] = useState<boolean>(false);
 
   const dispatch = useDispatch<AppDispatch>();

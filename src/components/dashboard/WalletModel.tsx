@@ -17,8 +17,9 @@ import Buy from "./Buy";
 import Receive from "./Receive";
 
 const WalletModel: React.FC = () => {
-  const [view, setView] = useState(0);
-  const [open, setOpen] = useState(false);
+  const [view, setView] = useState<number>(0);
+  const [open, setOpen] = useState<boolean>(false);
+  const [currency, setCurrency] = useState<string>("USDT");
 
   return (
     <Dialog
@@ -82,9 +83,12 @@ const WalletModel: React.FC = () => {
               <div className="flex gap-2 items-center">
                 <IoMdArrowRoundBack
                   className="cursor-pointer hover:text-[#4D43EF] transition ease-in-out duration-300"
-                  onClick={() => setView(0)}
+                  onClick={() => {
+                    setView(0);
+                    setCurrency("usdt");
+                  }}
                 />
-                <div>Buy</div>
+                <div>Buy {currency.toUpperCase()}</div>
               </div>
             )}
           </DialogTitle>
@@ -94,7 +98,7 @@ const WalletModel: React.FC = () => {
         {view == 2 && <WalletModelAssetsView />}
         {view == 3 && <Send setOpen={setOpen} setView={setView} />}
         {view == 4 && <Receive />}
-        {view == 5 && <Buy />}
+        {view == 5 && <Buy currency={currency} setView={setView}  setCurrency={setCurrency} />}
       </DialogContent>
     </Dialog>
   );
