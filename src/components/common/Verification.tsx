@@ -49,7 +49,7 @@ const Verification: React.FC = () => {
       message: params.get("message"),
       token: params.get("token"),
       data: JSON.parse(decodeURIComponent(params.get("data") || "{}")),
-      registration: params.get("login_type"),
+      // registration: params.get("login_type"),
     };
 
     // console.log(allParams);

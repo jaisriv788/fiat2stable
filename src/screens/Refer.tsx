@@ -32,13 +32,13 @@ const Refer: React.FC = () => {
   return (
     <div className="mt-24 px-2 flex flex-col gap-2 max-w-lg mx-auto">
       <div className="text-xl font-bold">
-        Refer your friends & Earn 1% of their volume
+        Refer your friends & Earn {userData.refre_earn}% of their volume
       </div>
 
       <div className="card mt-6 px-3 md:px-5 border-b-2 border-r border-[#4D43EF] py-5  bg-linear-to-br from-[#7728E2] via-[#5C5AD7] to-[#22BDCF] shadow-xl rounded-lg">
         <div className="font-semibold text-lg text-white">Refer & Earn</div>
         <p className="text-xs text-white font-semibold txt">
-          Share your referral link with friends and earn 1% every time they
+          Share your referral link with friends and earn {userData.refre_earn}% every time they
           trade.
         </p>
         <div className="py-3 px-3 mt-3 bg-white rounded-lg">
@@ -52,7 +52,9 @@ const Refer: React.FC = () => {
                   navigator.clipboard
                     .writeText(
                       userData?.id
-                        ? String(`https://worldofsoftware.in/fiat/${userData.id}`)
+                        ? String(
+                            `https://worldofsoftware.in/fiat/${userData.id}`
+                          )
                         : ""
                     )
                     .then(() => {
@@ -116,7 +118,9 @@ const Refer: React.FC = () => {
         <Accordion type="single" collapsible>
           {referAndEarnFaq.slice(0, 3).map((item) => (
             <AccordionItem key={item.id} value={item.id}>
-              <AccordionTrigger className="cursor-pointer">{item.question}</AccordionTrigger>
+              <AccordionTrigger className="cursor-pointer">
+                {item.question}
+              </AccordionTrigger>
               <AccordionContent>{item.answer}</AccordionContent>
             </AccordionItem>
           ))}

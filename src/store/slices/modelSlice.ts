@@ -8,6 +8,7 @@ interface ModelState {
   showConnectionSlider: boolean;
   showErrorModel: boolean;
   showSuccessModel: boolean;
+  showReferVerifyModel: boolean;
   showModelMsg: {
     title: string;
     msg: string;
@@ -21,6 +22,7 @@ const initialState: ModelState = {
   showConnectionSlider: false,
   showErrorModel: false,
   showSuccessModel: false,
+  showReferVerifyModel: false,
   showModelMsg: {
     title: "",
     msg: "",
@@ -73,6 +75,12 @@ const modelSlice = createSlice({
     ) => {
       state.showModelMsg = action.payload.showModelMsg;
     },
+    setShowReferVerifyModel: (
+      state,
+      action: PayloadAction<Pick<ModelState, "showReferVerifyModel">>
+    ) => {
+      state.showReferVerifyModel = action.payload.showReferVerifyModel;
+    },
   },
 });
 
@@ -84,5 +92,6 @@ export const {
   setErrorModel,
   setSuccessModel,
   setModelMsg,
+  setShowReferVerifyModel,
 } = modelSlice.actions;
 export default modelSlice.reducer;

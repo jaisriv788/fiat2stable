@@ -9,6 +9,8 @@ import { useSelector, useDispatch } from "react-redux";
 import type { RootState, AppDispatch } from "@/store/store";
 import axios from "axios";
 import { setLimit } from "@/store/slices/priceSlice";
+import ReferalVerifyModel from "@/components/dashboard/ReferalVerifyModel";
+import { setShowReferVerifyModel } from "@/store/slices/modelSlice";
 
 const Dashboard: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -45,6 +47,11 @@ const Dashboard: React.FC = () => {
   }
 
   useEffect(() => {
+    if (userData?.login_type?.toString().toLowerCase() == "true") {
+      dispatch(setShowReferVerifyModel({ showReferVerifyModel: true }));
+    } else {
+      dispatch(setShowReferVerifyModel({ showReferVerifyModel: false }));
+    }
     fetchLimit();
   }, []);
 
@@ -56,6 +63,7 @@ const Dashboard: React.FC = () => {
       <Footer />
       <DepositSlider />
       <WithdrawSlider />
+      <ReferalVerifyModel />
     </div>
   );
 };
