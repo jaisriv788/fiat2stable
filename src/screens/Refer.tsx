@@ -45,14 +45,14 @@ const Refer: React.FC = () => {
           <div className="font-bold text-sm">Invite via referral link</div>
           {generateLink ? (
             <div className="flex justify-between text-sm font-semibold mt-3 py-2 bg-[#d7d5fd]  px-2 rounded-lg items-center">
-              http://localhost:5173/fiat/{userData.id}{" "}
+              https://worldofsoftware.in/fiat/{userData.id}{" "}
               <Copy
                 className="cursor-pointer hover:text-[#4D43EF] transition ease-in-out duration-300"
                 onClick={() => {
                   navigator.clipboard
                     .writeText(
                       userData?.id
-                        ? String(`http://localhost:5173/fiat/${userData.id}`)
+                        ? String(`https://worldofsoftware.in/fiat/${userData.id}`)
                         : ""
                     )
                     .then(() => {

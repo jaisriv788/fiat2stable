@@ -42,11 +42,14 @@ const Verification: React.FC = () => {
 
     const params = new URLSearchParams(window.location.search);
 
+    // console.log(window.location.search);
+
     const allParams = {
       status: params.get("status"),
       message: params.get("message"),
       token: params.get("token"),
       data: JSON.parse(decodeURIComponent(params.get("data") || "{}")),
+      registration: params.get("login_type"),
     };
 
     // console.log(allParams);
@@ -58,7 +61,7 @@ const Verification: React.FC = () => {
     }
 
     showSuccess("Success", "User Authentication Successful.");
-    dispatch(setUserData({ userData: allParams.data }));
+    dispatch(setUserData({ userData: allParams?.data }));
     dispatch(setToken({ token: allParams?.token ?? "" }));
     dispatch(setIsUserConnected({ isConnected: true }));
 
