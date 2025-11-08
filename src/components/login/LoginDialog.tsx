@@ -160,7 +160,7 @@ export function LoginDialog() {
         email,
       });
 
-      // console.log(response.data);
+      console.log(response.data);
 
       if (response.data.status != "success") {
         showError("Failed To Send Otp.", "");
@@ -230,7 +230,7 @@ export function LoginDialog() {
         phone_no: number,
       });
 
-      // console.log(response.data);
+      console.log(response.data);
 
       showSuccess("Success", response.data.message);
       setOtpSent(true);

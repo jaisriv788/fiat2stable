@@ -12,6 +12,8 @@ import { useSelector } from "react-redux";
 import type { RootState } from "@/store/store";
 import { Copy } from "lucide-react";
 import axios from "axios";
+import { useShowError } from "@/hooks/useShowError";
+import { useShowSuccess } from "@/hooks/useShowSuccess";
 
 const Refer: React.FC = () => {
   const [generateLink, setGenerateLink] = useState(false);
@@ -19,6 +21,10 @@ const Refer: React.FC = () => {
   const [claimData, setClaimData] = useState(null);
   const [refresh, setRefresh] = useState(false);
   const [loader, setLoader] = useState("");
+
+  const { showError } = useShowError();
+  const { showSuccess } = useShowSuccess();
+
   const userData = useSelector((state: RootState) => state.user.userData);
   const baseUrl = useSelector((state: RootState) => state.consts.baseUrl);
   const token = useSelector((state: RootState) => state?.user?.token);
@@ -47,7 +53,7 @@ const Refer: React.FC = () => {
         }
       );
 
-      // console.log({ response: response.data.data });
+      console.log({ response: response.data.data });
       setClaimData(response.data.data);
     } catch (error) {
       console.log(error);
@@ -72,10 +78,12 @@ const Refer: React.FC = () => {
         }
       );
 
-      // console.log(response?.data);
+      console.log(response?.data);
       setRefresh((prev) => !prev);
+      showSuccess(`${type.toUpperCase()} claim successful!`, "");
     } catch (error) {
       console.log(error);
+      showError("Claim Failed!", "");
     } finally {
       setLoader("");
     }
@@ -138,7 +146,9 @@ const Refer: React.FC = () => {
               Claimable Rewards
             </div>
             <div className="text-[#4D43EF] font-extrabold text-lg">
-              {claimData?.claim_usdc_limit
+              {claimData?.claim_usdc_limit == "0"
+                ? "0"
+                : claimData?.claim_usdc_limit
                 ? claimData?.claim_usdc_limit
                 : "Loading.."}{" "}
               USDC
@@ -163,7 +173,9 @@ const Refer: React.FC = () => {
               Claimable Rewards
             </div>
             <div className="text-[#4D43EF] font-extrabold text-lg">
-              {claimData?.claim_usdt_limit
+              {claimData?.claim_usdt_limit == "0"
+                ? "0"
+                : claimData?.claim_usdt_limit
                 ? claimData?.claim_usdt_limit
                 : "Loading.."}{" "}
               USDT

@@ -18,7 +18,7 @@ const Dashboard: React.FC = () => {
   const baseUrl = useSelector((state: RootState) => state.consts.baseUrl);
   const userData = useSelector((state: RootState) => state.user.userData);
   const token = useSelector((state: RootState) => state?.user?.token);
-
+  const count = useSelector((state: RootState) => state.model.count);
   async function fetchLimit() {
     try {
       const response = await axios.post(
@@ -47,12 +47,16 @@ const Dashboard: React.FC = () => {
   }
 
   useEffect(() => {
+    fetchLimit();
+
+    if (count != 0) {
+      return;
+    }
     if (userData?.login_type?.toString().toLowerCase() == "true") {
       dispatch(setShowReferVerifyModel({ showReferVerifyModel: true }));
     } else {
       dispatch(setShowReferVerifyModel({ showReferVerifyModel: false }));
     }
-    fetchLimit();
   }, []);
 
   return (

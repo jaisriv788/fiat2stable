@@ -2,7 +2,7 @@ import React from "react";
 import { AnimatePresence, motion } from "motion/react";
 import type { AppDispatch, RootState } from "@/store/store";
 import { useDispatch, useSelector } from "react-redux";
-import { setShowReferVerifyModel } from "@/store/slices/modelSlice";
+import { setCount, setShowReferVerifyModel } from "@/store/slices/modelSlice";
 import { useNavigate } from "react-router";
 
 const ReferalVerifyModel: React.FC = () => {
@@ -13,6 +13,8 @@ const ReferalVerifyModel: React.FC = () => {
   const navigate = useNavigate();
 
   function handleClose() {
+    dispatch(setCount({ count: 1 }));
+    dispatch(setShowReferVerifyModel({ showReferVerifyModel: false }));
     dispatch(setShowReferVerifyModel({ showReferVerifyModel: false }));
   }
 

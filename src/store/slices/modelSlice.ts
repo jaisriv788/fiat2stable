@@ -9,6 +9,7 @@ interface ModelState {
   showErrorModel: boolean;
   showSuccessModel: boolean;
   showReferVerifyModel: boolean;
+  count: number;
   showModelMsg: {
     title: string;
     msg: string;
@@ -23,6 +24,7 @@ const initialState: ModelState = {
   showErrorModel: false,
   showSuccessModel: false,
   showReferVerifyModel: false,
+  count: 0,
   showModelMsg: {
     title: "",
     msg: "",
@@ -81,6 +83,9 @@ const modelSlice = createSlice({
     ) => {
       state.showReferVerifyModel = action.payload.showReferVerifyModel;
     },
+    setCount: (state, action: PayloadAction<Pick<ModelState, "count">>) => {
+      state.count = action.payload.count;
+    },
   },
 });
 
@@ -91,6 +96,7 @@ export const {
   setConnectionSlider,
   setErrorModel,
   setSuccessModel,
+  setCount,
   setModelMsg,
   setShowReferVerifyModel,
 } = modelSlice.actions;
