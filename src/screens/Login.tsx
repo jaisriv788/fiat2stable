@@ -10,9 +10,9 @@ const Login: React.FC = () => {
           <div className=" text-2xl font-extrabold flex gap-2 items-center">
             <img
               className="logo"
-              src="/users/login/icon.jpg"
+              src="/users/login/icon.png"
               alt="icon"
-              width={30}
+              width={60}
             />
             <TextAnimate>Scan2Pay</TextAnimate>
           </div>

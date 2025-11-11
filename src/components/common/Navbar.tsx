@@ -137,9 +137,9 @@ const Navbar: React.FC = () => {
             >
               <img
                 className=""
-                src="/users/login/icon.jpg"
+                src="/users/login/icon.png"
                 alt="icon"
-                width={30}
+                width={50}
               />
               <TextAnimate>Scan2Pay</TextAnimate>
             </div>
