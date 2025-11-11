@@ -1,17 +1,35 @@
-import { StrictMode } from "react";
+import { StrictMode, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router";
-import { Provider } from "react-redux";
+import { Provider, useDispatch } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "./store/store.ts";
 import "./index.css";
 import App from "./App.tsx";
+import { setInstallPrompt } from "./store/slices/pwaSlice.ts";
+
+export const PWAListener = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const handler = (e: Event) => {
+      e.preventDefault();
+      dispatch(setInstallPrompt(e));
+    };
+
+    window.addEventListener("beforeinstallprompt", handler);
+    return () => window.removeEventListener("beforeinstallprompt", handler);
+  }, [dispatch]);
+
+  return null;
+};
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <BrowserRouter basename="/fiat/">
+          <PWAListener />
           <App />
         </BrowserRouter>
       </PersistGate>

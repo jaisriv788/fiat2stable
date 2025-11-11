@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import path from "path";
+import { VitePWA } from "vite-plugin-pwa";
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -12,8 +13,45 @@ export default defineConfig({
       },
     }),
     tailwindcss(),
+    VitePWA({
+      registerType: "autoUpdate", // auto-updates the service worker
+      includeAssets: [
+        "favicon.svg",
+        "favicon.ico",
+        "robots.txt",
+        "apple-touch-icon.png",
+      ],
+      manifest: {
+        name: "GBK Fiat",
+        short_name: "GBK",
+        description: "Gbk fiat application.",
+        theme_color: "#ffffff",
+        background_color: "#ffffff",
+        display: "standalone",
+        scope: "/fiat/",
+        start_url: "/fiat/",
+        icons: [
+          {
+            src: "/fiat/one.png",
+            sizes: "192x192",
+            type: "image/png",
+          },
+          {
+            src: "/fiat/two.png",
+            sizes: "512x512",
+            type: "image/png",
+          },
+          {
+            src: "/fiat/two.png",
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "any maskable",
+          },
+        ],
+      },
+    }),
   ],
-  base:"/fiat/",
+  base: "/fiat/",
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

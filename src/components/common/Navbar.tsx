@@ -11,6 +11,7 @@ import type { RootState, AppDispatch } from "@/store/store";
 import { FaArrowLeft } from "react-icons/fa";
 import { IoMdHelpCircle } from "react-icons/io";
 import axios from "axios";
+import InstallButton from "../PWAInstall/InstallButton";
 
 const Navbar: React.FC = () => {
   const [showSelling, setShowSelling] = useState(true);
@@ -147,45 +148,48 @@ const Navbar: React.FC = () => {
           )}
         </div>
         {isDashboard ? (
-          <ShimmerButton
-            disabled
-            className="btn shadow-2xl flex gap-1 items-center relative overflow-hidden"
-          >
-            <div className="w-4 h-4 bg-[#dcdbfa] rounded-full flex items-center justify-center">
-              <div
-                className="w-2.5 h-2.5 bg-[#4D43EF] rounded-full animate-ping"
-                style={{ animationDuration: "1.4s" }}
-              ></div>
-            </div>
+          <div className="flex gap-2">
+            <ShimmerButton
+              disabled
+              className="btn shadow-2xl flex gap-1 items-center relative overflow-hidden"
+            >
+              <div className="w-4 h-4 bg-[#dcdbfa] rounded-full flex items-center justify-center">
+                <div
+                  className="w-2.5 h-2.5 bg-[#4D43EF] rounded-full animate-ping"
+                  style={{ animationDuration: "1.4s" }}
+                ></div>
+              </div>
 
-            <div className="relative w-[150px] h-5 overflow-hidden flex justify-center items-center">
-              <AnimatePresence mode="wait">
-                {showSelling ? (
-                  <motion.span
-                    key="selling"
-                    initial={{ y: -20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    exit={{ y: 20, opacity: 0 }}
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
-                    className="absolute text-center text-sm leading-none font-medium tracking-tight text-white"
-                  >
-                    Selling Price - ₹{sellingPrice}
-                  </motion.span>
-                ) : (
-                  <motion.span
-                    key="buying"
-                    initial={{ y: -20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    exit={{ y: 20, opacity: 0 }}
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
-                    className="absolute text-center text-sm leading-none font-medium tracking-tight text-white"
-                  >
-                    Buying Price - ₹{buyingPrice}
-                  </motion.span>
-                )}
-              </AnimatePresence>
-            </div>
-          </ShimmerButton>
+              <div className="relative w-[150px] h-5 overflow-hidden flex justify-center items-center">
+                <AnimatePresence mode="wait">
+                  {showSelling ? (
+                    <motion.span
+                      key="selling"
+                      initial={{ y: -20, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      exit={{ y: 20, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      className="absolute text-center text-sm leading-none font-medium tracking-tight text-white"
+                    >
+                      Selling Price - ₹{sellingPrice}
+                    </motion.span>
+                  ) : (
+                    <motion.span
+                      key="buying"
+                      initial={{ y: -20, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      exit={{ y: 20, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      className="absolute text-center text-sm leading-none font-medium tracking-tight text-white"
+                    >
+                      Buying Price - ₹{buyingPrice}
+                    </motion.span>
+                  )}
+                </AnimatePresence>
+              </div>
+            </ShimmerButton>
+            <InstallButton />
+          </div>
         ) : (
           show && (
             <div
