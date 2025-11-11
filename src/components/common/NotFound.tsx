@@ -8,7 +8,7 @@ const NotFound: React.FC = () => {
     if (window.history.length > 1) {
       navigate(-1);
     } else {
-      navigate("/fiat/");
+      navigate("/users/");
     }
   };
 

@@ -7,6 +7,7 @@ import { store, persistor } from "./store/store.ts";
 import "./index.css";
 import App from "./App.tsx";
 import { setInstallPrompt } from "./store/slices/pwaSlice.ts";
+import Loading from "./components/common/Loading.tsx";
 
 export const PWAListener = () => {
   const dispatch = useDispatch();
@@ -27,8 +28,8 @@ export const PWAListener = () => {
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <BrowserRouter basename="/fiat/">
+      <PersistGate loading={<Loading />} persistor={persistor}>
+        <BrowserRouter basename="/users/">
           <PWAListener />
           <App />
         </BrowserRouter>

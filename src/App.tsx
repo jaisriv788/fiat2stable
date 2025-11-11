@@ -47,7 +47,6 @@ const App: React.FC = () => {
     <div>
       {showError && <Error />}
       {showSuccess && <Success />}
-
       <Routes>
         <Route element={<PublicRoute />}>
           <Route path="/:id?" element={<Login />} />

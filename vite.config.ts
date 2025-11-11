@@ -28,21 +28,21 @@ export default defineConfig({
         theme_color: "#ffffff",
         background_color: "#ffffff",
         display: "standalone",
-        scope: "/fiat/",
-        start_url: "/fiat/",
+        scope: "/users/",
+        start_url: "/users/",
         icons: [
           {
-            src: "/fiat/one.png",
+            src: "/users/one.png",
             sizes: "192x192",
             type: "image/png",
           },
           {
-            src: "/fiat/two.png",
+            src: "/users/two.png",
             sizes: "512x512",
             type: "image/png",
           },
           {
-            src: "/fiat/two.png",
+            src: "/users/two.png",
             sizes: "512x512",
             type: "image/png",
             purpose: "any maskable",
@@ -51,7 +51,7 @@ export default defineConfig({
       },
     }),
   ],
-  base: "/fiat/",
+  base: "/users/",
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

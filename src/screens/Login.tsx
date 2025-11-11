@@ -10,7 +10,7 @@ const Login: React.FC = () => {
           <div className=" text-2xl font-extrabold flex gap-2 items-center">
             <img
               className="logo rotate-15"
-              src="/fiat/login/icon2.svg"
+              src="/users/login/icon2.svg"
               alt="icon"
               width={30}
             />
@@ -21,7 +21,7 @@ const Login: React.FC = () => {
           </TextAnimate>
         </div>
         <div className="my-10 sm:my-15">
-          <img src="/fiat/login/tx2.svg" width={300} />
+          <img src="/users/login/tx2.svg" width={300} />
         </div>
         <div className="">
           <LoginDialog />

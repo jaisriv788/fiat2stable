@@ -336,7 +336,7 @@ export function LoginDialog() {
               />
               <img
                 className="logo rotate-15"
-                src="/fiat/login/icon2.svg"
+                src="/users/login/icon2.svg"
                 alt="icon"
                 width={25}
               />
@@ -346,7 +346,7 @@ export function LoginDialog() {
             <DialogTitle className="flex items-center font-bold gap-2">
               <img
                 className="logo rotate-15"
-                src="/fiat/login/icon2.svg"
+                src="/users/login/icon2.svg"
                 alt="icon"
                 width={25}
               />
