@@ -120,13 +120,13 @@ const Sidebar: React.FC = () => {
             exit={{ x: -80, opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
             onClick={(e) => e.stopPropagation()}
-            className="bg-gray-100 border-r slider border-gray-300 h-full top-0  w-75 flex flex-col"
+            className="bg-[#E5E5E5] border-r slider border-gray-300 h-full top-0  w-75 flex flex-col"
           >
             <div className="px-5 py-5 md:py-4 border-b border-gray-300 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <img
                   className="logo"
-                  src="/users/login/icon.png"
+                  src="/users/login/icon2.jpg"
                   alt="icon"
                   width={40}
                 />
