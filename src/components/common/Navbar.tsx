@@ -136,12 +136,12 @@ const Navbar: React.FC = () => {
               }}
             >
               <img
-                className="logo rotate-15"
+                className="logo"
                 src="/users/login/icon2.svg"
                 alt="icon"
                 width={30}
               />
-              <TextAnimate>XYZ.Me</TextAnimate>
+              <TextAnimate>Scan2Pay</TextAnimate>
             </div>
           ) : (
             <div>{title}</div>

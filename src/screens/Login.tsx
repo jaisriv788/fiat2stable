@@ -9,12 +9,12 @@ const Login: React.FC = () => {
         <div className="flex flex-col items-center">
           <div className=" text-2xl font-extrabold flex gap-2 items-center">
             <img
-              className="logo rotate-15"
+              className="logo"
               src="/users/login/icon2.svg"
               alt="icon"
               width={30}
             />
-            <TextAnimate> XYZ.Me</TextAnimate>
+            <TextAnimate>Scan2Pay</TextAnimate>
           </div>
           <TextAnimate className="font-semibold mt-3">
             Swap INR(₹) ↔ USDC/USDT currency instantly
@@ -27,7 +27,13 @@ const Login: React.FC = () => {
           <LoginDialog />
           <p className="text-sm text-center mt-4">
             By logging in, you agree to our{" "}
-            <span className="cursor-pointer font-semibold text-[#4D43EF]">
+            <span
+              onClick={() =>
+                (window.location.href =
+                  "https://scan2pay.direct/terms-and-conditions")
+              }
+              className="cursor-pointer font-semibold text-[#4D43EF] hover:text-[#1206f3] transition ease-in-out duration-300"
+            >
               Terms & Conditions
             </span>
           </p>

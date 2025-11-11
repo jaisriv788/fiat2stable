@@ -160,7 +160,7 @@ export function LoginDialog() {
         email,
       });
 
-      console.log(response.data);
+      // console.log(response.data);
 
       if (response.data.status != "success") {
         showError("Failed To Send Otp.", "");
@@ -230,7 +230,7 @@ export function LoginDialog() {
         phone_no: number,
       });
 
-      console.log(response.data);
+      // console.log(response.data);
 
       showSuccess("Success", response.data.message);
       setOtpSent(true);
@@ -335,7 +335,7 @@ export function LoginDialog() {
                 onClick={handleBack}
               />
               <img
-                className="logo rotate-15"
+                className="logo"
                 src="/users/login/icon2.svg"
                 alt="icon"
                 width={25}
@@ -345,7 +345,7 @@ export function LoginDialog() {
           ) : (
             <DialogTitle className="flex items-center font-bold gap-2">
               <img
-                className="logo rotate-15"
+                className="logo"
                 src="/users/login/icon2.svg"
                 alt="icon"
                 width={25}

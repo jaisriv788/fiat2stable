@@ -171,8 +171,7 @@ input[type="number"] {
 }
 
 .logo {
-  filter: brightness(0) saturate(100%) invert(30%) sepia(80%) saturate(7000%)
-    hue-rotate(240deg) brightness(100%) contrast(105%);
+  background-color: white;
 }
 
 html,
