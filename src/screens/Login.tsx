@@ -10,7 +10,7 @@ const Login: React.FC = () => {
           <div className=" text-2xl font-extrabold flex gap-2 items-center">
             <img
               className="logo"
-              src="/users/login/icon2.svg"
+              src="/users/login/icon.jpg"
               alt="icon"
               width={30}
             />

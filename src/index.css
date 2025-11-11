@@ -170,10 +170,6 @@ input[type="number"] {
   }
 }
 
-.logo {
-  background-color: white;
-}
-
 html,
 body {
   overflow: auto; /* allow scrolling */

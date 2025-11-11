@@ -336,7 +336,7 @@ export function LoginDialog() {
               />
               <img
                 className="logo"
-                src="/users/login/icon2.svg"
+                src="/users/login/icon.jpg"
                 alt="icon"
                 width={25}
               />
@@ -346,7 +346,7 @@ export function LoginDialog() {
             <DialogTitle className="flex items-center font-bold gap-2">
               <img
                 className="logo"
-                src="/users/login/icon2.svg"
+                src="/users/login/icon.jpg"
                 alt="icon"
                 width={25}
               />

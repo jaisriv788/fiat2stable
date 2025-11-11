@@ -136,8 +136,8 @@ const Navbar: React.FC = () => {
               }}
             >
               <img
-                className="logo"
-                src="/users/login/icon2.svg"
+                className=""
+                src="/users/login/icon.jpg"
                 alt="icon"
                 width={30}
               />
