@@ -6,7 +6,7 @@ interface ConstState {
 }
 
 const initialState: ConstState = {
-  baseUrl: "https://demo.dsvinfosolutions.com/p2p/api",
+  baseUrl: "https://scan2pay.direct/api",
 };
 
 const constSlice = createSlice({

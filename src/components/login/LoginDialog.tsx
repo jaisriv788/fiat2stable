@@ -70,6 +70,7 @@ export function LoginDialog() {
     } catch (error) {
       showError("Google Authentication Failed.", "");
       console.log(error);
+      setLoadingButton(null);
     }
     // finally {
     //   setTimeout(() => {
@@ -94,6 +95,7 @@ export function LoginDialog() {
     } catch (error) {
       showError("Github Authentication Failed.", "");
       console.log(error);
+      setLoadingButton(null);
     }
     // finally {
     //   setLoadingButton(null);
@@ -114,6 +116,7 @@ export function LoginDialog() {
     } catch (error) {
       showError("LinkedIn Authentication Failed.", "");
       console.log(error);
+      setLoadingButton(null);
     }
     // finally {
     //   setLoadingButton(null);
@@ -134,6 +137,7 @@ export function LoginDialog() {
     } catch (error) {
       showError("Facebook Authentication Failed.", "");
       console.log(error);
+      setLoadingButton(null);
     }
     // finally {
     //   setLoadingButton(null);
