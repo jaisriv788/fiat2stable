@@ -15,8 +15,10 @@ interface LimitData {
 }
 
 interface PriceState {
-  sellingPrice: string;
-  buyingPrice: string;
+  sellingPriceUSDT: string;
+  buyingPriceUSDT: string;
+  sellingPriceUSDC: string;
+  buyingPriceUSDC: string;
   fetchBalance: boolean;
   balance: BalanceData | null;
   loading: boolean;
@@ -25,8 +27,10 @@ interface PriceState {
 }
 
 const initialState: PriceState = {
-  sellingPrice: "0.00",
-  buyingPrice: "0.00",
+  sellingPriceUSDT: "0.00",
+  buyingPriceUSDT: "0.00",
+  sellingPriceUSDC: "0.00",
+  buyingPriceUSDC: "0.00",
   balance: null,
   fetchBalance: false,
   loading: false,
@@ -71,17 +75,29 @@ const priceSlice = createSlice({
   name: "price",
   initialState,
   reducers: {
-    setSellingPrice: (
+    setSellingPriceUSDT: (
       state,
-      action: PayloadAction<Pick<PriceState, "sellingPrice">>
+      action: PayloadAction<Pick<PriceState, "sellingPriceUSDT">>
     ) => {
-      state.sellingPrice = action.payload.sellingPrice;
+      state.sellingPriceUSDT = action.payload.sellingPriceUSDT;
     },
-    setBuyingPrice: (
+    setBuyingPriceUSDT: (
       state,
-      action: PayloadAction<Pick<PriceState, "buyingPrice">>
+      action: PayloadAction<Pick<PriceState, "buyingPriceUSDT">>
     ) => {
-      state.buyingPrice = action.payload.buyingPrice;
+      state.buyingPriceUSDT = action.payload.buyingPriceUSDT;
+    },
+    setSellingPriceUSDC: (
+      state,
+      action: PayloadAction<Pick<PriceState, "sellingPriceUSDC">>
+    ) => {
+      state.sellingPriceUSDC = action.payload.sellingPriceUSDC;
+    },
+    setBuyingPriceUSDC: (
+      state,
+      action: PayloadAction<Pick<PriceState, "buyingPriceUSDC">>
+    ) => {
+      state.buyingPriceUSDC = action.payload.buyingPriceUSDC;
     },
     getBalance: (
       state,
@@ -115,8 +131,10 @@ const priceSlice = createSlice({
 });
 
 export const {
-  setSellingPrice,
-  setBuyingPrice,
+  setSellingPriceUSDT,
+  setBuyingPriceUSDT,
+  setSellingPriceUSDC,
+  setBuyingPriceUSDC,
   setLimit,
   setBalance,
   getBalance,

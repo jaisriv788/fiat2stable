@@ -5,7 +5,12 @@ import { ShimmerButton } from "../ui/shimmer-button";
 import { useNavigate, useLocation } from "react-router";
 import { Menu } from "lucide-react";
 import { setSidebar } from "@/store/slices/modelSlice";
-import { setSellingPrice, setBuyingPrice } from "@/store/slices/priceSlice";
+import {
+  setSellingPriceUSDT,
+  setBuyingPriceUSDT,
+  setSellingPriceUSDC,
+  setBuyingPriceUSDC,
+} from "@/store/slices/priceSlice";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from "@/store/store";
 import { FaArrowLeft } from "react-icons/fa";
@@ -14,7 +19,7 @@ import axios from "axios";
 import InstallButton from "../PWAInstall/InstallButton";
 
 const Navbar: React.FC = () => {
-  const [showSelling, setShowSelling] = useState(true);
+  const [showSelling, setShowSelling] = useState(0);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -23,12 +28,19 @@ const Navbar: React.FC = () => {
   const isSidebarVisible = useSelector(
     (state: RootState) => state.model.showSidebar
   );
-  const sellingPrice = useSelector(
-    (state: RootState) => state.price.sellingPrice
+  const sellingPriceUSDC = useSelector(
+    (state: RootState) => state.price.sellingPriceUSDC
   );
-  const buyingPrice = useSelector(
-    (state: RootState) => state.price.buyingPrice
+  const buyingPriceUSDC = useSelector(
+    (state: RootState) => state.price.buyingPriceUSDC
   );
+  const sellingPriceUSDT = useSelector(
+    (state: RootState) => state.price.sellingPriceUSDT
+  );
+  const buyingPriceUSDT = useSelector(
+    (state: RootState) => state.price.buyingPriceUSDT
+  );
+
   const baseUrl = useSelector((state: RootState) => state?.consts?.baseUrl);
 
   const isDashboard = location.pathname == "/dashboard";
@@ -74,24 +86,49 @@ const Navbar: React.FC = () => {
   const show = showHelp[location.pathname];
 
   useEffect(() => {
-    const interval = setInterval(() => setShowSelling((prev) => !prev), 3500);
+    const interval = setInterval(
+      () =>
+       setShowSelling((prev) => (prev == 3 ? 0 : prev + 1)),
+      3500
+    );
     return () => clearInterval(interval);
   }, []);
 
   async function fetchData() {
     try {
       const response = await axios.get(`${baseUrl}/buy-sell-rate`);
-      // console.log(response);
+      console.log(response);
       if (response?.data?.status != "success") {
         return;
       }
       dispatch(
-        setSellingPrice({
-          sellingPrice: response.data.data.sell_rate.toString(),
+        setSellingPriceUSDC({
+          sellingPriceUSDC: response.data.data.usdc_sell_inr
+            .toFixed(2)
+            .toString(),
         })
       );
       dispatch(
-        setBuyingPrice({ buyingPrice: response.data.data.buy_rate.toString() })
+        setBuyingPriceUSDC({
+          buyingPriceUSDC: response.data.data.usdc_buy_inr
+            .toFixed(2)
+            .toString(),
+        })
+      );
+
+      dispatch(
+        setSellingPriceUSDT({
+          sellingPriceUSDT: response.data.data.usdt_sell_inr
+            .toFixed(2)
+            .toString(),
+        })
+      );
+      dispatch(
+        setBuyingPriceUSDT({
+          buyingPriceUSDT: response.data.data.usdt_buy_inr
+            .toFixed(2)
+            .toString(),
+        })
       );
     } catch (error) {
       console.log(error);
@@ -99,12 +136,12 @@ const Navbar: React.FC = () => {
   }
 
   useEffect(() => {
-    if (sellingPrice == "0.00" || buyingPrice == "0.00") fetchData();
+    if (sellingPriceUSDC == "0.00" || buyingPriceUSDC == "0.00") fetchData();
 
     const interval = setInterval(fetchData, 5000);
 
     return () => clearInterval(interval);
-  }, [buyingPrice, sellingPrice]);
+  }, [buyingPriceUSDC, sellingPriceUSDC]);
 
   return (
     <nav className="shadow-md shadow-[#ddd4ee] fixed top-0 left-0 bg-white w-full z-30">
@@ -162,27 +199,55 @@ const Navbar: React.FC = () => {
 
               <div className="relative w-[150px] h-5 overflow-hidden flex justify-center items-center">
                 <AnimatePresence mode="wait">
-                  {showSelling ? (
+                  {showSelling === 0 && (
                     <motion.span
-                      key="selling"
+                      key="usdtSell"
                       initial={{ y: -20, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       exit={{ y: 20, opacity: 0 }}
                       transition={{ duration: 0.3, ease: "easeInOut" }}
-                      className="absolute text-center text-sm leading-none font-medium tracking-tight text-white"
+                      className="absolute text-center text-xs leading-none font-medium tracking-tight text-white"
                     >
-                      Selling Price - ₹{sellingPrice}
+                      USDT Selling Price - ₹{sellingPriceUSDT}
                     </motion.span>
-                  ) : (
+                  )}
+
+                  {showSelling === 1 && (
                     <motion.span
-                      key="buying"
+                      key="usdtBuy"
                       initial={{ y: -20, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       exit={{ y: 20, opacity: 0 }}
                       transition={{ duration: 0.3, ease: "easeInOut" }}
-                      className="absolute text-center text-sm leading-none font-medium tracking-tight text-white"
+                      className="absolute text-center text-xs leading-none font-medium tracking-tight text-white"
                     >
-                      Buying Price - ₹{buyingPrice}
+                      USDT Buying Price - ₹{buyingPriceUSDT}
+                    </motion.span>
+                  )}
+
+                  {showSelling === 2 && (
+                    <motion.span
+                      key="usdcSell"
+                      initial={{ y: -20, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      exit={{ y: 20, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      className="absolute text-center text-xs leading-none font-medium tracking-tight text-white"
+                    >
+                      USDC Selling Price - ₹{sellingPriceUSDC}
+                    </motion.span>
+                  )}
+
+                  {showSelling === 3 && (
+                    <motion.span
+                      key="usdcBuy"
+                      initial={{ y: -20, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      exit={{ y: 20, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      className="absolute text-center text-xs leading-none font-medium tracking-tight text-white"
+                    >
+                      USDC Buying Price - ₹{buyingPriceUSDC}
                     </motion.span>
                   )}
                 </AnimatePresence>
