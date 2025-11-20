@@ -1,75 +1,74 @@
-# React + TypeScript + Vite
+# Scan2Pay User Portal (gbknew)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The Scan2Pay User Portal is a React-based web application designed for end-users to perform currency swaps (INR ↔ USDC/USDT) and manage their transactions. It serves as the primary interface for customers using the Scan2Pay service.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+-   **User Login:** Secure authentication via Google, GitHub, LinkedIn, Facebook, Email OTP, and Phone OTP.
+-   **Currency Swap:** Instant swapping between INR and USDC/USDT.
+-   **Dashboard:** User-friendly dashboard to view balances and transaction history.
+-   **PWA Support:** Progressive Web App capabilities for mobile-like experience.
+-   **Responsive Design:** Optimized for both desktop and mobile devices.
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+-   **Frontend Framework:** [React](https://react.dev/) with [Vite](https://vitejs.dev/)
+-   **Language:** [TypeScript](https://www.typescriptlang.org/)
+-   **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+-   **State Management:** [Redux Toolkit](https://redux-toolkit.js.org/) & [Redux Persist](https://github.com/rt2zz/redux-persist)
+-   **Routing:** [React Router](https://reactrouter.com/)
+-   **HTTP Client:** [Axios](https://axios-http.com/)
+-   **Animations:** [Framer Motion](https://www.framer.com/motion/)
+-   **Icons:** [Lucide React](https://lucide.dev/) & [React Icons](https://react-icons.github.io/react-icons/)
+-   **Form Handling:** [React Hook Form](https://react-hook-form.com/) with [Zod](https://zod.dev/) validation.
+-   **UI Components:** Custom components inspired by [Shadcn UI](https://ui.shadcn.com/).
 
-Note: This will impact Vite dev & build performances.
+## Prerequisites
 
-## Expanding the ESLint configuration
+Ensure you have the following installed on your machine:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+-   [Node.js](https://nodejs.org/) (v18 or higher recommended)
+-   [npm](https://www.npmjs.com/) (usually comes with Node.js)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Setup Instructions
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+1.  **Navigate to the project directory:**
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+    ```bash
+    cd gbknew
+    ```
+
+2.  **Install dependencies:**
+
+    ```bash
+    npm install
+    ```
+
+## Running the Application
+
+To start the development server:
+
+```bash
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The application will be available at `http://localhost:5173/users/` (or the port specified in your terminal).
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Building for Production
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+To build the application for production:
+
+```bash
+npm run build
 ```
+
+The build artifacts will be stored in the `dist/` directory.
+
+## Project Structure
+
+-   `src/components`: Reusable UI components and feature-specific modules.
+-   `src/hooks`: Custom React hooks.
+-   `src/screens`: Main page components.
+-   `src/store`: Redux store configuration and slices.
+-   `src/lib`: Utility functions.
+-   `public`: Static assets.
