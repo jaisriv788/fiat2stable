@@ -35,7 +35,7 @@ const Limit: React.FC = () => {
           <div className="">
             <div className="font-semibold">Buy</div>
             <div className="font-extrabold text-3xl bg-linear-to-b from-[#4D43EF] to-[#b4b1f3] text-transparent bg-clip-text">
-              ${limit.buy_limit}
+              ${limit?.buy_limit ?? 0}
             </div>
           </div>
         </div>
@@ -46,7 +46,7 @@ const Limit: React.FC = () => {
           <div className="">
             <div className="font-semibold">Sell/Pay</div>
             <div className="font-extrabold text-3xl bg-linear-to-b from-[#4D43EF] to-[#b4b1f3] text-transparent bg-clip-text">
-              ${limit.sell_limit}
+              ${limit?.sell_limit ?? 0}
             </div>
           </div>
         </div>
@@ -67,7 +67,7 @@ const Limit: React.FC = () => {
           </p>
           <div className="flex items-center gap-2 mt-3">
             <p className="bg-[#4D43EF] border text-white font-semibold px-5 rounded-full">
-              {limit?.verified_social_media}/5
+              {limit?.verified_social_media ?? 0}/5
             </p>
             <Progress value={barPercentage} className="" />
           </div>

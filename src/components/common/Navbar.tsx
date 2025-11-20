@@ -97,7 +97,7 @@ const Navbar: React.FC = () => {
   async function fetchData() {
     try {
       const response = await axios.get(`${baseUrl}/buy-sell-rate`);
-      console.log(response);
+      // console.log(response);
       if (response?.data?.status != "success") {
         return;
       }

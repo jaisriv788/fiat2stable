@@ -6,6 +6,28 @@ import { useSelector } from "react-redux";
 import type { RootState } from "@/store/store";
 import Keypad from "@/components/common/Keypad";
 import { useNavigate } from "react-router";
+import { QRCodeCanvas } from "qrcode.react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import axios from "axios";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { useShowError } from "@/hooks/useShowError";
+import { useShowSuccess } from "@/hooks/useShowSuccess";
+
+const upiString =
+  "upi://pay?pa=jaisrivastava788@okhdfcbank&pn=Jai%20Srivastava&cu=INR";
 
 type Currency = "INR" | "USDT" | "USDC";
 
@@ -18,7 +40,16 @@ type Amounts = Record<Currency, string>;
 const Buy: React.FC = () => {
   const navigate = useNavigate();
 
-  const pair: Pair = { from: "USDT", to: "INR" };
+  const [token, setToken] = useState("usdt");
+  const [loading, setloading] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [order_id, setOrder_Id] = useState(null);
+  const [timeLeft, setTimeLeft] = useState(300); // 5 minutes in seconds
+
+  const { showSuccess } = useShowSuccess();
+  const { showError } = useShowError();
+
+  const pair: Pair = { from: token.toUpperCase() as Currency, to: "INR" };
   const [amounts, setAmounts] = useState<Amounts>({
     INR: "0",
     USDT: "0",
@@ -27,10 +58,13 @@ const Buy: React.FC = () => {
 
   const currentAmount = amounts[pair.from];
 
-  const buyingPrice = useSelector(
-    (state: RootState) => state.price.buyingPrice
+  const buyingPrice = useSelector((state: RootState) =>
+    token == "usdt" ? state.price.buyingPriceUSDT : state.price.buyingPriceUSDC
   );
   const limit = useSelector((state: RootState) => state.price.limit);
+  const baseUrl = useSelector((state: RootState) => state.consts.baseUrl);
+  const userData = useSelector((state: RootState) => state.user.userData);
+  const tkn = useSelector((state: RootState) => state.user.token);
 
   useEffect(() => {
     if (amounts[pair.from] == "0") {
@@ -53,11 +87,68 @@ const Buy: React.FC = () => {
         };
       });
     }
-  }, [currentAmount]);
+  }, [currentAmount, token]);
 
-  // const handleSwap = () => {
-  //   setPair(({ from, to }) => ({ from: to, to: from }));
-  // };
+  function formatTime(seconds: number) {
+    if (seconds === 0) {
+      setOpen(false);
+      return;
+    }
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    return `${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
+  }
+
+  useEffect(() => {
+    let interval: any;
+
+    if (open) {
+      setTimeLeft(300); // reset timer to 5 mins
+
+      interval = setInterval(() => {
+        setTimeLeft((prev) => {
+          if (prev <= 1) {
+            clearInterval(interval);
+            setOpen(false); // auto-close when time ends (optional)
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+    }
+
+    return () => clearInterval(interval);
+  }, [open]);
+
+  useEffect(() => {
+    let interval: any;
+
+    if (open) {
+      interval = setInterval(async () => {
+        // console.log(order_id);
+        const response = await axios.get(
+          `${baseUrl}/check-order-status/${order_id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${tkn}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        // console.log(response.data);
+        if (response.data.order_status == 1) {
+          setOpen(false);
+          setAmounts({ INR: "0", USDT: "0", USDC: "0" });
+          // setToken("usdt");
+          showSuccess("Buy Successful.","")
+        }
+      }, 3000);
+    }
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [open, order_id]);
 
   const updateAmount = (value: string) => {
     if (value == "0" && amounts[pair.from] == "0") return;
@@ -117,22 +208,60 @@ const Buy: React.FC = () => {
     });
   }
 
+  async function handleBuy() {
+    try {
+      setloading(true);
+      const response = await axios.post(
+        `${baseUrl}/buy-order`,
+        {
+          user_id: userData?.id,
+          amount: amounts[pair.from],
+          inr_amount: amounts[pair.to],
+          type: token,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${tkn}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      // console.log(response.data);
+      setOrder_Id(response?.data?.order_id);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="max-w-lg overflow-hidden w-full px-2">
         <div className="text-center">
-          <div className="font-bold text-xl">
-            <span className="text-5xl font-extrabold text-[#847ef1] ">
+          <div className="flex justify-center gap-3 items-center font-bold text-xl">
+            <p className="text-5xl pb-1 font-extrabold text-[#847ef1] ">
               {amounts[pair.from]}
-            </span>{" "}
-            {pair.from}
-          </div>
+            </p>{" "}
+            <Select value={token} onValueChange={setToken}>
+              <SelectTrigger className="w-[100px] text-lg">
+                <SelectValue placeholder="Select Token" />
+              </SelectTrigger>
+
+              <SelectContent>
+                <SelectItem value="usdt">USDT</SelectItem>
+                <SelectItem value="usdc">USDC</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>     
           <div className="mt-2 text-lg gap-2 w-fit flex mx-auto font-semibold items-center">
             <CgArrowsExchangeAltV
               // onClick={handleSwap}
               className="bg-[#e0defa] cursor-pointer rounded-full p-.5 text-2xl text-[#4D43EF]"
             />{" "}
-            {amounts[pair.to] !== "0" && amounts[pair.to]} {pair.to}
+            {amounts[pair.to] !== "0" && amounts[pair.to]
+              ? parseFloat(amounts[pair.to]).toFixed(4)
+              : ""}{" "}
+            {pair.to}
           </div>
         </div>
         <div
@@ -168,15 +297,39 @@ const Buy: React.FC = () => {
           </button>
         </div>
         <div>
-          <button
-            disabled={
-              parseFloat(limit?.buy_limit) < 1 ||
-              (amounts["USDT"] == "0" && amounts["USDC"] == "0")
-            }
-            className="w-full mt-5 disabled:bg-[#4D43EF]/60 disabled:cursor-not-allowed bg-[#4D43EF] text-white font-semibold py-4 md:py-3 rounded-lg hover:bg-[#4D43EF]/70 transition ease-in-out duration-300 cursor-pointer"
-          >
-            Continue
-          </button>
+          <Dialog open={open} onOpenChange={setOpen}>
+            <DialogTrigger
+              disabled={
+                parseFloat(limit?.buy_limit) < 1 ||
+                (amounts["USDT"] === "0" && amounts["USDC"] === "0")
+              }
+              onClick={handleBuy}
+              className="w-full mt-5 disabled:bg-[#4D43EF]/60 disabled:cursor-not-allowed bg-[#4D43EF] text-white font-semibold py-4 md:py-3 rounded-lg hover:bg-[#4D43EF]/70 transition ease-in-out duration-300 cursor-pointer"
+            >
+              Continue
+            </DialogTrigger>
+
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Complete the payment</DialogTitle>
+                <DialogDescription>
+                  Pay on the below QR within the timeframe.
+                </DialogDescription>
+                <QRCodeCanvas
+                  className="mx-auto"
+                  value={upiString}
+                  size={200}
+                  bgColor="transparent"
+                  fgColor="#000000"
+                  level="H"
+                  includeMargin={true}
+                />
+              </DialogHeader>
+              <div className="text-center text-xl font-bold text-red-600 mb-3">
+                Time Left: {formatTime(timeLeft)}
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
     </div>
