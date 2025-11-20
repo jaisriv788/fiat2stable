@@ -29,8 +29,8 @@ const Login: React.FC = () => {
             By logging in, you agree to our{" "}
             <span
               onClick={() =>
-                (window.location.href =
-                  "https://scan2pay.direct/terms-and-conditions")
+              (window.location.href =
+                "https://scan2pay.direct/terms-and-conditions")
               }
               className="cursor-pointer font-semibold text-[#4D43EF] hover:text-[#1206f3] transition ease-in-out duration-300"
             >

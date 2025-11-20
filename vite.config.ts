@@ -12,6 +12,7 @@ export default defineConfig({
         plugins: [["babel-plugin-react-compiler"]],
       },
     }),
+
     tailwindcss(),
     VitePWA({
       registerType: "autoUpdate", // auto-updates the service worker
@@ -51,6 +52,9 @@ export default defineConfig({
       },
     }),
   ],
+  server: {
+    port: 4000, // 👈 change to any port you want
+  },
   base: "/users/",
   resolve: {
     alias: {
