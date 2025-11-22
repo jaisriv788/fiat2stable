@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import type { RootState } from "@/store/store";
 import Keypad from "@/components/common/Keypad";
 import { useNavigate } from "react-router";
-import { QRCodeCanvas } from "qrcode.react";
+// import { QRCodeCanvas } from "qrcode.react";
 import {
   Select,
   SelectContent,
@@ -15,19 +15,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import axios from "axios";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import { useShowError } from "@/hooks/useShowError";
 import { useShowSuccess } from "@/hooks/useShowSuccess";
 
-const upiString =
-  "upi://pay?pa=jaisrivastava788@okhdfcbank&pn=Jai%20Srivastava&cu=INR";
+// const upiString =
+//   "upi://pay?pa=jaisrivastava788@okhdfcbank&pn=Jai%20Srivastava&cu=INR";
 
 type Currency = "INR" | "USDT" | "USDC";
 
@@ -227,10 +219,12 @@ const Buy: React.FC = () => {
         }
       );
 
-      // console.log(response.data);
+      console.log(response.data);
       setOrder_Id(response?.data?.order_id);
     } catch (error) {
       console.log(error);
+    } finally {
+      setloading(false);
     }
   }
 
@@ -245,6 +239,7 @@ const Buy: React.FC = () => {
     };
     fetchLiveMerchants();
   }, []);
+
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="max-w-lg overflow-hidden w-full px-2">
@@ -332,39 +327,16 @@ const Buy: React.FC = () => {
           </button>
         </div>
         <div>
-          <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger
-              disabled={
-                parseFloat(limit?.buy_limit) < 1 ||
-                (amounts["USDT"] === "0" && amounts["USDC"] === "0")
-              }
-              onClick={handleBuy}
-              className="w-full mt-5 disabled:bg-[#4D43EF]/60 disabled:cursor-not-allowed bg-[#4D43EF] text-white font-semibold py-4 md:py-3 rounded-lg hover:bg-[#4D43EF]/70 transition ease-in-out duration-300 cursor-pointer"
-            >
-              Continue
-            </DialogTrigger>``
-
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Complete the payment</DialogTitle>
-                <DialogDescription>
-                  Pay on the below QR within the timeframe.
-                </DialogDescription>
-                <QRCodeCanvas
-                  className="mx-auto"
-                  value={upiString}
-                  size={200}
-                  bgColor="transparent"
-                  fgColor="#000000"
-                  level="H"
-                  includeMargin={true}
-                />
-              </DialogHeader>
-              <div className="text-center text-xl font-bold text-red-600 mb-3">
-                Time Left: {formatTime(timeLeft)}
-              </div>
-            </DialogContent>
-          </Dialog>
+          <button
+            disabled={
+              // parseFloat(limit?.buy_limit) < 1 ||
+              (amounts["USDT"] === "0" && amounts["USDC"] === "0")
+            }
+            onClick={handleBuy}
+            className="w-full mt-5 disabled:bg-[#4D43EF]/60 disabled:cursor-not-allowed bg-[#4D43EF] text-white font-semibold py-4 md:py-3 rounded-lg hover:bg-[#4D43EF]/70 transition ease-in-out duration-300 cursor-pointer"
+          >
+            {loading ? "Buying..." : "Buy"}
+          </button>
         </div>
       </div>
     </div>
