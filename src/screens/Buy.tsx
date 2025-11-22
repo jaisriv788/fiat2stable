@@ -45,7 +45,7 @@ const Buy: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [order_id, setOrder_Id] = useState(null);
   const [timeLeft, setTimeLeft] = useState(300); // 5 minutes in seconds
-
+  const [liveMerchants, setLiveMerchants] = useState(0);
   const { showSuccess } = useShowSuccess();
   const { showError } = useShowError();
 
@@ -140,7 +140,7 @@ const Buy: React.FC = () => {
           setOpen(false);
           setAmounts({ INR: "0", USDT: "0", USDC: "0" });
           // setToken("usdt");
-          showSuccess("Buy Successful.","")
+          showSuccess("Buy Successful.", "")
         }
       }, 3000);
     }
@@ -234,6 +234,17 @@ const Buy: React.FC = () => {
     }
   }
 
+  useEffect(() => {
+    const fetchLiveMerchants = async () => {
+      try {
+        const response = await axios.get(`${baseUrl}/live-merchants`);
+        setLiveMerchants(response.data.data.count);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchLiveMerchants();
+  }, []);
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="max-w-lg overflow-hidden w-full px-2">
@@ -252,7 +263,7 @@ const Buy: React.FC = () => {
                 <SelectItem value="usdc">USDC</SelectItem>
               </SelectContent>
             </Select>
-          </div>     
+          </div>
           <div className="mt-2 text-lg gap-2 w-fit flex mx-auto font-semibold items-center">
             <CgArrowsExchangeAltV
               // onClick={handleSwap}
@@ -264,11 +275,35 @@ const Buy: React.FC = () => {
             {pair.to}
           </div>
         </div>
+        <div className="flex  items-center  gap-2 mt-3 mx-auto w-fit px-6 py-2 rounded-full bg-[#4D43EF]/10 border border-[#4D43EF]/40 font-bold text-[#4D43EF] relative overflow-hidden">
+          <div
+            className={`w-4 h-4  bg-green-300
+               rounded-full flex items-center justify-center`}
+          >
+            <div
+              className={`w-2.5 h-2.5 bg-green-600
+                 rounded-full animate-ping`}
+              style={{ animationDuration: "1.4s" }}
+            ></div>
+          </div>
+          <span className="animate-[shine_2s_linear_infinite] absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent"></span>
+          <span className="relative z-10">Live Merchants – {liveMerchants}</span>
+        </div>
+
+        <style>
+          {`
+@keyframes shine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+`}
+        </style>
+
         <div
           onClick={() => {
             navigate("/limit");
           }}
-          className="card bg-[#e0defa] relative cursor-pointer hover:scale-105 transition ease=in-out duration-300 rounded-lg items-center py-3 px-2 my-8 md:my-10 flex justify-center gap-3"
+          className="card bg-[#e0defa] relative cursor-pointer hover:scale-105 transition ease=in-out duration-300 rounded-lg items-center py-3 px-2 my-4 md:my-6 flex justify-center gap-3"
         >
           <FaRegCreditCard className="text-xl text-[#4D43EF]" />
           <span className="font-semibold text-sm">
@@ -307,7 +342,7 @@ const Buy: React.FC = () => {
               className="w-full mt-5 disabled:bg-[#4D43EF]/60 disabled:cursor-not-allowed bg-[#4D43EF] text-white font-semibold py-4 md:py-3 rounded-lg hover:bg-[#4D43EF]/70 transition ease-in-out duration-300 cursor-pointer"
             >
               Continue
-            </DialogTrigger>
+            </DialogTrigger>``
 
             <DialogContent>
               <DialogHeader>

@@ -36,9 +36,9 @@ const TrxTable: React.FC = () => {
     try {
       setloading(true);
       const response = await axios.post(
-        `${baseUrl}/transactions-list`,
+        `${baseUrl}/merchant/transactions-list`,
         {
-          user_id: userData?.id,
+          // user_id: userData?.id,
           count,
         },
         {
@@ -48,7 +48,7 @@ const TrxTable: React.FC = () => {
           },
         }
       );
-      // console.log(response.data.data);
+      console.log(response);
 
       if (response.data.status == "false") {
         setTransaction([]);
@@ -69,9 +69,8 @@ const TrxTable: React.FC = () => {
 
   return (
     <div
-      className={`flex flex-col  gap-2 overflow-hidden my-15 ${
-        transaction.length !== 10 ? "h-fit" : "min-h-118"
-      }`}
+      className={`flex flex-col  gap-2 overflow-hidden my-15 ${transaction.length !== 10 ? "h-fit" : "min-h-118"
+        }`}
     >
       {loading ? (
         <div className="h-full flex-1 font-semibold bg-[#4D43EF]/10 rounded-lg flex justify-center items-center gap-2 py-30">
