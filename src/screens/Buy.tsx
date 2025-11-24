@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 import type { RootState } from "@/store/store";
 import Keypad from "@/components/common/Keypad";
 import { useNavigate } from "react-router";
-import { QRCodeCanvas } from "qrcode.react";
 import {
   Select,
   SelectContent,
@@ -17,9 +16,7 @@ import {
 import axios from "axios";
 import { useShowError } from "@/hooks/useShowError";
 import { useShowSuccess } from "@/hooks/useShowSuccess";
-import { X } from "lucide-react";
-const upiString =
-  "upi://pay?pa=jaisrivastava788@okhdfcbank&pn=Jai%20Srivastava&cu=INR";
+import Model from "@/components/buy/Model";
 
 type Currency = "INR" | "USDT" | "USDC";
 
@@ -112,35 +109,7 @@ const Buy: React.FC = () => {
     return () => clearInterval(interval);
   }, [open]);
 
-  useEffect(() => {
-    let interval: any;
 
-    if (open) {
-      interval = setInterval(async () => {
-        // console.log(order_id);
-        const response = await axios.get(
-          `${baseUrl}/check-order-status/${order_id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${tkn}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        // console.log(response.data);
-        if (response.data.order_status == 1) {
-          setOpen(false);
-          setAmounts({ INR: "0", USDT: "0", USDC: "0" });
-          // setToken("usdt");
-          showSuccess("Buy Successful.", "")
-        }
-      }, 3000);
-    }
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, [open, order_id]);
 
   const updateAmount = (value: string) => {
     if (value == "0" && amounts[pair.from] == "0") return;
@@ -219,7 +188,7 @@ const Buy: React.FC = () => {
         }
       );
 
-      console.log(response.data);
+      // console.log(response.data);
       if (response.data.status) {
         setOrder_Id(response?.data?.order_id);
         setOpen(true);
@@ -247,28 +216,7 @@ const Buy: React.FC = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center">
-      {open && <div className="absolute inset-0  bg-black/50 z-50 backdrop-blur-sm flex items-center justify-center">
-        <div className="p-6 bg-white rounded-lg relative max-w-lg w-full mx-3">
-          <X onClick={() => setOpen(false)} className="absolute cursor-pointer top-2 right-2" />
-          <div className="text-lg font-semibold">Payment</div>
-          <div className="flex items-center justify-center">
-            <div className="relative inline-block mx-auto my-5">
-              <QRCodeCanvas
-                value={upiString}
-                size={200}
-                level="H"   // High error correction so QR works even with image blocking
-              />
-
-              {/* Center Logo */}
-              <img
-                src="/users/three.png"
-                alt="logo"
-                className="absolute rounded-full top-1/2 left-1/2 w-10 h-10 -translate-x-1/2 -translate-y-1/2"
-              />
-            </div>
-          </div>
-        </div>
-      </div>}
+      {open && <Model timeLeft={timeLeft} setOpen={setOpen} order_id={order_id} setAmounts={setAmounts} />}
       <div className="max-w-lg overflow-hidden w-full px-2">
         <div className="text-center">
           <div className="flex justify-center gap-3 items-center font-bold text-xl">
