@@ -30,5 +30,5 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src", "../merchant/src/screens/Confirmation.tsx"]
 }

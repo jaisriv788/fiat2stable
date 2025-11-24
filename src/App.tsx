@@ -75,7 +75,6 @@ const App: React.FC = () => {
           <Route path="/transaction" element={<Transaction />} />
           <Route path="/refer" element={<Refer />} />
           {/* <Route path="/settings" element={<Settings />} /> */}
-
           {/* <Route path="/wallet/transactions" element={<WalletTransaction />} /> */}
         </Route>
 
