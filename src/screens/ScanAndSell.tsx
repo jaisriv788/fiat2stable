@@ -152,7 +152,7 @@ const ScanAndSell: React.FC = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center">
-      <div className="max-w-lg overflow-hidden w-full px-2">
+      <div className="max-w-lg overflow-hidden w-full px-2 mt-9">
         <div className="card flex items-center justify-center gap-3 bg-[#e0defa] rounded-lg py-3 font-semibold text-sm">
           <div
             className={`w-4 h-4 bg-indigo-300 rounded-full flex items-center justify-center`}
@@ -165,7 +165,7 @@ const ScanAndSell: React.FC = () => {
           Please ask the vendor for the bill amount first.
         </div>
 
-        <div className=" text-center mt-3">
+        <div className=" text-center mt-1">
           <div className="font-bold text-xl">
             <span className="text-5xl font-extrabold text-[#847ef1] ">
               {amounts[pair.from]}
@@ -191,7 +191,7 @@ const ScanAndSell: React.FC = () => {
           onClick={() => {
             navigate("/limit");
           }}
-          className="card bg-[#e0defa] cursor-pointer hover:scale-105 transition ease=in-out duration-300 rounded-lg items-center py-3 px-2 my-8 md:my-10 flex justify-center gap-3"
+          className="card bg-[#e0defa] cursor-pointer hover:scale-105 transition ease=in-out duration-300 rounded-lg items-center py-3 px-2 my-2 md:my-3 flex justify-center gap-3"
         >
           <FaRegCreditCard className="text-xl text-[#4D43EF]" />
           <span className="font-semibold text-sm">
@@ -205,7 +205,7 @@ const ScanAndSell: React.FC = () => {
 
         <Keypad updateAmount={updateAmount} backspace={backspace} />
 
-        <div className="flex gap-3 mt-3">
+        <div className="flex gap-3 mt-2">
           <button className="cursor-pointer flex-1 text-[#4D43EF] hover:bg-gray-300 py-2 rounded-lg transition ease-in-out duration-300 font-semibold">
             Max
           </button>
@@ -223,7 +223,7 @@ const ScanAndSell: React.FC = () => {
               parseFloat(limit?.buy_limit) < 1 ||
               (amounts["USDT"] == "0" && amounts["USDC"] == "0")
             }
-            className="w-full mt-5 disabled:bg-[#4D43EF]/60 disabled:cursor-not-allowed bg-[#4D43EF] text-white font-semibold py-4 md:py-3 rounded-lg hover:bg-[#4D43EF]/70 transition ease-in-out duration-300 cursor-pointer"
+            className="w-full mt-2 disabled:bg-[#4D43EF]/60 disabled:cursor-not-allowed bg-[#4D43EF] text-white font-semibold py-4 md:py-3 rounded-lg hover:bg-[#4D43EF]/70 transition ease-in-out duration-300 cursor-pointer"
           >
             Place Order
           </button>

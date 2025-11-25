@@ -263,6 +263,8 @@ const Sell: React.FC = () => {
   });
   const [assetsData, setAssetsData] = useState<Assets | null>(null);
   const [refresh, setRefresh] = useState(false);
+  const [order_id, setOrder_Id] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   // Redux
   const priceData = useSelector((state: RootState) => state.price);
@@ -270,6 +272,7 @@ const Sell: React.FC = () => {
   const baseUrl = useSelector((state: RootState) => state.consts.baseUrl);
   const userData = useSelector((state: RootState) => state.user.userData);
   const tokenHeader = useSelector((state: RootState) => state.user.token);
+  const tkn = useSelector((state: RootState) => state.user.token);
 
   const { showError } = useShowError();
   const { showSuccess } = useShowSuccess();
@@ -376,7 +379,7 @@ const Sell: React.FC = () => {
   const availableBalance =
     token === "usdt" ? assetsData?.total_usdt : assetsData?.total_usdc;
 
-  async function handleContinue() {
+  async function handlSell() {
     if (token == "usdt") {
       if (parseFloat(amounts.USDT) > parseFloat(availableBalance)) {
         showError("Insufficient Balance", "");
@@ -396,6 +399,40 @@ const Sell: React.FC = () => {
       //   showError("Amount should be less than limit", "");
       //   return;
       // }
+    }
+    const amount = token === "usdt" ? amounts.USDT : amounts.USDC;
+    const inr_amount = amounts.INR;
+    try {
+      setLoading(true);
+      const response = await axios.post(
+        `${baseUrl}/buy-order`,
+        {
+          user_id: userData?.id,
+          amount,
+          inr_amount,
+          type: token,
+          order_type: "sell",
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${tkn}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      // console.log(response.data);
+      if (response.data.status) {
+        setOrder_Id(response?.data?.order_id);
+        // setOpen(true);
+        showSuccess("Transaction Requested.", "");
+      }
+    } catch (error) {
+      console.log(error.response.data.message);
+      showError(error.response.data.message, "");
+      setAmounts({ INR: "0", USDT: "0", USDC: "0" });
+    } finally {
+      setLoading(false);
     }
   }
   return (
@@ -432,13 +469,13 @@ const Sell: React.FC = () => {
           </div>
 
           {/* INR Conversion */}
-          <div className="mt-2 text-lg gap-2 w-fit flex mx-auto font-semibold items-center">
+          <div className="mt-1 text-lg gap-2 w-fit flex mx-auto font-semibold items-center">
             <CgArrowsExchangeAltV className="bg-[#e0defa] cursor-pointer rounded-full p-.5 text-2xl text-[#4D43EF]" />{" "}
             {amounts.INR && amounts.INR !== "0" && amounts.INR} INR
           </div>
 
           {/* Available Balance */}
-          <div className="font-semibold text-gray-600 mt-3">
+          <div className="font-semibold text-gray-600 mt-2">
             Available Balance:{" "}
             <span className="font-bold text-[#4D43EF]">
               {availableBalance} {token?.toUpperCase()}
@@ -449,7 +486,7 @@ const Sell: React.FC = () => {
         {/* Limit Card */}
         <div
           onClick={() => navigate("/limit")}
-          className="card bg-[#e0defa] cursor-pointer hover:scale-105 transition ease=in-out duration-300 rounded-lg items-center py-3 px-2 my-8 flex justify-center gap-3"
+          className="card bg-[#e0defa] cursor-pointer hover:scale-105 transition ease=in-out duration-300 rounded-lg items-center py-3 px-2 my-4 flex justify-center gap-3"
         >
           <FaRegCreditCard className="text-xl text-[#4D43EF]" />
           <span className="font-semibold text-sm">
@@ -465,7 +502,7 @@ const Sell: React.FC = () => {
         <Keypad updateAmount={updateAmount} backspace={backspace} />
 
         {/* Max & Clear */}
-        <div className="flex gap-3 mt-3">
+        <div className="flex gap-3 mt-2">
           <button
             onClick={handleMax}
             className="cursor-pointer flex-1 text-[#4D43EF] hover:bg-gray-300 py-2 rounded-lg transition ease-in-out duration-300 font-semibold"
@@ -487,10 +524,10 @@ const Sell: React.FC = () => {
               // parseFloat(limit?.sell_limit) < 1 ||
               amounts.USDT === "0" && amounts.USDC === "0"
             }
-            onClick={handleContinue}
-            className="w-full mt-5 disabled:bg-[#4D43EF]/60 disabled:cursor-not-allowed bg-[#4D43EF] text-white font-semibold py-4 rounded-lg hover:bg-[#4D43EF]/70 transition ease-in-out duration-300 cursor-pointer"
+            onClick={handlSell}
+            className="w-full mt-2 disabled:bg-[#4D43EF]/60 disabled:cursor-not-allowed bg-[#4D43EF] text-white font-semibold py-4 rounded-lg hover:bg-[#4D43EF]/70 transition ease-in-out duration-300 cursor-pointer"
           >
-            Continue
+            {loading ? "Processing..." : "Sell"}
           </button>
         </div>
       </div>
