@@ -80,15 +80,15 @@ const Buy: React.FC = () => {
     }
   }, [currentAmount, token]);
 
-  function formatTime(seconds: number) {
-    if (seconds === 0) {
-      setOpen(false);
-      return;
-    }
-    const m = Math.floor(seconds / 60);
-    const s = seconds % 60;
-    return `${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
-  }
+  // function formatTime(seconds: number) {
+  //   if (seconds === 0) {
+  //     setOpen(false);
+  //     return;
+  //   }
+  //   const m = Math.floor(seconds / 60);
+  //   const s = seconds % 60;
+  //   return `${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
+  // }
 
   useEffect(() => {
     let interval: any;

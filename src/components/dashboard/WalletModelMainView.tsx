@@ -6,7 +6,7 @@ import { Copy, LogOut } from "lucide-react";
 import { IoMenu } from "react-icons/io5";
 import { LuTimerReset } from "react-icons/lu";
 import { IoIosSend } from "react-icons/io";
-import { MdOutlineAdd } from "react-icons/md";
+// import { MdOutlineAdd } from "react-icons/md";
 import { HiDownload } from "react-icons/hi";
 import { setLimit } from "@/store/slices/priceSlice";
 // import { BiSolidWallet } from "react-icons/bi";

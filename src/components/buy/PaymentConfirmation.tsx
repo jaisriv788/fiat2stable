@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { CheckCircle, Loader2, X } from "lucide-react";
+import { CheckCircle, Loader2 } from "lucide-react";
 import { motion } from "motion/react";
 import axios from "axios";
 import { useSelector } from "react-redux";
