@@ -172,6 +172,7 @@ type ModelProps = {
   order_id: string;
   setAmounts: (amounts: { INR: string; USDT: string; USDC: string }) => void;
   timeLeft: number;
+  setShowPaymentConfirmation: (showPaymentConfirmation: boolean) => void;
 };
 
 const Model: React.FC<ModelProps> = ({
@@ -179,6 +180,7 @@ const Model: React.FC<ModelProps> = ({
   order_id,
   setAmounts,
   timeLeft,
+  setShowPaymentConfirmation,
 }) => {
   const token = useSelector((state: RootState) => state.user.token);
   const baseUrl = useSelector((state: RootState) => state.consts.baseUrl);
@@ -268,6 +270,7 @@ const Model: React.FC<ModelProps> = ({
           "Please wait for the merchant to accept the payment release."
         );
         setOpen(false);
+        setShowPaymentConfirmation(true);
       }
       // setOpen(false);
     } catch (error) {

@@ -17,6 +17,7 @@ import axios from "axios";
 import { useShowError } from "@/hooks/useShowError";
 import { useShowSuccess } from "@/hooks/useShowSuccess";
 import Model from "@/components/buy/Model";
+import PaymentConfirmation from "@/components/buy/PaymentConfirmation";
 
 type Currency = "INR" | "USDT" | "USDC";
 
@@ -32,6 +33,7 @@ const Buy: React.FC = () => {
   const [token, setToken] = useState("usdt");
   const [loading, setloading] = useState(false);
   const [open, setOpen] = useState(false);
+  const [showPaymentConfirmation, setShowPaymentConfirmation] = useState(false);
   const [order_id, setOrder_Id] = useState(null);
   const [timeLeft, setTimeLeft] = useState(300); // 5 minutes in seconds
   const [liveMerchants, setLiveMerchants] = useState(0);
@@ -108,8 +110,6 @@ const Buy: React.FC = () => {
 
     return () => clearInterval(interval);
   }, [open]);
-
-
 
   const updateAmount = (value: string) => {
     if (value == "0" && amounts[pair.from] == "0") return;
@@ -192,6 +192,7 @@ const Buy: React.FC = () => {
       if (response.data.status) {
         setOrder_Id(response?.data?.order_id);
         setOpen(true);
+        showSuccess("Transaction Requested.", "");
       }
     } catch (error) {
       console.log(error.response.data.message);
@@ -216,7 +217,23 @@ const Buy: React.FC = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center">
-      {open && <Model timeLeft={timeLeft} setOpen={setOpen} order_id={order_id} setAmounts={setAmounts} />}
+      {open && (
+        <Model
+          timeLeft={timeLeft}
+          setOpen={setOpen}
+          order_id={order_id}
+          setAmounts={setAmounts}
+          setShowPaymentConfirmation={setShowPaymentConfirmation}
+        />
+      )}
+      {showPaymentConfirmation && (
+        <PaymentConfirmation
+          order_id={order_id}
+          setOrder_Id={setOrder_Id}
+          setAmounts={setAmounts}
+          setShowPaymentConfirmation={setShowPaymentConfirmation}
+        />
+      )}
       <div className="max-w-lg overflow-hidden w-full px-2">
         <div className="text-center">
           <div className="flex justify-center gap-3 items-center font-bold text-xl">
@@ -257,7 +274,9 @@ const Buy: React.FC = () => {
             ></div>
           </div>
           <span className="animate-[shine_2s_linear_infinite] absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent"></span>
-          <span className="relative z-10">Live Merchants – {liveMerchants}</span>
+          <span className="relative z-10">
+            Live Merchants – {liveMerchants}
+          </span>
         </div>
 
         <style>
@@ -305,7 +324,7 @@ const Buy: React.FC = () => {
           <button
             disabled={
               // parseFloat(limit?.buy_limit) < 1 ||
-              (amounts["USDT"] === "0" && amounts["USDC"] === "0")
+              amounts["USDT"] === "0" && amounts["USDC"] === "0"
             }
             onClick={handleBuy}
             className="w-full mt-5 disabled:bg-[#4D43EF]/60 disabled:cursor-not-allowed bg-[#4D43EF] text-white font-semibold py-4 md:py-3 rounded-lg hover:bg-[#4D43EF]/70 transition ease-in-out duration-300 cursor-pointer"

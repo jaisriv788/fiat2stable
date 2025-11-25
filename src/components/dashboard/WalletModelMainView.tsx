@@ -87,7 +87,7 @@ const WalletModelMainView: React.FC<WalletModelMainViewProps> = ({
           <div className="text-xs text-gray-700">Smart Account</div>
         </div>
       </div>
-      <div className="mt-3 grid grid-cols-3 gap-3">
+      <div className="mt-3 grid grid-cols-2 gap-3">
         <div
           onClick={() => {
             setView(3);
@@ -104,14 +104,14 @@ const WalletModelMainView: React.FC<WalletModelMainViewProps> = ({
         >
           <HiDownload className="size-5" /> Receive
         </div>
-        <div
+        {/* <div
           onClick={() => {
             setView(5);
           }}
           className="flex items-center justify-center gap-1 border-gray-700 text-gray-700 cursor-pointer text-sm hover:bg-gray-200 transition ease-in-out duration-300 font-bold py-2 rounded-lg border-2"
         >
           <MdOutlineAdd className="size-5" /> Buy
-        </div>
+        </div> */}
       </div>
       <div className="flex flex-col gap-1">
         {Data.map((item, index) => {
