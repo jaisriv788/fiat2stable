@@ -1,3 +1,228 @@
+// import React, { useEffect, useState } from "react";
+// import { CgArrowsExchangeAltV } from "react-icons/cg";
+// import { FaRegCreditCard } from "react-icons/fa";
+// import { FaGreaterThan } from "react-icons/fa6";
+// import type { RootState } from "@/store/store";
+// import { useSelector } from "react-redux";
+// import Keypad from "@/components/common/Keypad";
+// import { useNavigate } from "react-router";
+// import axios from "axios";
+
+// type Currency = "INR" | "USDT" | "USDC";
+
+// interface Assets {
+//   total_usdt: string;
+//   total_usdc: string;
+// }
+
+// type Pair = {
+//   from: Currency;
+//   to: Currency;
+// };
+// type Amounts = Record<Currency, string>;
+
+// const Sell: React.FC = () => {
+//   const navigate = useNavigate();
+
+//   const pair: Pair = { from: "USDT", to: "INR" };
+//   const [amounts, setAmounts] = useState<Amounts>({
+//     INR: "0",
+//     USDT: "0",
+//     USDC: "0",
+//   });
+//   const [assetsData, setAssetsData] = useState<Assets | null>(null);
+
+//   //@ts-ignorets ignore
+//   const [refresh, setRefresh] = useState<boolean>(false);
+
+//   const currentAmount = amounts[pair.from];
+
+//   const sellingPrice = useSelector(
+//     (state: RootState) => state.price.sellingPrice
+//   );
+//   const limit = useSelector((state: RootState) => state.price.limit);
+//   const baseUrl = useSelector((state: RootState) => state?.consts?.baseUrl);
+//   const userData = useSelector((state: RootState) => state?.user?.userData);
+//   const token = useSelector((state: RootState) => state?.user?.token);
+
+//   async function fetchBalance() {
+//     try {
+//       const response = await axios.post(
+//         `${baseUrl}/user-currency-list`,
+//         {
+//           user_id: userData?.id,
+//         },
+//         {
+//           headers: {
+//             Authorization: `Bearer ${token}`,
+//             "Content-Type": "application/json",
+//           },
+//         }
+//       );
+
+//       setAssetsData(response.data.data);
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   }
+
+//   useEffect(() => {
+//     fetchBalance();
+//   }, [refresh]);
+
+//   useEffect(() => {
+//     if (amounts[pair.from] == "0") {
+//       setAmounts((prev) => {
+//         return {
+//           ...prev,
+//           [pair.to]: "",
+//         };
+//       });
+//     } else {
+//       const price = parseFloat(amounts[pair.from]) * parseFloat(sellingPrice);
+
+//       setAmounts((prev) => {
+//         return {
+//           ...prev,
+//           [pair.to]: price,
+//         };
+//       });
+//     }
+//   }, [currentAmount]);
+
+//   // const handleSwap = () => {
+//   //   setPair(({ from, to }) => ({ from: to, to: from }));
+//   // };
+
+//   const updateAmount = (value: string) => {
+//     if (value == "0" && amounts[pair.from] == "0") return;
+
+//     if (amounts[pair.from].split("").includes(".") && value == ".") return;
+
+//     setAmounts((prev) => {
+//       const current = prev[pair.from];
+
+//       let updated: string;
+
+//       if (current === "0" && value === ".") {
+//         updated = "0.";
+//       } else if (current === "0") {
+//         updated = value;
+//       } else {
+//         updated = current + value;
+//       }
+//       return {
+//         ...prev,
+//         [pair.from]: updated,
+//       };
+//     });
+//   };
+
+//   function backspace() {
+//     if (amounts[pair.from] === "0") return;
+
+//     if (amounts[pair.from].length == 1) {
+//       setAmounts((prev) => {
+//         return {
+//           ...prev,
+//           [pair.from]: "0",
+//         };
+//       });
+//       return;
+//     }
+
+//     const editedValue = amounts[pair.from].slice(
+//       0,
+//       amounts[pair.from].length - 1
+//     );
+//     setAmounts((prev) => {
+//       return {
+//         ...prev,
+//         [pair.from]: editedValue,
+//       };
+//     });
+//   }
+
+//   function handleClear() {
+//     setAmounts((prev) => {
+//       return {
+//         ...prev,
+//         [pair.from]: "0",
+//       };
+//     });
+//   }
+
+//   return (
+//     <div className="min-h-screen flex items-center justify-center">
+//       <div className="max-w-lg overflow-hidden w-full px-2">
+//         <div className="text-center">
+//           <div className="font-bold text-xl">
+//             <span className="text-5xl font-extrabold text-[#847ef1] ">
+//               {amounts[pair.from]}
+//             </span>{" "}
+//             {pair.from}
+//           </div>
+//           <div className="mt-2 text-lg gap-2 w-fit flex mx-auto font-semibold items-center">
+//             <CgArrowsExchangeAltV
+//               // onClick={handleSwap}
+//               className="bg-[#e0defa] cursor-pointer rounded-full p-.5 text-2xl text-[#4D43EF]"
+//             />{" "}
+//             {amounts[pair.to] !== "0" && amounts[pair.to]} {pair.to}
+//           </div>
+//           <div className="font-semibold text-gray-600 mt-3 txt">
+//             Available Balance:{" "}
+//             <span className="font-bold text-[#4D43EF]">
+//               {assetsData?.total_usdt ?? "00.00"} USDT
+//             </span>
+//           </div>
+//         </div>
+//         <div
+//           onClick={() => {
+//             navigate("/limit");
+//           }}
+//           className="card bg-[#e0defa] cursor-pointer hover:scale-105 transition ease=in-out duration-300 rounded-lg items-center py-3 px-2 my-8 md:my-10 flex justify-center gap-3"
+//         >
+//           <FaRegCreditCard className="text-xl text-[#4D43EF]" />
+//           <span className="font-semibold text-sm">
+//             Your Transaction Limit :{" "}
+//             <span className=" text-[#4D43EF]">
+//               {limit?.sell_limit} USDT/USDC
+//             </span>
+//           </span>
+//           <FaGreaterThan className="text-sm text-gray-600" />
+//         </div>
+
+//         <Keypad updateAmount={updateAmount} backspace={backspace} />
+
+//         <div className="flex gap-3 mt-3">
+//           <button className="cursor-pointer flex-1 text-[#4D43EF] hover:bg-gray-300 py-2 rounded-lg transition ease-in-out duration-300 font-semibold">
+//             Max
+//           </button>
+//           <button
+//             onClick={handleClear}
+//             className="cursor-pointer flex-1 text-[#4D43EF] hover:bg-gray-300 py-2 rounded-lg transition ease-in-out duration-300 font-semibold"
+//           >
+//             Clear
+//           </button>
+//         </div>
+//         <div>
+//           <button
+//             disabled={
+//               parseFloat(limit?.buy_limit) < 1 ||
+//               (amounts["USDT"] == "0" && amounts["USDC"] == "0")
+//             }
+//             className="w-full mt-5 disabled:bg-[#4D43EF]/60 disabled:cursor-not-allowed bg-[#4D43EF] text-white font-semibold py-4 md:py-3 rounded-lg hover:bg-[#4D43EF]/70 transition ease-in-out duration-300 cursor-pointer"
+//           >
+//             Continue
+//           </button>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Sell;
+
 import React, { useEffect, useState } from "react";
 import { CgArrowsExchangeAltV } from "react-icons/cg";
 import { FaRegCreditCard } from "react-icons/fa";
@@ -7,6 +232,15 @@ import { useSelector } from "react-redux";
 import Keypad from "@/components/common/Keypad";
 import { useNavigate } from "react-router";
 import axios from "axios";
+import { useShowError } from "@/hooks/useShowError";
+import { useShowSuccess } from "@/hooks/useShowSuccess";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 type Currency = "INR" | "USDT" | "USDC";
 
@@ -15,36 +249,38 @@ interface Assets {
   total_usdc: string;
 }
 
-type Pair = {
-  from: Currency;
-  to: Currency;
-};
 type Amounts = Record<Currency, string>;
 
 const Sell: React.FC = () => {
   const navigate = useNavigate();
 
-  const pair: Pair = { from: "USDT", to: "INR" };
+  // Selected token
+  const [token, setToken] = useState<"usdt" | "usdc">("usdt");
   const [amounts, setAmounts] = useState<Amounts>({
     INR: "0",
     USDT: "0",
     USDC: "0",
   });
   const [assetsData, setAssetsData] = useState<Assets | null>(null);
-  
-  //@ts-ignorets ignore
-  const [refresh, setRefresh] = useState<boolean>(false);
+  const [refresh, setRefresh] = useState(false);
 
-  const currentAmount = amounts[pair.from];
-
-  const sellingPrice = useSelector(
-    (state: RootState) => state.price.sellingPrice
-  );
+  // Redux
+  const priceData = useSelector((state: RootState) => state.price);
   const limit = useSelector((state: RootState) => state.price.limit);
-  const baseUrl = useSelector((state: RootState) => state?.consts?.baseUrl);
-  const userData = useSelector((state: RootState) => state?.user?.userData);
-  const token = useSelector((state: RootState) => state?.user?.token);
+  const baseUrl = useSelector((state: RootState) => state.consts.baseUrl);
+  const userData = useSelector((state: RootState) => state.user.userData);
+  const tokenHeader = useSelector((state: RootState) => state.user.token);
 
+  const { showError } = useShowError();
+  const { showSuccess } = useShowSuccess();
+
+  // Dynamic pricing
+  const activeSellingPrice =
+    token === "usdt" ? priceData.sellingPriceUSDT : priceData.sellingPriceUSDC;
+
+  const currentAmount = token === "usdt" ? amounts.USDT : amounts.USDC;
+
+  // Fetch balance
   async function fetchBalance() {
     try {
       const response = await axios.post(
@@ -54,7 +290,7 @@ const Sell: React.FC = () => {
         },
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${tokenHeader}`,
             "Content-Type": "application/json",
           },
         }
@@ -70,119 +306,154 @@ const Sell: React.FC = () => {
     fetchBalance();
   }, [refresh]);
 
+  // Auto convert to INR
   useEffect(() => {
-    if (amounts[pair.from] == "0") {
-      setAmounts((prev) => {
-        return {
-          ...prev,
-          [pair.to]: "",
-        };
-      });
-    } else {
-      const price = parseFloat(amounts[pair.from]) * parseFloat(sellingPrice);
-
-      setAmounts((prev) => {
-        return {
-          ...prev,
-          [pair.to]: price,
-        };
-      });
-    }
-  }, [currentAmount]);
-
-  // const handleSwap = () => {
-  //   setPair(({ from, to }) => ({ from: to, to: from }));
-  // };
-
-  const updateAmount = (value: string) => {
-    if (value == "0" && amounts[pair.from] == "0") return;
-
-    if (amounts[pair.from].split("").includes(".") && value == ".") return;
-
-    setAmounts((prev) => {
-      const current = prev[pair.from];
-
-      let updated: string;
-
-      if (current === "0" && value === ".") {
-        updated = "0.";
-      } else if (current === "0") {
-        updated = value;
-      } else {
-        updated = current + value;
-      }
-      return {
+    if (currentAmount === "0") {
+      setAmounts((prev) => ({
         ...prev,
-        [pair.from]: updated,
-      };
-    });
-  };
-
-  function backspace() {
-    if (amounts[pair.from] === "0") return;
-
-    if (amounts[pair.from].length == 1) {
-      setAmounts((prev) => {
-        return {
-          ...prev,
-          [pair.from]: "0",
-        };
-      });
+        INR: "",
+      }));
       return;
     }
 
-    const editedValue = amounts[pair.from].slice(
-      0,
-      amounts[pair.from].length - 1
-    );
-    setAmounts((prev) => {
-      return {
-        ...prev,
-        [pair.from]: editedValue,
-      };
-    });
-  }
+    const result =
+      parseFloat(currentAmount) * parseFloat(activeSellingPrice || "0");
 
-  function handleClear() {
-    setAmounts((prev) => {
-      return {
-        ...prev,
-        [pair.from]: "0",
-      };
-    });
-  }
+    setAmounts((prev) => ({
+      ...prev,
+      INR: result.toFixed(2),
+    }));
+  }, [currentAmount, activeSellingPrice, token]);
 
+  // Update keypad input
+  const updateAmount = (value: string) => {
+    const key = token === "usdt" ? "USDT" : "USDC";
+    const current = amounts[key];
+
+    if (value === "0" && current === "0") return;
+    if (current.includes(".") && value === ".") return;
+
+    let updated =
+      current === "0" ? (value === "." ? "0." : value) : current + value;
+
+    setAmounts((prev) => ({
+      ...prev,
+      [key]: updated,
+    }));
+  };
+
+  // Backspace
+  const backspace = () => {
+    const key = token === "usdt" ? "USDT" : "USDC";
+    const current = amounts[key];
+
+    if (current === "0") return;
+
+    if (current.length === 1) {
+      setAmounts((prev) => ({ ...prev, [key]: "0" }));
+      return;
+    }
+
+    setAmounts((prev) => ({
+      ...prev,
+      [key]: current.slice(0, -1),
+    }));
+  };
+
+  const handleClear = () => {
+    const key = token === "usdt" ? "USDT" : "USDC";
+    setAmounts((prev) => ({ ...prev, [key]: "0" }));
+  };
+
+  const handleMax = () => {
+    const key = token === "usdt" ? "USDT" : "USDC";
+    const bal =
+      token === "usdt" ? assetsData?.total_usdt : assetsData?.total_usdc;
+
+    setAmounts((prev) => ({ ...prev, [key]: bal || "0" }));
+  };
+
+  const availableBalance =
+    token === "usdt" ? assetsData?.total_usdt : assetsData?.total_usdc;
+
+  async function handleContinue() {
+    if (token == "usdt") {
+      if (parseFloat(amounts.USDT) > parseFloat(availableBalance)) {
+        showError("Insufficient Balance", "");
+        return;
+      }
+      // if (parseFloat(amounts.USDT) > parseFloat(limit?.sell_limit)) {
+      //   showError("Amount should be less than limit", "");
+      //   return;
+      // }
+    }
+    if (token == "usdc") {
+      if (parseFloat(amounts.USDC) > parseFloat(availableBalance)) {
+        showError("Insufficient Balance", "");
+        return;
+      }
+      // if (parseFloat(amounts.USDC) > parseFloat(limit?.sell_limit)) {
+      //   showError("Amount should be less than limit", "");
+      //   return;
+      // }
+    }
+  }
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="max-w-lg overflow-hidden w-full px-2">
         <div className="text-center">
-          <div className="font-bold text-xl">
-            <span className="text-5xl font-extrabold text-[#847ef1] ">
-              {amounts[pair.from]}
-            </span>{" "}
-            {pair.from}
+          {/* Amount + Token Selector */}
+          <div className="flex justify-center gap-3 items-center font-bold text-xl">
+            <p className="text-5xl pb-1 font-extrabold text-[#847ef1] ">
+              {token === "usdt" ? amounts.USDT : amounts.USDC}
+            </p>
+
+            <Select
+              value={token}
+              onValueChange={(v) => {
+                // Reset values when switching currency
+                setAmounts({
+                  INR: "",
+                  USDT: "0",
+                  USDC: "0",
+                });
+                setToken(v as "usdt" | "usdc");
+              }}
+            >
+              <SelectTrigger className="w-[100px] text-lg">
+                <SelectValue placeholder="Select Token" />
+              </SelectTrigger>
+
+              <SelectContent>
+                <SelectItem value="usdt">USDT</SelectItem>
+                <SelectItem value="usdc">USDC</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
+
+          {/* INR Conversion */}
           <div className="mt-2 text-lg gap-2 w-fit flex mx-auto font-semibold items-center">
-            <CgArrowsExchangeAltV
-              // onClick={handleSwap}
-              className="bg-[#e0defa] cursor-pointer rounded-full p-.5 text-2xl text-[#4D43EF]"
-            />{" "}
-            {amounts[pair.to] !== "0" && amounts[pair.to]} {pair.to}
+            <CgArrowsExchangeAltV className="bg-[#e0defa] cursor-pointer rounded-full p-.5 text-2xl text-[#4D43EF]" />{" "}
+            {amounts.INR && amounts.INR !== "0" && amounts.INR} INR
           </div>
-          <div className="font-semibold text-gray-600 mt-3 txt">
+
+          {/* Available Balance */}
+          <div className="font-semibold text-gray-600 mt-3">
             Available Balance:{" "}
-            <span className="font-bold text-[#4D43EF]">{assetsData?.total_usdt ?? "00.00"} USDT</span>
+            <span className="font-bold text-[#4D43EF]">
+              {availableBalance} {token?.toUpperCase()}
+            </span>
           </div>
         </div>
+
+        {/* Limit Card */}
         <div
-          onClick={() => {
-            navigate("/limit");
-          }}
-          className="card bg-[#e0defa] cursor-pointer hover:scale-105 transition ease=in-out duration-300 rounded-lg items-center py-3 px-2 my-8 md:my-10 flex justify-center gap-3"
+          onClick={() => navigate("/limit")}
+          className="card bg-[#e0defa] cursor-pointer hover:scale-105 transition ease=in-out duration-300 rounded-lg items-center py-3 px-2 my-8 flex justify-center gap-3"
         >
           <FaRegCreditCard className="text-xl text-[#4D43EF]" />
           <span className="font-semibold text-sm">
-            Your Transaction Limit :{" "}
+            Your Sell Limit :{" "}
             <span className=" text-[#4D43EF]">
               {limit?.sell_limit} USDT/USDC
             </span>
@@ -190,10 +461,15 @@ const Sell: React.FC = () => {
           <FaGreaterThan className="text-sm text-gray-600" />
         </div>
 
+        {/* Keypad */}
         <Keypad updateAmount={updateAmount} backspace={backspace} />
 
+        {/* Max & Clear */}
         <div className="flex gap-3 mt-3">
-          <button className="cursor-pointer flex-1 text-[#4D43EF] hover:bg-gray-300 py-2 rounded-lg transition ease-in-out duration-300 font-semibold">
+          <button
+            onClick={handleMax}
+            className="cursor-pointer flex-1 text-[#4D43EF] hover:bg-gray-300 py-2 rounded-lg transition ease-in-out duration-300 font-semibold"
+          >
             Max
           </button>
           <button
@@ -203,13 +479,16 @@ const Sell: React.FC = () => {
             Clear
           </button>
         </div>
+
+        {/* Continue button */}
         <div>
           <button
             disabled={
-              parseFloat(limit?.buy_limit) < 1 ||
-              (amounts["USDT"] == "0" && amounts["USDC"] == "0")
+              // parseFloat(limit?.sell_limit) < 1 ||
+              amounts.USDT === "0" && amounts.USDC === "0"
             }
-            className="w-full mt-5 disabled:bg-[#4D43EF]/60 disabled:cursor-not-allowed bg-[#4D43EF] text-white font-semibold py-4 md:py-3 rounded-lg hover:bg-[#4D43EF]/70 transition ease-in-out duration-300 cursor-pointer"
+            onClick={handleContinue}
+            className="w-full mt-5 disabled:bg-[#4D43EF]/60 disabled:cursor-not-allowed bg-[#4D43EF] text-white font-semibold py-4 rounded-lg hover:bg-[#4D43EF]/70 transition ease-in-out duration-300 cursor-pointer"
           >
             Continue
           </button>
@@ -219,4 +498,4 @@ const Sell: React.FC = () => {
   );
 };
 
-export default Sell;
+export default React.memo(Sell);

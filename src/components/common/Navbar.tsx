@@ -53,7 +53,7 @@ const Navbar: React.FC = () => {
     "/transaction": "Transaction",
     "/refer": "Refer & Earn",
     "/support": "Help & Support",
-    "/settings": "Settings",
+    "/profile": "Profile",
     "/support/gettingstarted": "Help & Support",
     "/support/general": "Help & Support",
     "/support/limits": "Help & Support",
@@ -73,7 +73,7 @@ const Navbar: React.FC = () => {
     "/transaction": true,
     "/refer": true,
     "/support": false,
-    "/settings": false,
+    "/profile": true,
     "/support/gettingstarted": false,
     "/support/general": false,
     "/support/limits": false,
@@ -87,8 +87,7 @@ const Navbar: React.FC = () => {
 
   useEffect(() => {
     const interval = setInterval(
-      () =>
-       setShowSelling((prev) => (prev == 3 ? 0 : prev + 1)),
+      () => setShowSelling((prev) => (prev == 3 ? 0 : prev + 1)),
       3500
     );
     return () => clearInterval(interval);

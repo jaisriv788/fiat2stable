@@ -12,13 +12,14 @@ import { SlBadge } from "react-icons/sl";
 import { TbTransactionRupee } from "react-icons/tb";
 import { GiReceiveMoney } from "react-icons/gi";
 import { BiSupport } from "react-icons/bi";
-// import { IoMdSettings } from "react-icons/io";
+import { IoMdSettings } from "react-icons/io";
 import { FaArrowRightLong } from "react-icons/fa6";
 import useOnlineStatus from "@/hooks/useOnlineStatus";
 import { ImConnection } from "react-icons/im";
 import { useNavigate } from "react-router";
 import { setConnectionSlider } from "@/store/slices/modelSlice";
 import { setLimit } from "@/store/slices/priceSlice";
+import { CgProfile } from "react-icons/cg";
 // import ThemeSwitcher from "./ThemeSwitcher";
 
 const Sidebar: React.FC = () => {
@@ -59,14 +60,14 @@ const Sidebar: React.FC = () => {
         navigate("/support");
       },
     },
-    // {
-    //   id: 5,
-    //   icon: IoMdSettings,
-    //   tag: "Settings",
-    //   click: () => {
-    //     navigate("/settings");
-    //   },
-    // },
+    {
+      id: 5,
+      icon: CgProfile,
+      tag: "Profile",
+      click: () => {
+        navigate("/profile");
+      },
+    },
     {
       id: 6,
       icon: ImConnection,
