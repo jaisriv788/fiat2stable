@@ -1,228 +1,3 @@
-// import React, { useEffect, useState } from "react";
-// import { CgArrowsExchangeAltV } from "react-icons/cg";
-// import { FaRegCreditCard } from "react-icons/fa";
-// import { FaGreaterThan } from "react-icons/fa6";
-// import type { RootState } from "@/store/store";
-// import { useSelector } from "react-redux";
-// import Keypad from "@/components/common/Keypad";
-// import { useNavigate } from "react-router";
-// import axios from "axios";
-
-// type Currency = "INR" | "USDT" | "USDC";
-
-// interface Assets {
-//   total_usdt: string;
-//   total_usdc: string;
-// }
-
-// type Pair = {
-//   from: Currency;
-//   to: Currency;
-// };
-// type Amounts = Record<Currency, string>;
-
-// const Sell: React.FC = () => {
-//   const navigate = useNavigate();
-
-//   const pair: Pair = { from: "USDT", to: "INR" };
-//   const [amounts, setAmounts] = useState<Amounts>({
-//     INR: "0",
-//     USDT: "0",
-//     USDC: "0",
-//   });
-//   const [assetsData, setAssetsData] = useState<Assets | null>(null);
-
-//   //@ts-ignorets ignore
-//   const [refresh, setRefresh] = useState<boolean>(false);
-
-//   const currentAmount = amounts[pair.from];
-
-//   const sellingPrice = useSelector(
-//     (state: RootState) => state.price.sellingPrice
-//   );
-//   const limit = useSelector((state: RootState) => state.price.limit);
-//   const baseUrl = useSelector((state: RootState) => state?.consts?.baseUrl);
-//   const userData = useSelector((state: RootState) => state?.user?.userData);
-//   const token = useSelector((state: RootState) => state?.user?.token);
-
-//   async function fetchBalance() {
-//     try {
-//       const response = await axios.post(
-//         `${baseUrl}/user-currency-list`,
-//         {
-//           user_id: userData?.id,
-//         },
-//         {
-//           headers: {
-//             Authorization: `Bearer ${token}`,
-//             "Content-Type": "application/json",
-//           },
-//         }
-//       );
-
-//       setAssetsData(response.data.data);
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   }
-
-//   useEffect(() => {
-//     fetchBalance();
-//   }, [refresh]);
-
-//   useEffect(() => {
-//     if (amounts[pair.from] == "0") {
-//       setAmounts((prev) => {
-//         return {
-//           ...prev,
-//           [pair.to]: "",
-//         };
-//       });
-//     } else {
-//       const price = parseFloat(amounts[pair.from]) * parseFloat(sellingPrice);
-
-//       setAmounts((prev) => {
-//         return {
-//           ...prev,
-//           [pair.to]: price,
-//         };
-//       });
-//     }
-//   }, [currentAmount]);
-
-//   // const handleSwap = () => {
-//   //   setPair(({ from, to }) => ({ from: to, to: from }));
-//   // };
-
-//   const updateAmount = (value: string) => {
-//     if (value == "0" && amounts[pair.from] == "0") return;
-
-//     if (amounts[pair.from].split("").includes(".") && value == ".") return;
-
-//     setAmounts((prev) => {
-//       const current = prev[pair.from];
-
-//       let updated: string;
-
-//       if (current === "0" && value === ".") {
-//         updated = "0.";
-//       } else if (current === "0") {
-//         updated = value;
-//       } else {
-//         updated = current + value;
-//       }
-//       return {
-//         ...prev,
-//         [pair.from]: updated,
-//       };
-//     });
-//   };
-
-//   function backspace() {
-//     if (amounts[pair.from] === "0") return;
-
-//     if (amounts[pair.from].length == 1) {
-//       setAmounts((prev) => {
-//         return {
-//           ...prev,
-//           [pair.from]: "0",
-//         };
-//       });
-//       return;
-//     }
-
-//     const editedValue = amounts[pair.from].slice(
-//       0,
-//       amounts[pair.from].length - 1
-//     );
-//     setAmounts((prev) => {
-//       return {
-//         ...prev,
-//         [pair.from]: editedValue,
-//       };
-//     });
-//   }
-
-//   function handleClear() {
-//     setAmounts((prev) => {
-//       return {
-//         ...prev,
-//         [pair.from]: "0",
-//       };
-//     });
-//   }
-
-//   return (
-//     <div className="min-h-screen flex items-center justify-center">
-//       <div className="max-w-lg overflow-hidden w-full px-2">
-//         <div className="text-center">
-//           <div className="font-bold text-xl">
-//             <span className="text-5xl font-extrabold text-[#847ef1] ">
-//               {amounts[pair.from]}
-//             </span>{" "}
-//             {pair.from}
-//           </div>
-//           <div className="mt-2 text-lg gap-2 w-fit flex mx-auto font-semibold items-center">
-//             <CgArrowsExchangeAltV
-//               // onClick={handleSwap}
-//               className="bg-[#e0defa] cursor-pointer rounded-full p-.5 text-2xl text-[#4D43EF]"
-//             />{" "}
-//             {amounts[pair.to] !== "0" && amounts[pair.to]} {pair.to}
-//           </div>
-//           <div className="font-semibold text-gray-600 mt-3 txt">
-//             Available Balance:{" "}
-//             <span className="font-bold text-[#4D43EF]">
-//               {assetsData?.total_usdt ?? "00.00"} USDT
-//             </span>
-//           </div>
-//         </div>
-//         <div
-//           onClick={() => {
-//             navigate("/limit");
-//           }}
-//           className="card bg-[#e0defa] cursor-pointer hover:scale-105 transition ease=in-out duration-300 rounded-lg items-center py-3 px-2 my-8 md:my-10 flex justify-center gap-3"
-//         >
-//           <FaRegCreditCard className="text-xl text-[#4D43EF]" />
-//           <span className="font-semibold text-sm">
-//             Your Transaction Limit :{" "}
-//             <span className=" text-[#4D43EF]">
-//               {limit?.sell_limit} USDT/USDC
-//             </span>
-//           </span>
-//           <FaGreaterThan className="text-sm text-gray-600" />
-//         </div>
-
-//         <Keypad updateAmount={updateAmount} backspace={backspace} />
-
-//         <div className="flex gap-3 mt-3">
-//           <button className="cursor-pointer flex-1 text-[#4D43EF] hover:bg-gray-300 py-2 rounded-lg transition ease-in-out duration-300 font-semibold">
-//             Max
-//           </button>
-//           <button
-//             onClick={handleClear}
-//             className="cursor-pointer flex-1 text-[#4D43EF] hover:bg-gray-300 py-2 rounded-lg transition ease-in-out duration-300 font-semibold"
-//           >
-//             Clear
-//           </button>
-//         </div>
-//         <div>
-//           <button
-//             disabled={
-//               parseFloat(limit?.buy_limit) < 1 ||
-//               (amounts["USDT"] == "0" && amounts["USDC"] == "0")
-//             }
-//             className="w-full mt-5 disabled:bg-[#4D43EF]/60 disabled:cursor-not-allowed bg-[#4D43EF] text-white font-semibold py-4 md:py-3 rounded-lg hover:bg-[#4D43EF]/70 transition ease-in-out duration-300 cursor-pointer"
-//           >
-//             Continue
-//           </button>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Sell;
-
 import React, { useEffect, useState } from "react";
 import { CgArrowsExchangeAltV } from "react-icons/cg";
 import { FaRegCreditCard } from "react-icons/fa";
@@ -241,6 +16,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import Model from "@/components/sell/Model";
+import PaymentConfirmation from "@/components/buy/PaymentConfirmation";
 
 type Currency = "INR" | "USDT" | "USDC";
 
@@ -265,6 +42,10 @@ const Sell: React.FC = () => {
   const [refresh, setRefresh] = useState(false);
   const [order_id, setOrder_Id] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [liveMerchants, setLiveMerchants] = useState(0);
+  const [open, setOpen] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(300); // 5 minutes in seconds
+  const [showPaymentConfirmation, setShowPaymentConfirmation] = useState(false);
 
   // Redux
   const priceData = useSelector((state: RootState) => state.price);
@@ -282,6 +63,39 @@ const Sell: React.FC = () => {
     token === "usdt" ? priceData.sellingPriceUSDT : priceData.sellingPriceUSDC;
 
   const currentAmount = token === "usdt" ? amounts.USDT : amounts.USDC;
+
+  useEffect(() => {
+    const fetchLiveMerchants = async () => {
+      try {
+        const response = await axios.get(`${baseUrl}/live-merchants`);
+        setLiveMerchants(response.data.data.count);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchLiveMerchants();
+  }, []);
+
+  useEffect(() => {
+    let interval: any;
+
+    if (open) {
+      setTimeLeft(300); // reset timer to 5 mins
+
+      interval = setInterval(() => {
+        setTimeLeft((prev) => {
+          if (prev <= 1) {
+            clearInterval(interval);
+            setOpen(false); // auto-close when time ends (optional)
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+    }
+
+    return () => clearInterval(interval);
+  }, [open]);
 
   // Fetch balance
   async function fetchBalance() {
@@ -421,11 +235,12 @@ const Sell: React.FC = () => {
         }
       );
 
-      // console.log(response.data);
+      console.log(response.data);
       if (response.data.status) {
         setOrder_Id(response?.data?.order_id);
-        // setOpen(true);
+        setOpen(true);
         showSuccess("Transaction Requested.", "");
+        setRefresh((prev) => !prev);
       }
     } catch (error) {
       console.log(error.response.data.message);
@@ -437,6 +252,23 @@ const Sell: React.FC = () => {
   }
   return (
     <div className="min-h-screen flex items-center justify-center">
+      {open && (
+        <Model
+          timeLeft={timeLeft}
+          setOpen={setOpen}
+          order_id={order_id}
+          setAmounts={setAmounts}
+          setShowPaymentConfirmation={setShowPaymentConfirmation}
+        />
+      )}
+      {showPaymentConfirmation && (
+        <PaymentConfirmation
+          order_id={order_id}
+          setOrder_Id={setOrder_Id}
+          setAmounts={setAmounts}
+          setShowPaymentConfirmation={setShowPaymentConfirmation}
+        />
+      )}
       <div className="max-w-lg overflow-hidden w-full px-2">
         <div className="text-center">
           {/* Amount + Token Selector */}
@@ -481,6 +313,23 @@ const Sell: React.FC = () => {
               {availableBalance} {token?.toUpperCase()}
             </span>
           </div>
+        </div>
+
+        <div className="flex  items-center  gap-2 mt-2 mx-auto w-fit px-6 py-2 rounded-full bg-[#4D43EF]/10 border border-[#4D43EF]/40 font-bold text-[#4D43EF] relative overflow-hidden">
+          <div
+            className={`w-4 h-4  bg-green-300
+               rounded-full flex items-center justify-center`}
+          >
+            <div
+              className={`w-2.5 h-2.5 bg-green-600
+                 rounded-full animate-ping`}
+              style={{ animationDuration: "1.4s" }}
+            ></div>
+          </div>
+          <span className="animate-[shine_2s_linear_infinite] absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent"></span>
+          <span className="relative z-10">
+            Live Merchants – {liveMerchants}
+          </span>
         </div>
 
         {/* Limit Card */}

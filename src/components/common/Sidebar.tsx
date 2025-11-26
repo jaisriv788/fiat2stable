@@ -12,7 +12,6 @@ import { SlBadge } from "react-icons/sl";
 import { TbTransactionRupee } from "react-icons/tb";
 import { GiReceiveMoney } from "react-icons/gi";
 import { BiSupport } from "react-icons/bi";
-import { IoMdSettings } from "react-icons/io";
 import { FaArrowRightLong } from "react-icons/fa6";
 import useOnlineStatus from "@/hooks/useOnlineStatus";
 import { ImConnection } from "react-icons/im";
@@ -127,7 +126,7 @@ const Sidebar: React.FC = () => {
               <div className="flex items-center gap-2">
                 <img
                   className="logo"
-                  src="/users/login/icon2.jpg"
+                  src="three.jpeg"
                   alt="icon"
                   width={40}
                 />
