@@ -29,16 +29,16 @@ const TrxTable: React.FC = () => {
   const [transaction, setTransaction] = useState<Transaction[]>([]);
 
   const baseUrl = useSelector((state: RootState) => state?.consts?.baseUrl);
-  // const userData = useSelector((state: RootState) => state?.user?.userData);
+  const userData = useSelector((state: RootState) => state?.user?.userData);
   const token = useSelector((state: RootState) => state?.user?.token);
 
   async function fetchTransactions() {
     try {
       setloading(true);
       const response = await axios.post(
-        `${baseUrl}/merchant/transactions-list`,
+        `${baseUrl}/transactions-list`,
         {
-          // user_id: userData?.id,
+          user_id: userData?.id,
           count,
         },
         {

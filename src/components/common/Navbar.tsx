@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { TextAnimate } from "../ui/text-animate";
 import { ShimmerButton } from "../ui/shimmer-button";
-import { useNavigate, useLocation } from "react-router";
+import { useNavigate, useLocation, useMatch } from "react-router";
 import { Menu } from "lucide-react";
 import { setSidebar } from "@/store/slices/modelSlice";
 import {
@@ -63,8 +63,13 @@ const Navbar: React.FC = () => {
     "/support/allfaqs": "Help & Support",
   };
 
-  const title = routeTitles[location.pathname];
+  let title = routeTitles[location.pathname];
 
+  const match = useMatch("/confirm-sell/:inr/:usdt/:order_id");
+
+  if (match) {
+    title = "Payment Confirmation";
+  }
   const showHelp: Record<string, boolean> = {
     "/buy": true,
     "/sell": true,
@@ -171,12 +176,7 @@ const Navbar: React.FC = () => {
                 navigate("/dashboard");
               }}
             >
-              <img
-                className=""
-                src="three.jpeg"
-                alt="icon"
-                width={50}
-              />
+              <img className="" src="three.jpeg" alt="icon" width={50} />
               <TextAnimate>Scan2Pay</TextAnimate>
             </div>
           ) : (

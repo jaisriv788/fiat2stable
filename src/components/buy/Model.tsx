@@ -154,7 +154,7 @@ const Model: React.FC<ModelProps> = ({
 
               {/* Center logo in QR */}
               <img
-                src="/users/three.png"
+                src="/users/three.jpeg"
                 alt="logo"
                 className="absolute rounded-full top-1/2 left-1/2 w-10 h-10 -translate-x-1/2 -translate-y-1/2"
               />

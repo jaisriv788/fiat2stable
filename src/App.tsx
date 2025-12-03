@@ -5,7 +5,10 @@ import Dashboard from "./screens/Dashboard";
 import ProtectedRoute from "./components/common/ProtectedRoute";
 import PublicRoute from "./components/common/PublicRoute";
 import Buy from "./screens/Buy";
-import ScanAndSell from "./screens/ScanAndSell";
+import ScanAndSell from "./screens/ScanAndSell2";
+import Order from "./screens/Order";
+import Payment from "./screens/Payment";
+
 import Sell from "./screens/Sell";
 import Support from "./screens/Support";
 import Limit from "./screens/Limit";
@@ -26,6 +29,7 @@ import Success from "./components/common/Success";
 import Verification from "./components/common/Verification";
 import { useSelector } from "react-redux";
 import type { RootState } from "./store/store";
+import ConfirmSell from "./screens/ConfirmSell";
 // import WalletTransaction from "./screens/WalletTransaction";
 
 const App: React.FC = () => {
@@ -57,6 +61,10 @@ const App: React.FC = () => {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/buy" element={<Buy />} />
           <Route path="/scan" element={<ScanAndSell />} />
+          <Route path="/confirm-sell/:inr/:usdt/:order_id" element={<ConfirmSell />} />
+          <Route path="/order" element={<Order />} />
+          <Route path="/payment" element={<Payment />} />
+
           <Route path="/sell" element={<Sell />} />
           <Route path="/support" element={<Support />} />
 

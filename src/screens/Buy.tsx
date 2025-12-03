@@ -35,12 +35,14 @@ const Buy: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [showPaymentConfirmation, setShowPaymentConfirmation] = useState(false);
   const [order_id, setOrder_Id] = useState(null);
-  const [timeLeft, setTimeLeft] = useState(300); // 5 minutes in seconds
+  const [timeLeft, setTimeLeft] = useState(300);
   const [liveMerchants, setLiveMerchants] = useState(0);
   const { showSuccess } = useShowSuccess();
   const { showError } = useShowError();
 
-  const pair: Pair = { from: token.toUpperCase() as Currency, to: "INR" };
+  // *** UPDATED: INPUT = INR, OUTPUT = USDT / USDC ***
+  const pair: Pair = { from: "INR", to: token.toUpperCase() as Currency };
+
   const [amounts, setAmounts] = useState<Amounts>({
     INR: "0",
     USDT: "0",
@@ -59,48 +61,33 @@ const Buy: React.FC = () => {
 
   useEffect(() => {
     if (amounts[pair.from] == "0") {
-      setAmounts((prev) => {
-        return {
-          ...prev,
-          [pair.to]: "",
-        };
-      });
+      setAmounts((prev) => ({
+        ...prev,
+        [pair.to]: "",
+      }));
     } else {
-      // console.log(typeof amounts[pair.from], typeof buyingPrice);
-      // console.log(parseFloat(amounts[pair.from]) * parseFloat(buyingPrice));
+      // *** UPDATED FORMULA: INR → USDT/USDC ***
+      const price =
+        parseFloat(amounts[pair.from]) / parseFloat(buyingPrice || "1");
 
-      const price = parseFloat(amounts[pair.from]) * parseFloat(buyingPrice);
-
-      setAmounts((prev) => {
-        return {
-          ...prev,
-          [pair.to]: price,
-        };
-      });
+      setAmounts((prev) => ({
+        ...prev,
+        [pair.to]: price,
+      }));
     }
   }, [currentAmount, token]);
-
-  // function formatTime(seconds: number) {
-  //   if (seconds === 0) {
-  //     setOpen(false);
-  //     return;
-  //   }
-  //   const m = Math.floor(seconds / 60);
-  //   const s = seconds % 60;
-  //   return `${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
-  // }
 
   useEffect(() => {
     let interval: any;
 
     if (open) {
-      setTimeLeft(300); // reset timer to 5 mins
+      setTimeLeft(300);
 
       interval = setInterval(() => {
         setTimeLeft((prev) => {
           if (prev <= 1) {
             clearInterval(interval);
-            setOpen(false); // auto-close when time ends (optional)
+            setOpen(false);
             return 0;
           }
           return prev - 1;
@@ -114,7 +101,7 @@ const Buy: React.FC = () => {
   const updateAmount = (value: string) => {
     if (value == "0" && amounts[pair.from] == "0") return;
 
-    if (amounts[pair.from].split("").includes(".") && value == ".") return;
+    if (amounts[pair.from].includes(".") && value == ".") return;
 
     setAmounts((prev) => {
       const current = prev[pair.from];
@@ -139,12 +126,10 @@ const Buy: React.FC = () => {
     if (amounts[pair.from] === "0") return;
 
     if (amounts[pair.from].length == 1) {
-      setAmounts((prev) => {
-        return {
-          ...prev,
-          [pair.from]: "0",
-        };
-      });
+      setAmounts((prev) => ({
+        ...prev,
+        [pair.from]: "0",
+      }));
       return;
     }
 
@@ -152,32 +137,30 @@ const Buy: React.FC = () => {
       0,
       amounts[pair.from].length - 1
     );
-    setAmounts((prev) => {
-      return {
-        ...prev,
-        [pair.from]: editedValue,
-      };
-    });
+    setAmounts((prev) => ({
+      ...prev,
+      [pair.from]: editedValue,
+    }));
   }
 
   function handleClear() {
-    setAmounts((prev) => {
-      return {
-        ...prev,
-        [pair.from]: "0",
-      };
-    });
+    setAmounts((prev) => ({
+      ...prev,
+      [pair.from]: "0",
+    }));
   }
 
   async function handleBuy() {
     try {
       setloading(true);
+
+      // *** UPDATED: API must send USDT/USDC as 'amount' AND INR separately ***
       const response = await axios.post(
         `${baseUrl}/buy-order`,
         {
           user_id: userData?.id,
-          amount: amounts[pair.from],
-          inr_amount: amounts[pair.to],
+          amount: amounts[pair.to], // USDT/USDC
+          inr_amount: amounts[pair.from], // INR
           type: token,
           order_type: "buy",
         },
@@ -189,14 +172,12 @@ const Buy: React.FC = () => {
         }
       );
 
-      // console.log(response.data);
       if (response.data.status) {
         setOrder_Id(response?.data?.order_id);
         setOpen(true);
         showSuccess("Transaction Requested.", "");
       }
     } catch (error) {
-      console.log(error.response.data.message);
       showError(error.response.data.message, "");
       setAmounts({ INR: "0", USDT: "0", USDC: "0" });
     } finally {
@@ -241,6 +222,13 @@ const Buy: React.FC = () => {
             <p className="text-5xl pb-1 font-extrabold text-[#847ef1] ">
               {amounts[pair.from]}
             </p>{" "}
+            INR
+          </div>
+          <div className="mt-1 text-lg gap-2 w-fit flex mx-auto font-semibold items-center">
+            <CgArrowsExchangeAltV className="bg-[#e0defa] cursor-pointer rounded-full p-.5 text-2xl text-[#4D43EF]" />{" "}
+            {amounts[pair.to] !== "0" && amounts[pair.to]
+              ? parseFloat(amounts[pair.to]).toFixed(4)
+              : "0"}{" "}
             <Select value={token} onValueChange={setToken}>
               <SelectTrigger className="w-[100px] text-lg">
                 <SelectValue placeholder="Select Token" />
@@ -249,28 +237,18 @@ const Buy: React.FC = () => {
               <SelectContent>
                 <SelectItem value="usdt">USDT</SelectItem>
                 <SelectItem value="usdc">USDC</SelectItem>
+                <SelectItem value="gbk">GBK</SelectItem>
               </SelectContent>
             </Select>
           </div>
-          <div className="mt-1 text-lg gap-2 w-fit flex mx-auto font-semibold items-center">
-            <CgArrowsExchangeAltV
-              // onClick={handleSwap}
-              className="bg-[#e0defa] cursor-pointer rounded-full p-.5 text-2xl text-[#4D43EF]"
-            />{" "}
-            {amounts[pair.to] !== "0" && amounts[pair.to]
-              ? parseFloat(amounts[pair.to]).toFixed(4)
-              : ""}{" "}
-            {pair.to}
-          </div>
         </div>
+
         <div className="flex  items-center  gap-2 mt-2 mx-auto w-fit px-6 py-2 rounded-full bg-[#4D43EF]/10 border border-[#4D43EF]/40 font-bold text-[#4D43EF] relative overflow-hidden">
           <div
-            className={`w-4 h-4  bg-green-300
-               rounded-full flex items-center justify-center`}
+            className={`w-4 h-4 bg-green-300 rounded-full flex items-center justify-center`}
           >
             <div
-              className={`w-2.5 h-2.5 bg-green-600
-                 rounded-full animate-ping`}
+              className={`w-2.5 h-2.5 bg-green-600 rounded-full animate-ping`}
               style={{ animationDuration: "1.4s" }}
             ></div>
           </div>
@@ -311,9 +289,6 @@ const Buy: React.FC = () => {
         <Keypad updateAmount={updateAmount} backspace={backspace} />
 
         <div className="flex gap-3 mt-2">
-          {/* <button className="cursor-pointer flex-1 text-purple-800 hover:bg-gray-300 py-2 rounded-lg transition ease-in-out duration-300 font-semibold">
-            Max
-          </button> */}
           <button
             onClick={handleClear}
             className="cursor-pointer bg-gray-200 flex-1 text-[#4D43EF] hover:bg-gray-300 py-4 md:py-3 rounded-lg transition ease-in-out duration-300 font-semibold"
@@ -323,10 +298,7 @@ const Buy: React.FC = () => {
         </div>
         <div>
           <button
-            disabled={
-              // parseFloat(limit?.buy_limit) < 1 ||
-              amounts["USDT"] === "0" && amounts["USDC"] === "0"
-            }
+            disabled={amounts["INR"] === "0"}
             onClick={handleBuy}
             className="w-full mt-3 disabled:bg-[#4D43EF]/60 disabled:cursor-not-allowed bg-[#4D43EF] text-white font-semibold py-4 md:py-3 rounded-lg hover:bg-[#4D43EF]/70 transition ease-in-out duration-300 cursor-pointer"
           >

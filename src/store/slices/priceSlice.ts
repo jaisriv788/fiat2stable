@@ -18,6 +18,8 @@ interface PriceState {
   sellingPriceUSDT: string;
   buyingPriceUSDT: string;
   sellingPriceUSDC: string;
+  sellingPriceGBK: string;
+
   buyingPriceUSDC: string;
   fetchBalance: boolean;
   balance: BalanceData | null;
@@ -30,6 +32,8 @@ const initialState: PriceState = {
   sellingPriceUSDT: "0.00",
   buyingPriceUSDT: "0.00",
   sellingPriceUSDC: "0.00",
+  sellingPriceGBK: "0.00",
+
   buyingPriceUSDC: "0.00",
   balance: null,
   fetchBalance: false,
@@ -93,6 +97,14 @@ const priceSlice = createSlice({
     ) => {
       state.sellingPriceUSDC = action.payload.sellingPriceUSDC;
     },
+
+ setSellingPriceGBK: (
+      state,
+      action: PayloadAction<Pick<PriceState, "sellingPriceGBK">>
+    ) => {
+      state.sellingPriceGBK = action.payload.sellingPriceGBK;
+    },
+
     setBuyingPriceUSDC: (
       state,
       action: PayloadAction<Pick<PriceState, "buyingPriceUSDC">>
@@ -134,6 +146,8 @@ export const {
   setSellingPriceUSDT,
   setBuyingPriceUSDT,
   setSellingPriceUSDC,
+  setSellingPriceGBK,
+
   setBuyingPriceUSDC,
   setLimit,
   setBalance,

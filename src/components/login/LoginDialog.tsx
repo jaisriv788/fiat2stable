@@ -338,22 +338,12 @@ export function LoginDialog() {
                 className="cursor-pointer hover:text-[#4D43EF] transition ease-in-out duration-300"
                 onClick={handleBack}
               />
-              <img
-                className="logo"
-                src="three.jpeg"
-                alt="icon"
-                width={45}
-              />
+              <img className="logo" src="three.jpeg" alt="icon" width={45} />
               OTP
             </DialogTitle>
           ) : (
             <DialogTitle className="flex items-center font-bold gap-2">
-              <img
-                className="logo"
-                src="three.jpeg"
-                alt="icon"
-                width={45}
-              />
+              <img className="logo" src="three.jpeg" alt="icon" width={45} />
               Login
             </DialogTitle>
           )}
