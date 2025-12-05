@@ -18,6 +18,8 @@ import { IoMdHelpCircle } from "react-icons/io";
 import axios from "axios";
 import InstallButton from "../PWAInstall/InstallButton";
 import { useParams } from "react-router";
+import { useShowError } from "@/hooks/useShowError";
+import { useShowSuccess } from "@/hooks/useShowSuccess";
 
 const Navbar: React.FC = () => {
   const [showSelling, setShowSelling] = useState(0);
@@ -25,6 +27,9 @@ const Navbar: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
+
+  const { showError } = useShowError();
+  const { showSuccess } = useShowSuccess();
 
   const { order_id } = useParams<{ order_id: string }>();
 
@@ -45,6 +50,7 @@ const Navbar: React.FC = () => {
   );
 
   const baseUrl = useSelector((state: RootState) => state?.consts?.baseUrl);
+  const token = useSelector((state: RootState) => state.user.token);
 
   const isDashboard = location.pathname == "/dashboard";
 
@@ -155,6 +161,27 @@ const Navbar: React.FC = () => {
     return () => clearInterval(interval);
   }, [buyingPriceUSDC, sellingPriceUSDC]);
 
+  async function back() {
+    if (match) {
+      try {
+        const formData = new FormData();
+        formData.append("order_id", order_id);
+
+        const response = await axios.post(`${baseUrl}/delete`, formData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        console.log(response.data);
+        showSuccess("Request cancelled successfully.", "");
+      } catch (e) {
+        console.log(e);
+        showError("Request cancelled failed.", "");
+      }
+    }
+    navigate("/dashboard");
+  }
   return (
     <nav className="shadow-md shadow-[#ddd4ee] fixed top-0 left-0 bg-white w-full z-30">
       <div className="max-w-lg mx-auto py-4 px-2 flex justify-between items-center">
@@ -170,9 +197,7 @@ const Navbar: React.FC = () => {
             />
           ) : (
             <FaArrowLeft
-              onClick={() => {
-                navigate("/dashboard");
-              }}
+              onClick={back}
               size={30}
               className="md:absolute p-1 border rounded-full hover:bg-gray-100 -left-10 cursor-pointer hover:text-[#4D43EF] transition ease-in-out duration-300"
             />

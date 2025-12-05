@@ -138,14 +138,36 @@ const Model: React.FC<ModelProps> = ({
       setLoading2(false);
     }
   }
+
+  async function cancel() {
+    try {
+      const formData = new FormData();
+      formData.append("order_id", order_id);
+
+      const response = await axios.post(
+        `${baseUrl}/delete`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log(response.data);
+      setOpen(false);
+      showSuccess("Request cancelled successfully.", "");
+    } catch (e) {
+      console.log(e);
+      showError("Request cancelled failed.", "");
+    }
+  }
+
   return (
     <div className="absolute inset-0 bg-black/50 z-50 backdrop-blur-sm flex items-center justify-center">
       {" "}
       <div className="p-6 bg-white rounded-lg relative max-w-lg w-full mx-3">
-        <X
-          onClick={() => setOpen(false)}
-          className="absolute cursor-pointer top-2 right-2"
-        />
+        <X onClick={cancel} className="absolute cursor-pointer top-2 right-2" />
 
         <div className="text-lg font-semibold">Payment {order_id}</div>
 
