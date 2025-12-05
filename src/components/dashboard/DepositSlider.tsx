@@ -134,6 +134,16 @@ const DepositSlider: React.FC = () => {
                       }}
                     />
                   </div>
+                  <div className="py-2 px-4 mt-3 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 rounded-md">
+                    <p className="font-semibold">Note:</p>
+                    <ul className="list-disc list-inside mt-1">
+                      <li>
+                        Scan the QR code using your wallet/copy the wallet
+                        address, submit the payment amount, and allow some time
+                        for your balance to update.
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               )}
               <button

@@ -13,7 +13,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { ExternalLink } from "lucide-react";
-
+import { useNavigate } from "react-router";
 interface Transaction {
   amount: number; //
   type: string; //
@@ -21,6 +21,7 @@ interface Transaction {
   transaction_type: "USDT" | "USDC";
   transaction_hash: string;
   payment_method: string;
+  updated_at: string;
 }
 
 const TrxTable: React.FC = () => {
@@ -31,6 +32,7 @@ const TrxTable: React.FC = () => {
   const baseUrl = useSelector((state: RootState) => state?.consts?.baseUrl);
   const userData = useSelector((state: RootState) => state?.user?.userData);
   const token = useSelector((state: RootState) => state?.user?.token);
+  const navigate = useNavigate();
 
   async function fetchTransactions() {
     try {
@@ -48,7 +50,7 @@ const TrxTable: React.FC = () => {
           },
         }
       );
-      console.log(response);
+      console.log({ response });
 
       if (response.data.status == "false") {
         setTransaction([]);
@@ -113,6 +115,7 @@ const TrxTable: React.FC = () => {
                 <TableHead>Trx Type</TableHead>
                 <TableHead>Type</TableHead>
                 <TableHead>Amount</TableHead>
+                <TableHead>Date</TableHead>
                 <TableHead className="text-center">Hash</TableHead>
               </TableRow>
             </TableHeader>
@@ -120,11 +123,14 @@ const TrxTable: React.FC = () => {
               {transaction.map((item, index) => {
                 return (
                   <TableRow
-                    className="odd:bg-[#4D43EF]/10 hover:bg-gray-100"
+                    className="odd:bg-[#4D43EF]/10 hover:bg-gray-100 cursor-pointer transition ease-in-out duration-300"
+                    onClick={() => {
+                      navigate("/order/" + item.trans_id);
+                    }}
                     key={index}
                   >
                     <TableCell>{item?.trans_id ?? "-"}</TableCell>
-                    <TableCell className="text-center">
+                    <TableCell className="">
                       {item?.payment_method?.toString()?.toUpperCase() ?? "-"}
                     </TableCell>
                     <TableCell>
@@ -132,6 +138,13 @@ const TrxTable: React.FC = () => {
                     </TableCell>
                     <TableCell>
                       ${item?.amount?.toFixed(2) ?? "00.00"}
+                    </TableCell>
+                    <TableCell>
+                      {item?.updated_at
+                        .slice(0, 10)
+                        .split("-")
+                        .reverse()
+                        .join("-") ?? "00.00"}
                     </TableCell>
                     <TableCell className="flex items-center gap-1 hover:text-[#4D43EF] cursor-pointer transition ease-in-out duration-300">
                       {item?.transaction_hash && <ExternalLink size={14} />}

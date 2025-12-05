@@ -46,6 +46,14 @@ const WithdrawSlider: React.FC = () => {
       setLoading(true);
       const type = view == 1 ? "usdt" : "usdc";
       const amount = view === 1 ? usdt : usdc;
+      const balance =
+        view === 1 ? assetsData?.total_usdt : assetsData?.total_usdc;
+
+      if (amount > balance) {
+        showError("Insufficient balance.", "");
+        setLoading(false);
+        return;
+      }
 
       await axios.post(
         `${baseUrl}/withdraw`,
@@ -53,7 +61,6 @@ const WithdrawSlider: React.FC = () => {
           user_id: userData?.id,
           amount,
           from_wallet_address: String(userData?.wallet_address || ""),
-          transaction_hash: "0x86g86g288p218y278e29762769uwh",
           to_wallet_address: receiverAddress,
           type,
         },
@@ -230,9 +237,15 @@ const WithdrawSlider: React.FC = () => {
                       </span>
                     </div>
 
+                    <div className="py-2 px-4 mt-3 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 rounded-md">
+                      <p className="font-semibold">Note:</p>
+                      <ul className="list-disc list-inside mt-1">
+                        <li>Verify the wallet address before proceeding.</li>
+                      </ul>
+                    </div>
                     <button
                       onClick={handleWithdraw}
-                      className="disabled:bg-gray-300 disabled:cursor-not-allowed disabled:text-gray-500 disabled:border-gray-500 mt-5 bg-white text-[#5728A6] font-semibold border-2 border-[#5728A6] w-full py-2 rounded-lg hover:bg-black hover:border-black hover:text-white cursor-pointer transition ease-in-out duration-300"
+                      className="disabled:bg-gray-300 disabled:cursor-not-allowed disabled:text-gray-500 disabled:border-gray-500 bg-white text-[#5728A6] font-semibold border-2 border-[#5728A6] w-full py-2 rounded-lg hover:bg-black hover:border-black hover:text-white cursor-pointer transition ease-in-out duration-300"
                     >
                       {loading ? (
                         <Spinner className="size-6 mx-auto" />
@@ -268,7 +281,28 @@ const WithdrawSlider: React.FC = () => {
 
               {view != 0 && (
                 <button
-                  onClick={() => setShowModel(true)}
+                  onClick={() => {
+                    const amount = view === 1 ? usdt : usdc;
+                    const balance =
+                      view === 1
+                        ? assetsData?.total_usdt
+                        : assetsData?.total_usdc;
+
+                    if (amount > balance) {
+                      showError("Insufficient balance.", "");
+                      setLoading(false);
+                      return;
+                    }
+                    // console.log(receiverAddress.trim().startsWith("0x"))
+                    if (
+                      receiverAddress.trim().length !== 42 ||
+                      !receiverAddress.trim().startsWith("0x")
+                    ) {
+                      showError("Invalid wallet address.", "");
+                      return;
+                    }
+                    setShowModel(true);
+                  }}
                   disabled={(!usdc || !usdt) && !receiverAddress}
                   className="disabled:bg-gray-300 disabled:cursor-not-allowed disabled:text-gray-500 disabled:border-gray-500 mt-5 bg-white text-[#4D43EF] font-semibold border-2 border-[#4D43EF] w-full py-2 rounded-lg hover:bg-black hover:border-black hover:text-white cursor-pointer transition ease-in-out duration-300"
                 >

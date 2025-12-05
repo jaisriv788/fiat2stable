@@ -41,6 +41,7 @@ export function LoginDialog() {
   const [email, setEmail] = useState("");
   const [number, setNumber] = useState("");
   const [otpSent, setOtpSent] = useState(false);
+  const [otpValue, setOtpValue] = useState("");
   const [view, setView] = useState(0);
   const [otp, setOtp] = useState("");
   const [otpLoader, setOtpLoader] = useState(false);
@@ -171,7 +172,7 @@ export function LoginDialog() {
         setEmail("");
         return;
       }
-
+      setOtpValue(response.data.otp);
       showSuccess("OTP Sent", response.data.message);
       setOtpSent(true);
     } catch (error) {
@@ -235,7 +236,7 @@ export function LoginDialog() {
       });
 
       // console.log(response.data);
-
+      setOtpValue(response.data.otp);
       showSuccess("Success", response.data.message);
       setOtpSent(true);
     } catch (error) {
@@ -350,11 +351,11 @@ export function LoginDialog() {
 
           {view == 1 ? (
             <DialogDescription className="text-left">
-              Enter the OTP sent to your Email.
+              Enter the OTP sent to your Email. {otpValue}
             </DialogDescription>
           ) : view == 2 ? (
             <DialogDescription className="text-left">
-              Enter the OTP sent to your Phone Number.
+              Enter the OTP sent to your Phone Number. {otpValue}
             </DialogDescription>
           ) : (
             <DialogDescription className="text-left">

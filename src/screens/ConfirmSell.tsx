@@ -1007,7 +1007,7 @@ const ConfirmSell: React.FC = () => {
             <div className="flex justify-between">
               <span>Fees</span>
               <span>
-                -
+                5%
               </span>
             </div>
             <div className="flex justify-between">

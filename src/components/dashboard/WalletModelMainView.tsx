@@ -5,7 +5,7 @@ import { signout } from "@/store/slices/userSlice";
 import { Copy, LogOut } from "lucide-react";
 import { IoMenu } from "react-icons/io5";
 import { LuTimerReset } from "react-icons/lu";
-import { IoIosSend } from "react-icons/io";
+// import { IoIosSend } from "react-icons/io";
 // import { MdOutlineAdd } from "react-icons/md";
 import { HiDownload } from "react-icons/hi";
 import { setLimit } from "@/store/slices/priceSlice";
@@ -87,15 +87,15 @@ const WalletModelMainView: React.FC<WalletModelMainViewProps> = ({
           <div className="text-xs text-gray-700">Smart Account</div>
         </div>
       </div>
-      <div className="mt-3 grid grid-cols-2 gap-3">
-        <div
+      <div className="mt-3 grid grid-cols-1 gap-3">
+        {/* <div
           onClick={() => {
             setView(3);
           }}
           className="flex items-center justify-center gap-1 border-gray-700 text-gray-700 cursor-pointer text-sm hover:bg-gray-200 transition ease-in-out duration-300 font-bold py-2 rounded-lg border-2"
         >
           <IoIosSend className="size-5" /> Send
-        </div>
+        </div> */}
         <div
           onClick={() => {
             setView(4);

@@ -17,6 +17,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import { IoMdHelpCircle } from "react-icons/io";
 import axios from "axios";
 import InstallButton from "../PWAInstall/InstallButton";
+import { useParams } from "react-router";
 
 const Navbar: React.FC = () => {
   const [showSelling, setShowSelling] = useState(0);
@@ -24,6 +25,8 @@ const Navbar: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
+
+  const { order_id } = useParams<{ order_id: string }>();
 
   const isSidebarVisible = useSelector(
     (state: RootState) => state.model.showSidebar
@@ -66,10 +69,15 @@ const Navbar: React.FC = () => {
   let title = routeTitles[location.pathname];
 
   const match = useMatch("/confirm-sell/:inr/:usdt/:order_id");
+  const matchOrder = useMatch("/order/:order_id?");
 
   if (match) {
     title = "Payment Confirmation";
   }
+  if (matchOrder) {
+    title = "Order Details (" + order_id + ")";
+  }
+
   const showHelp: Record<string, boolean> = {
     "/buy": true,
     "/sell": true,
@@ -163,7 +171,7 @@ const Navbar: React.FC = () => {
           ) : (
             <FaArrowLeft
               onClick={() => {
-                navigate(-1);
+                navigate("/dashboard");
               }}
               size={30}
               className="md:absolute p-1 border rounded-full hover:bg-gray-100 -left-10 cursor-pointer hover:text-[#4D43EF] transition ease-in-out duration-300"

@@ -24,7 +24,7 @@ const PaymentConfirmation: React.FC<PaymentConfirmationProps> = ({
   const token = useSelector((state: RootState) => state.user.token);
 
   useEffect(() => {
-    let interval = setInterval(async () => {
+    const interval = setInterval(async () => {
       try {
         const response = await axios.post(
           `${baseUrl}/confirm-order-status`,

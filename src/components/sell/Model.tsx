@@ -78,7 +78,7 @@ const Model: React.FC<ModelProps> = ({
     if (!wait) {
       return;
     }
-    let interval = setInterval(async () => {
+    const interval = setInterval(async () => {
       try {
         setLoading(true);
         if (data) {

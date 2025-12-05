@@ -73,6 +73,16 @@ const Usdc: React.FC<UsdcProps> = ({
           className="border-gray-400 text-[#4D43EF] font-semibold"
         />
       </div>
+      <div className="py-2 px-4 mt-3 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 rounded-md">
+        <p className="font-semibold">Warning:</p>
+        <ul className="list-disc list-inside mt-1">
+          <li>
+            Always verify the wallet address before proceeding. We cannot be
+            held responsible for transactions sent to an incorrect address.
+          </li>
+          <li>A 5% fee will be deducted from the amount entered.</li>
+        </ul>
+      </div>
     </div>
   );
 };

@@ -232,7 +232,7 @@ const WalletModelWalletManageView: React.FC<WalletModelViewProps> = ({
     //   </form>
     // </Form>
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
         {/* --- Token Selection --- */}
         <FormField
           control={form.control}
@@ -248,8 +248,8 @@ const WalletModelWalletManageView: React.FC<WalletModelViewProps> = ({
                   onValueChange={field.onChange}
                   value={field.value}
                 >
-                  <SelectTrigger className="w-full h-14 px-4 bg-white border-gray-200 shadow-sm focus:ring-2 focus:ring-[#4D43EF]/20 transition-all">
-                    <div className="flex items-center gap-3">
+                  <SelectTrigger className="w-full h-14 px-4 py-6 bg-white border-gray-200 shadow-sm focus:ring-2 focus:ring-[#4D43EF]/20 transition-all">
+                    <div className="flex items-center gap-5">
                       <div className="bg-gray-100 p-1.5 rounded-full">
                         <Coins className="size-4 text-gray-500" />
                       </div>

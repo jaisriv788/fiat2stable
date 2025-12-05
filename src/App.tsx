@@ -30,6 +30,7 @@ import Verification from "./components/common/Verification";
 import { useSelector } from "react-redux";
 import type { RootState } from "./store/store";
 import ConfirmSell from "./screens/ConfirmSell";
+import OrderDetails from "./screens/OrderDetails";
 // import WalletTransaction from "./screens/WalletTransaction";
 
 const App: React.FC = () => {
@@ -63,6 +64,7 @@ const App: React.FC = () => {
           <Route path="/scan" element={<ScanAndSell />} />
           <Route path="/confirm-sell/:inr/:usdt/:order_id" element={<ConfirmSell />} />
           <Route path="/order" element={<Order />} />
+          <Route path="/order/:order_id?" element={<OrderDetails />} />
           <Route path="/payment" element={<Payment />} />
 
           <Route path="/sell" element={<Sell />} />

@@ -188,8 +188,8 @@ const ScanAndSell: React.FC = () => {
         `${baseUrl}/buy-order`,
         {
           user_id: userData?.id,
-          amount: amounts[pairFrom], // USDT/USDC
-          inr_amount: amounts[pairTo], // INR
+          amount: amounts[pairTo], // USDT/USDC
+          inr_amount: amounts[pairFrom], // INR
           type: token,
           order_type: "scan",
         },

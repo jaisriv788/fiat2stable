@@ -45,7 +45,7 @@ const TrxCard: React.FC = () => {
 
   return (
     <div className="card relative overflow-hidden border-b-2 border-r border-[#4D43EF] bg-[#ebe5f7] shadow-2xl rounded-2xl">
-      <div className="absolute inset-0 bg-gradient-to-br from-[#7728E2] via-[#5C5AD7] to-[#22BDCF] opacity-90 rounded-2xl" />
+      <div className="absolute inset-0 bg-linear-to-br from-[#7728E2] via-[#5C5AD7] to-[#22BDCF] opacity-90 rounded-2xl" />
 
       <div className="relative z-10 p-4 sm:p-5 md:p-6 text-white">
         <div className="mb-4 text-center sm:text-left">
