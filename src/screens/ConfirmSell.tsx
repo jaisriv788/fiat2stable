@@ -844,6 +844,12 @@ const ConfirmSell: React.FC = () => {
                   <span className="capitalize">{data.order_status}</span>
                 </p>
 
+                {/* <p className="text-lg">
+                  <span className="font-semibold text-slate-900">
+                    UPI Reference:
+                  </span>{" "}
+                  {data.upi_reference}
+                </p> */}
                 <p className="text-lg">
                   <span className="font-semibold text-slate-900">
                     UPI Reference:
@@ -1006,9 +1012,7 @@ const ConfirmSell: React.FC = () => {
             </div>
             <div className="flex justify-between">
               <span>Fees</span>
-              <span>
-                5%
-              </span>
+              <span>5%</span>
             </div>
             <div className="flex justify-between">
               <span>You receive</span>

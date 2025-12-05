@@ -268,7 +268,7 @@ const ScanAndSell: React.FC = () => {
           <div className="font-semibold text-gray-600 mt-3 txt">
             Available Balance:{" "}
             <span className="font-bold text-[#4D43EF]">
-              {availableBalance} {pairTo}
+              {availableBalance ? parseFloat(availableBalance)?.toFixed(4) : "0.0000"} {pairTo}
             </span>
           </div>
         </div>

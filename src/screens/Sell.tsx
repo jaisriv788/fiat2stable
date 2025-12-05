@@ -691,7 +691,7 @@ const Sell: React.FC = () => {
           <div className="font-semibold text-gray-600 mt-2">
             Available Balance:{" "}
             <span className="font-bold text-[#4D43EF]">
-              {availableBalance} {token?.toUpperCase()}
+              {availableBalance ? parseFloat(availableBalance)?.toFixed(4) : "0.0000"} {token?.toUpperCase()}
             </span>
           </div>
         </div>

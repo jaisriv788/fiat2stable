@@ -16,6 +16,7 @@ const TOTAL_TIME = 300;
 type ModelProps = {
   setOpen: (open: boolean) => void;
   order_id: string;
+  amount: string;
   setAmounts: (amounts: { INR: string; USDT: string; USDC: string }) => void;
   timeLeft: number;
   setShowPaymentConfirmation: (showPaymentConfirmation: boolean) => void;
@@ -26,6 +27,7 @@ const Model: React.FC<ModelProps> = ({
   order_id,
   setAmounts,
   timeLeft,
+  amount,
   setShowPaymentConfirmation,
 }) => {
   const token = useSelector((state: RootState) => state.user.token);
@@ -38,6 +40,7 @@ const Model: React.FC<ModelProps> = ({
   const [showSubmitBox, setShowSubmitBox] = useState(false);
   // const [imageFile, setImageFile] = useState<File | null>(null);
   const [transactionId, setTransactionId] = useState("");
+  const [upiId, setUpiId] = useState("");
   const [loading, setLoading] = useState(false);
 
   // Poll the backend to check order status every 3 seconds
@@ -96,6 +99,7 @@ const Model: React.FC<ModelProps> = ({
       const formData = new FormData();
       formData.append("order_id", order_id);
       formData.append("upi_reference", transactionId);
+      formData.append("upi_id", upiId);
       // formData.append("screenshot", imageFile);
 
       // console.log({ order_id, transactionId, imageFile });
@@ -109,7 +113,7 @@ const Model: React.FC<ModelProps> = ({
           },
         }
       );
-
+      console.log(response.data);
       if (response.data.status) {
         showSuccess(
           "Payment proof submitted successfully.",
@@ -175,6 +179,16 @@ const Model: React.FC<ModelProps> = ({
                   }}
                 />{" "}
               </div>{" "} */}
+              <div className="space-y-2 mt-3">
+                {" "}
+                <Label>UPI ID</Label>{" "}
+                <Input
+                  type="text"
+                  placeholder="Enter UPI ID"
+                  value={upiId}
+                  onChange={(e) => setUpiId(e.target.value)}
+                />{" "}
+              </div>
               {/* Transaction ID */}{" "}
               <div className="space-y-2 mt-3">
                 {" "}
@@ -197,9 +211,14 @@ const Model: React.FC<ModelProps> = ({
           </div>
         ) : (
           !showSubmitBox && (
-            <div className="text-center text-sm font-semibold text-gray-500">
-              Scan QR & pay, then click proceed
-            </div>
+            <>
+              <div className="text-center font-bold text-lg">
+                Amount: ₹{amount}
+              </div>
+              <div className="text-center text-sm font-semibold text-gray-500">
+                Scan QR & pay, then click proceed
+              </div>
+            </>
           )
         )}
 

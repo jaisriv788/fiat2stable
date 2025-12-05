@@ -202,6 +202,7 @@ const Buy: React.FC = () => {
       {open && (
         <Model
           timeLeft={timeLeft}
+          amount={amounts[pair.from]}
           setOpen={setOpen}
           order_id={order_id}
           setAmounts={setAmounts}

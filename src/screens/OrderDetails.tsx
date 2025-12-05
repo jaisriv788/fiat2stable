@@ -1,5 +1,5 @@
-import React from "react";
-// import { useParams } from "react-router";
+import React, { useEffect } from "react";
+import { useNavigate, useParams } from "react-router";
 import { FaCheckCircle } from "react-icons/fa";
 import { Copy } from "lucide-react";
 import {
@@ -9,62 +9,92 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
+import axios from "axios";
+import type { RootState } from "@/store/store";
+import { useSelector } from "react-redux";
 
 const OrderDetails: React.FC = () => {
-  // const { order_id } = useParams<{ order_id: string }>();
+  const { order_id } = useParams<{ order_id: string }>();
+
+  const navigate = useNavigate();
+
+  const [data, setData] = React.useState(null);
+
+  const baseUrl = useSelector((state: RootState) => state.consts.baseUrl);
+  const token = useSelector((state: RootState) => state?.user?.token);
+
+  async function fetchDetails() {
+    try {
+      const response = await axios.post(
+        `${baseUrl}/merchant/transactions-details`,
+        { order_id },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      setData(response.data.data);
+    } catch (error) {
+      console.log("Error fetching order details:", error);
+    }
+  }
+
+  useEffect(() => {
+    fetchDetails();
+  }, []);
 
   return (
     <div className="mt-24 px-2 flex flex-col gap-2 max-w-lg mx-auto">
       <FaCheckCircle className="text-[110px] mx-auto text-[#493FEE]" />
-      <p className="mx-auto font-semibold text-[50px] text-[#493FEE]">₹1.00</p>
+      <p className="mx-auto font-semibold text-[50px] text-[#493FEE]">
+        {" "}
+        {data?.amount.toFixed(4) ?? "0.0000"}{" "}
+        {data?.payment_method.toUpperCase() ?? "-"}
+      </p>
       <div className="mt-5 flex flex-col gap-1 border-2 py-3 px-5 rounded-lg">
         <div className="flex items-center justify-between">
           <p className="font-semibold">Order ID</p>
-          <p>267117</p>
+          <p>{order_id}</p>
         </div>
         <div className="flex items-center justify-between">
           <p className="font-semibold">Type</p>
-          <p>PAY</p>
+          <p>
+            {data ? data?.type[0].toUpperCase() + data?.type.slice(1) : "-"}
+          </p>
         </div>
         <div className="flex items-center justify-between">
-          <p className="font-semibold">You send</p>
-          <p>0.136 USDC</p>
+          <p className="font-semibold">Amount</p>
+          <p>
+            {data?.amount.toFixed(4) ?? "0.0000"}{" "}
+            {data?.payment_method.toUpperCase() ?? "-"}
+          </p>
         </div>
         <div className="flex items-center justify-between">
-          <p className="font-semibold">Fee</p>
-          <p>0.125 USDC</p>
+          <p className="font-semibold">Fees</p>
+          <p>₹ {data?.charge.toFixed(4) ?? "0.0000"}</p>
         </div>
         <div className="flex items-center justify-between">
-          <p className="font-semibold">You receive</p>
-          <p>₹1.00</p>
-        </div>
-        <div className="flex items-center justify-between">
-          <p className="font-semibold">Paid By</p>
-          <p className="flex items-center gap-2">
-            teja.e3-1@oksbi{" "}
+          <p className="font-semibold">Hash</p>
+          <p>
+            {data
+              ? data?.transaction_hash.slice(0, 5) +
+                "..." +
+                data?.transaction_hash.slice(-5)
+              : "xxxxx...xxxxx"}
             <Copy
-              size={15}
-              className="cursor-pointer hover:text-gray-500 transition ease-in-out duration-300"
+              className="inline-block ml-2 cursor-pointer hover:text-gray-500 transition ease-in-out duration-300"
+              size={16}
             />
           </p>
         </div>
         <div className="flex items-center justify-between">
-          <p className="font-semibold">Paid To</p>
-          <p className="flex items-center gap-2">
-            6393117559sumit@axl{" "}
-            <Copy
-              size={15}
-              className="cursor-pointer hover:text-gray-500 transition ease-in-out duration-300"
-            />
+          <p className="font-semibold">Date</p>
+          <p>
+            {data?.created_at.slice(0, 10).split("-").reverse().join("-") ??
+              "00-00-0000"}
           </p>
-        </div>
-        <div className="flex items-center justify-between">
-          <p className="font-semibold">Completed in</p>
-          <p>1m30s</p>
-        </div>
-        <div className="flex items-center justify-between">
-          <p className="font-semibold">Completed at</p>
-          <p>01 Dec 2025, 05:32 PM</p>
         </div>
       </div>
       <Accordion type="single" collapsible>
@@ -82,7 +112,14 @@ const OrderDetails: React.FC = () => {
         </AccordionItem>
       </Accordion>
       <div className="flex">
-        <Button className="flex-1 bg-[#493FEE] hover:bg-[#493FEE]/80 cursor-pointer transition ease-in-out duration-300 ">Return Home</Button>
+        <Button
+          onClick={() => {
+            navigate("/transaction");
+          }}
+          className="flex-1 bg-[#493FEE] hover:bg-[#493FEE]/80 cursor-pointer transition ease-in-out duration-300 "
+        >
+          Return Home
+        </Button>
       </div>
     </div>
   );

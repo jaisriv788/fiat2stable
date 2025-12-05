@@ -186,7 +186,10 @@ const Model: React.FC<ModelProps> = ({
                 <span className="font-semibold">Currency:</span>
                 <span className="uppercase">{data.type}</span>
               </div>
-
+              <div className="flex justify-between">
+                <span className="font-semibold">UPI Id:</span>
+                <span className="font-mono">{data.upi_id ?? "-"}</span>
+              </div>
               <div className="flex justify-between">
                 <span className="font-semibold">UPI Reference:</span>
                 <span className="font-mono">{data.upi_reference}</span>

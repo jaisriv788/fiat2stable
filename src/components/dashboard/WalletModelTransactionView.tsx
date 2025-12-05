@@ -47,7 +47,7 @@ const WalletModelTransactionView: React.FC = () => {
           },
         }
       );
-      console.log(response.data.data);
+      // console.log(response.data.data);
 
       if (response.data.status == "false") {
         setTransaction([]);
@@ -77,7 +77,7 @@ const WalletModelTransactionView: React.FC = () => {
           No Data Found.
         </div>
       ) : (
-        <div className="max-h-115 overflow-y-auto overflow-x-auto">
+        <div className="max-h-120 overflow-y-auto overflow-x-auto">
           <Table>
             <TableCaption>
               A list of your recent transactions. To see more{" "}
@@ -111,7 +111,7 @@ const WalletModelTransactionView: React.FC = () => {
                     <TableCell>
                       {item?.type[0].toUpperCase() + item?.type.slice(1)}
                     </TableCell>
-                    <TableCell>${item?.amount ?? "-"}</TableCell>
+                    <TableCell>${item?.amount.toFixed(4) ?? "-"}</TableCell>
                     <TableCell className="flex items-center gap-1 cursor-pointer hover:text-[#4D43EF] transition ease-in-out duration-300">
                       {item?.transaction_hash && <ExternalLink size={14} />}
                       {item?.transaction_hash ? (
