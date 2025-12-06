@@ -156,6 +156,7 @@ const Refer: React.FC = () => {
             onClick={() => {
               claimReward("usdc");
             }}
+            disabled
             className="bg-[#4D43EF] font-semibold cursor-pointer text-white  py-1.5 px-3 rounded-lg hover:bg-[#4D43EF]/70 transition ease-in-out duration-300"
           >
             {loader == "usdc" ? (
@@ -183,6 +184,7 @@ const Refer: React.FC = () => {
             onClick={() => {
               claimReward("usdt");
             }}
+            disabled
             className="bg-[#4D43EF] font-semibold cursor-pointer text-white  py-1.5 px-3 rounded-lg hover:bg-[#4D43EF]/70 transition ease-in-out duration-300"
           >
             {loader == "usdt" ? (

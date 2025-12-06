@@ -61,7 +61,7 @@ const Dashboard: React.FC = () => {
   }, []);
 
   return (
-    <div className="mt-24 px-2 flex flex-col gap-2 max-w-lg mx-auto">
+    <div className="mt-24 px-2 flex flex-col gap-2 max-w-lg mx-auto min-h-screen">
       <Balance />
       <Action />
       <TrxCard />

@@ -12,7 +12,7 @@ const TrxCard: React.FC = () => {
   const limit = useSelector((state: RootState) => state.price.limit);
 
   return (
-    <div className="card mt-5 mx-2 px-3 md:px-5 border-b-2 border-r border-[#4D43EF] py-5 bg-linear-to-br from-[#7728E2] via-[#5C5AD7] to-[#22BDCF] shadow-xl rounded-lg">
+    <div className="card mt-5 mb-10 mx-2 px-3 md:px-5 border-b-2 border-r border-[#4D43EF] py-5 bg-linear-to-br from-[#7728E2] via-[#5C5AD7] to-[#22BDCF] shadow-xl rounded-lg">
       <div className="font-semibold text-lg text-white">Transaction Limit</div>
       <p className="text-xs font-semibold txt text-white">
         This is the maximum amount you can buy, sell, or pay in one order.

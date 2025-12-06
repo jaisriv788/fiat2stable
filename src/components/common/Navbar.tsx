@@ -210,7 +210,7 @@ const Navbar: React.FC = () => {
               }}
             >
               <img className="" src="three.jpeg" alt="icon" width={50} />
-              <TextAnimate>Scan2Pay</TextAnimate>
+              <TextAnimate className="hidden sm:block">Scan2Pay</TextAnimate>
             </div>
           ) : (
             <div>{title}</div>
