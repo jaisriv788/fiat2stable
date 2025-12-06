@@ -17,11 +17,12 @@ import { useNavigate } from "react-router";
 interface Transaction {
   amount: number; //
   type: string; //
-  trans_id: string; //
+  income_id: string; //
   transaction_type: "USDT" | "USDC";
   transaction_hash: string;
   payment_method: string;
   updated_at: string;
+  inr_amount: number;
 }
 
 const TrxTable: React.FC = () => {
@@ -114,6 +115,7 @@ const TrxTable: React.FC = () => {
                 <TableHead>Trx Id</TableHead>
                 <TableHead>Trx Type</TableHead>
                 <TableHead>Type</TableHead>
+                <TableHead>INR</TableHead>
                 <TableHead>Amount</TableHead>
                 <TableHead>Date</TableHead>
                 <TableHead className="text-center">Hash</TableHead>
@@ -125,16 +127,19 @@ const TrxTable: React.FC = () => {
                   <TableRow
                     className="odd:bg-[#4D43EF]/10 hover:bg-gray-100 cursor-pointer transition ease-in-out duration-300"
                     onClick={() => {
-                      navigate("/order/" + item.trans_id);
+                      navigate("/order/" + item.income_id);
                     }}
                     key={index}
                   >
-                    <TableCell>{item?.trans_id ?? "-"}</TableCell>
+                    <TableCell>{item?.income_id ?? "-"}</TableCell>
                     <TableCell className="">
                       {item?.payment_method?.toString()?.toUpperCase() ?? "-"}
                     </TableCell>
                     <TableCell>
                       {item?.type[0].toUpperCase() + item?.type.slice(1)}
+                    </TableCell>
+                    <TableCell className="">
+                      ₹{item?.inr_amount ?? "-"}
                     </TableCell>
                     <TableCell>
                       ${item?.amount?.toFixed(2) ?? "00.00"}
