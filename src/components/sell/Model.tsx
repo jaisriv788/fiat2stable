@@ -201,7 +201,7 @@ const Model: React.FC<ModelProps> = ({
 
               <div className="flex justify-between">
                 <span className="font-semibold">Amount:</span>
-                <span className="font-bold text-green-700">{data.amount}</span>
+                <span className="font-bold text-green-700">₹{data.amount}</span>
               </div>
 
               <div className="flex justify-between">
