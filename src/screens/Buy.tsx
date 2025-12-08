@@ -278,7 +278,7 @@ const Buy: React.FC = () => {
           <span className="font-semibold text-sm">
             Your Buy Limit :{" "}
             <span className=" text-[#4D43EF]">
-              {limit?.buy_limit} USDT BEP 20
+              {limit?.buy_limit} USDT BEP20/BNB CHAIN
             </span>
           </span>
           <FaGreaterThan
