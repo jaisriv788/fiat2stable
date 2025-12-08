@@ -48,7 +48,7 @@ const DepositSlider: React.FC = () => {
             {view === 0 ? (
               <div>
                 <div className="font-bold text-lg flex items-center justify-between">
-                  Deposit Fund
+                  Deposit Fund USDT BNB CHAIN
                   <IoCloseCircleSharp
                     onClick={handleClose}
                     className="text-xl hover:text-[#4D43EF] transition ease-in-out duration-300 cursor-pointer"
@@ -64,7 +64,7 @@ const DepositSlider: React.FC = () => {
                 className="relative font-bold text-lg flex justify-center items-center"
               >
                 <IoMdArrowRoundBack className="absolute left-0 hover:text-[#4D43EF] transition ease-in-out duration-300 border-2 border-gray-800 rounded-full size-6 cursor-pointer hover:border-[#4D43EF] hover:bg-gray-300" />
-                <div className="self-center w-fit">Deposit USDT/USDC</div>
+                <div className="self-center w-fit">Deposit USDT Bep20</div>
               </div>
             )}
 
@@ -84,9 +84,9 @@ const DepositSlider: React.FC = () => {
                   <div className="flex items-center gap-5">
                     <FaCircleDollarToSlot className="text-[#4D43EF] text-2xl" />
                     <div>
-                      <div className="font-semibold">Deposit USDT/USDC</div>
+                      <div className="font-semibold">Deposit USDT Bep20</div>
                       <div className="text-sm text-gray-700">
-                        Deposit USDT/USDC to your in app wallet
+                        Deposit USDT Bep20 to your in app wallet
                       </div>
                     </div>
                   </div>

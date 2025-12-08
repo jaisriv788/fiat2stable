@@ -8,7 +8,7 @@ const Verification: React.FC = () => {
         Verify securely, Increase Limits
       </div>
       <p className="text-sm text-gray-700 mt-1">
-        All tasks on Scan2Pay use Zk verification, keeping your data private
+        All tasks on Scan2Pay Direct use Zk verification, keeping your data private
         forever while increasing your limits.
       </p>
       <VerificationCard />

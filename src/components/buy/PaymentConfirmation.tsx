@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { CheckCircle, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { motion } from "motion/react";
 import axios from "axios";
 import { useSelector } from "react-redux";
@@ -63,7 +63,6 @@ const PaymentConfirmation: React.FC<PaymentConfirmationProps> = ({
         <div className="text-xl font-semibold mb-4 text-gray-800">
           Payment Confirmation
         </div>
-
         {confirmed ? (
           <motion.div
             initial={{ scale: 0.9, opacity: 0 }}
@@ -78,20 +77,9 @@ const PaymentConfirmation: React.FC<PaymentConfirmationProps> = ({
             className="flex flex-col items-center gap-4 px-5 py-4 rounded-lg bg-green-50
         text-green-600 font-medium shadow-inner border border-green-100"
           >
-            {/* Icon Animation */}
-            <motion.div
-              animate={{
-                scale: [1, 1.15, 1],
-              }}
-              transition={{
-                repeat: 0,
-                duration: 0.6,
-                ease: "easeInOut",
-              }}
-            >
-              <CheckCircle className="h-10 w-10" />
-            </motion.div>
-
+            <video autoPlay muted playsInline className="z-50 w-30 h-30">
+              <source src="/users/success.webm" type="video/webm" />
+            </video>
             {/* Title */}
             <motion.div
               animate={{ opacity: [0.7, 1] }}

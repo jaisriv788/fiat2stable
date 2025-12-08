@@ -130,7 +130,7 @@ const Sidebar: React.FC = () => {
                   alt="icon"
                   width={40}
                 />
-                <div className="font-bold">Scan2Pay</div>
+                <div className="font-bold">Scan2Pay Direct</div>
               </div>
               <IoCloseCircleSharp
                 onClick={handleClose}

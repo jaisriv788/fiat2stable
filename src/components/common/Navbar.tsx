@@ -55,8 +55,8 @@ const Navbar: React.FC = () => {
   const isDashboard = location.pathname == "/dashboard";
 
   const routeTitles: Record<string, string> = {
-    "/buy": "Buy USDT/USDC",
-    "/sell": "Sell USDT/USDC",
+    "/buy": "Buy USDT Bep20",
+    "/sell": "Sell USDT Bep20",
     "/scan": "Scan & Pay",
     "/limit": "My Limit",
     "/transaction": "Transaction",
@@ -210,7 +210,7 @@ const Navbar: React.FC = () => {
               }}
             >
               <img className="" src="three.jpeg" alt="icon" width={50} />
-              <TextAnimate className="hidden sm:block">Scan2Pay</TextAnimate>
+              <TextAnimate className="hidden sm:block">Scan2Pay Direct</TextAnimate>
             </div>
           ) : (
             <div>{title}</div>

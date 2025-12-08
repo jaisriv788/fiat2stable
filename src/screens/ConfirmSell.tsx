@@ -25,7 +25,7 @@ const ConfirmSell: React.FC = () => {
   const token = (query.get("token") || "usdt") as "usdt" | "usdc" | "gbk";
 
   const baseUrl = useSelector((state: RootState) => state?.consts?.baseUrl);
-  const userData = useSelector((state: RootState) => state?.user?.userData);
+  // const userData = useSelector((state: RootState) => state?.user?.userData);
   const tokenHeader = useSelector((state: RootState) => state?.user?.token);
   const { showError } = useShowError();
   const { showSuccess } = useShowSuccess();
@@ -116,7 +116,7 @@ const ConfirmSell: React.FC = () => {
         );
         console.log("Polling order status:", response.data);
         if (response.data.status) {
-          setData(response.data);
+          setData(response.data.order);
           clearInterval(interval);
           setShowModel(false);
         }
@@ -206,7 +206,7 @@ const ConfirmSell: React.FC = () => {
         onScanError
       );
       setIsScanning(true);
-    } catch (err: any) {
+    } catch (err) {
       setScannerError(
         err?.message ||
           "Failed to start scanner. Check camera permission & HTTPS."
@@ -381,6 +381,16 @@ const ConfirmSell: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    if (!scannedValue) {
+      return;
+    }
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: "smooth",
+    });
+  }, [scannedValue]);
+
   const steps = Array.from({ length: 3 }, (_, i) => i + 1);
 
   return (
@@ -388,16 +398,9 @@ const ConfirmSell: React.FC = () => {
       {showModel && (
         <div className="fixed inset-0 bg-white z-50 flex flex-col items-center justify-center">
           {/* Loader Animation */}
-          <div className="relative w-24 h-24 flex items-center justify-center">
-            {/* Outer soft pulse */}
-            <div className="absolute w-full h-full border-4 border-purple-400/30 rounded-full animate-ping"></div>
-
-            {/* Rotating ring */}
-            <div className="absolute w-20 h-20 border-4 border-[#4D43EF] rounded-full animate-spin border-t-transparent"></div>
-
-            {/* Center glowing dot */}
-            <div className="absolute w-8 h-8 bg-[#4D43EF] rounded-full shadow-xl animate-pulse"></div>
-          </div>
+          <video autoPlay loop muted playsInline className="w-50 z-50  mx-auto">
+            <source src="/users/loader2.webm" type="video/webm" />
+          </video>
 
           {/* Text */}
           <div className="mt-6 text-center">
@@ -415,55 +418,51 @@ const ConfirmSell: React.FC = () => {
           <div className="flex flex-col items-center justify-center py-10 w-full">
             <div className="bg-white/80 backdrop-blur-xl shadow-xl border border-slate-200 rounded-2xl p-8 w-full max-w-md space-y-6 animate-in fade-in zoom-in duration-300">
               {/* Success Icon */}
-              <div className="mx-auto bg-[#4D43EF]/20 w-20 h-20 rounded-full flex items-center justify-center shadow-inner">
-                <svg
-                  className="w-12 h-12 text-[#4D43EF]"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M5 13l4 4L19 7"
-                  />
-                </svg>
-              </div>
+              <video
+                autoPlay
+                muted
+                playsInline
+                className="z-50 w-30 h-30 mx-auto"
+              >
+                <source src="/users/success.webm" type="video/webm" />
+              </video>
 
               <h2 className="text-2xl font-bold text-slate-800 text-center">
                 Payment Successful
               </h2>
 
               {/* Payment Info Card */}
-              <div className="space-y-3 text-slate-700 text-center">
-                <p className="text-lg">
-                  <span className="font-semibold text-slate-900">Amount:</span>{" "}
+              <div className="space-y-2 text-slate-700 text-center">
+                <p className="flex justify-between">
+                  <span className="font-semibold text-slate-900">Order Id</span>{" "}
                   <span className="text-green-600 font-bold">
-                    ₹{data.amount}
+                    {data.order_id}
                   </span>
                 </p>
-
-                <p className="text-lg">
-                  <span className="font-semibold text-slate-900">Status:</span>{" "}
-                  <span className="capitalize">{data.order_status}</span>
+                <p className="flex justify-between">
+                  <span className="font-semibold text-slate-900">You Send</span>{" "}
+                  <span className="text-green-600 font-bold">
+                    {data.amount} {data.type.toUpperCase()}
+                  </span>
                 </p>
-
-                {/* <p className="text-lg">
+                <p className="flex justify-between">
                   <span className="font-semibold text-slate-900">
-                    UPI Reference:
+                    You Receive
                   </span>{" "}
-                  {data.upi_reference}
-                </p> */}
-                <p className="text-lg">
-                  <span className="font-semibold text-slate-900">
-                    UPI Reference:
-                  </span>{" "}
-                  {data.upi_reference}
+                  <span className="text-green-600 font-bold">
+                    ₹ {data.inr_amount.toFixed(4)}
+                  </span>
                 </p>
-
+                <p className="flex justify-between">
+                  <span className="font-semibold text-slate-900">
+                    Transaction Id
+                  </span>{" "}
+                  <span className="text-green-600 font-bold">
+                    {data.upi_reference}
+                  </span>
+                </p>
                 <p className="text-[#4D43EF] font-medium italic">
-                  {data.message}
+                  Transaction Successful
                 </p>
               </div>
 
@@ -601,10 +600,10 @@ const ConfirmSell: React.FC = () => {
               <span>ID</span>
               <span>{order_id}</span>
             </div>
-            <div className="flex justify-between">
+            {/* <div className="flex justify-between">
               <span>email</span>
               <span>{userData.email}</span>
-            </div>
+            </div> */}
             <div className="flex justify-between">
               <span>Scanner UPI</span>
               <span>{scannedValue ? scannedValue : "-"}</span>
@@ -615,10 +614,10 @@ const ConfirmSell: React.FC = () => {
                 {usdt} {token.toUpperCase()}
               </span>
             </div>
-            <div className="flex justify-between">
+            {/* <div className="flex justify-between">
               <span>Fees</span>
               <span>5%</span>
-            </div>
+            </div> */}
             <div className="flex justify-between">
               <span>You receive</span>
               <span>₹{inr}</span>

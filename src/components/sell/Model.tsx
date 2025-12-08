@@ -144,16 +144,12 @@ const Model: React.FC<ModelProps> = ({
       const formData = new FormData();
       formData.append("order_id", order_id);
 
-      const response = await axios.post(
-        `${baseUrl}/delete`,
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await axios.post(`${baseUrl}/delete`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
       console.log(response.data);
       setOpen(false);
       showSuccess("Request cancelled successfully.", "");
@@ -182,8 +178,9 @@ const Model: React.FC<ModelProps> = ({
               </p>
             </div>
           ) : (
-            <div className="flex items-center justify-center my-5">
+            <div className="items-center justify-center my-5 flex flex-col gap-3">
               <Skeleton className="w-full h-[200px] bg-gray-300" />
+              <div>Please Wait. Let Merchant accept your request...</div>
             </div>
           ))}
 
@@ -201,7 +198,16 @@ const Model: React.FC<ModelProps> = ({
 
               <div className="flex justify-between">
                 <span className="font-semibold">Amount:</span>
-                <span className="font-bold text-green-700">₹{data.amount}</span>
+                <span className="font-bold text-green-700">
+                  {data.amount} {data.type.toUpperCase()}
+                </span>
+              </div>
+
+              <div className="flex justify-between">
+                <span className="font-semibold">INR Amount:</span>
+                <span className="font-bold text-green-700">
+                  ₹ {data.inr_amount}
+                </span>
               </div>
 
               <div className="flex justify-between">
