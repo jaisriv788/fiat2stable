@@ -36,7 +36,7 @@ const Buy: React.FC = () => {
   const [showPaymentConfirmation, setShowPaymentConfirmation] = useState(false);
   const [order_id, setOrder_Id] = useState(null);
   const [timeLeft, setTimeLeft] = useState(300);
-  const [liveMerchants, setLiveMerchants] = useState(0);
+  // const [liveMerchants, setLiveMerchants] = useState(0);
   const { showSuccess } = useShowSuccess();
   const { showError } = useShowError();
 
@@ -78,7 +78,7 @@ const Buy: React.FC = () => {
   }, [currentAmount, token]);
 
   useEffect(() => {
-    let interval: any;
+    let interval;
 
     if (open) {
       setTimeLeft(300);
@@ -185,17 +185,17 @@ const Buy: React.FC = () => {
     }
   }
 
-  useEffect(() => {
-    const fetchLiveMerchants = async () => {
-      try {
-        const response = await axios.get(`${baseUrl}/live-merchants`);
-        setLiveMerchants(response.data.data.count);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchLiveMerchants();
-  }, []);
+  // useEffect(() => {
+  //   const fetchLiveMerchants = async () => {
+  //     try {
+  //       const response = await axios.get(`${baseUrl}/live-merchants`);
+  //       setLiveMerchants(response.data.data.count);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   fetchLiveMerchants();
+  // }, []);
 
   return (
     <div className="min-h-screen flex items-center justify-center">
@@ -244,7 +244,7 @@ const Buy: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex  items-center  gap-2 mt-2 mx-auto w-fit px-6 py-2 rounded-full bg-[#4D43EF]/10 border border-[#4D43EF]/40 font-bold text-[#4D43EF] relative overflow-hidden">
+        {/* <div className="flex  items-center  gap-2 mt-2 mx-auto w-fit px-6 py-2 rounded-full bg-[#4D43EF]/10 border border-[#4D43EF]/40 font-bold text-[#4D43EF] relative overflow-hidden">
           <div
             className={`w-4 h-4 bg-green-300 rounded-full flex items-center justify-center`}
           >
@@ -257,7 +257,7 @@ const Buy: React.FC = () => {
           <span className="relative z-10">
             Live Merchants – {liveMerchants}
           </span>
-        </div>
+        </div> */}
 
         <style>
           {`
@@ -278,7 +278,7 @@ const Buy: React.FC = () => {
           <span className="font-semibold text-sm">
             Your Buy Limit :{" "}
             <span className=" text-[#4D43EF]">
-              {limit?.buy_limit} USDT Bep20
+              {limit?.buy_limit} USDT BEP 20
             </span>
           </span>
           <FaGreaterThan

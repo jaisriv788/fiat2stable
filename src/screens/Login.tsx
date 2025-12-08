@@ -17,7 +17,7 @@ const Login: React.FC = () => {
             <TextAnimate>Scan2Pay Direct</TextAnimate>
           </div>
           <TextAnimate className="font-semibold mt-3">
-            Swap INR(₹) ↔ Usdt Bep20 currency instantly
+            Swap INR(₹) ↔ USDT BNB CHAIN/BEP20 currency instantly
           </TextAnimate>
         </div>
         <div className="my-10 sm:my-15">

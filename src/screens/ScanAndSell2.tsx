@@ -31,7 +31,7 @@ const ScanAndSell: React.FC = () => {
   const { showError } = useShowError();
 
   // token select
-  const [liveMerchants, setLiveMerchants] = useState(0);
+  // const [liveMerchants, setLiveMerchants] = useState(0);
   const [loading, setloading] = useState(false);
   const [token, setToken] = useState<"usdt" | "usdc" | "gbk">("usdt");
   const [assetsData, setAssetsData] = useState<Assets | null>(null);
@@ -41,7 +41,7 @@ const ScanAndSell: React.FC = () => {
     USDC: "0",
     GBK: "0",
   });
-  
+
   // @ts-ignore
   const [refresh, setRefresh] = useState<boolean>(false);
 
@@ -115,17 +115,17 @@ const ScanAndSell: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentAmount, token]);
 
-  useEffect(() => {
-    const fetchLiveMerchants = async () => {
-      try {
-        const response = await axios.get(`${baseUrl}/live-merchants`);
-        setLiveMerchants(response.data.data.count);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchLiveMerchants();
-  }, []);
+  // useEffect(() => {
+  //   const fetchLiveMerchants = async () => {
+  //     try {
+  //       const response = await axios.get(`${baseUrl}/live-merchants`);
+  //       setLiveMerchants(response.data.data.count);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   fetchLiveMerchants();
+  // }, []);
 
   const updateAmount = (value: string) => {
     if (value == "0" && amounts[pairFrom] == "0") return;
@@ -218,6 +218,25 @@ const ScanAndSell: React.FC = () => {
     }
   }
 
+  const priceData = useSelector((state: RootState) => state.price);
+  const activeSellingPrice =
+    token === "usdt" ? priceData.sellingPriceUSDT : priceData.sellingPriceUSDC;
+
+  const handleMax = () => {
+    // INR MAX = crypto_balance * price
+    const bal =
+      token === "usdt"
+        ? parseFloat(assetsData?.total_usdt || "0")
+        : parseFloat(assetsData?.total_usdc || "0");
+
+    const maxInr = bal * parseFloat(activeSellingPrice || "1");
+
+    setAmounts((prev) => ({
+      ...prev,
+      INR: maxInr.toFixed(2),
+    }));
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="max-w-lg overflow-hidden w-full px-2 mt-9">
@@ -268,12 +287,15 @@ const ScanAndSell: React.FC = () => {
           <div className="font-semibold text-gray-600 mt-3 txt">
             Available Balance:{" "}
             <span className="font-bold text-[#4D43EF]">
-              {availableBalance ? parseFloat(availableBalance)?.toFixed(4) : "0.0000"} {pairTo}
+              {availableBalance
+                ? parseFloat(availableBalance)?.toFixed(4)
+                : "0.0000"}{" "}
+              {pairTo}
             </span>
           </div>
         </div>
 
-        <div className="flex  items-center  gap-2 mt-2 mx-auto w-fit px-6 py-2 rounded-full bg-[#4D43EF]/10 border border-[#4D43EF]/40 font-bold text-[#4D43EF] relative overflow-hidden">
+        {/* <div className="flex  items-center  gap-2 mt-2 mx-auto w-fit px-6 py-2 rounded-full bg-[#4D43EF]/10 border border-[#4D43EF]/40 font-bold text-[#4D43EF] relative overflow-hidden">
           <div
             className={`w-4 h-4  bg-green-300 rounded-full flex items-center justify-center`}
           >
@@ -286,7 +308,7 @@ const ScanAndSell: React.FC = () => {
           <span className="relative z-10">
             Live Merchants – {liveMerchants}
           </span>
-        </div>
+        </div> */}
 
         <div
           onClick={() => {
@@ -298,7 +320,7 @@ const ScanAndSell: React.FC = () => {
           <span className="font-semibold text-sm">
             Your Transaction Limit :{" "}
             <span className=" text-[#4D43EF]">
-              {limit?.sell_limit} USDT Bep20
+              {limit?.sell_limit} USDT BEP 20
             </span>
           </span>
           <FaGreaterThan className="text-sm text-gray-600" />
@@ -307,7 +329,10 @@ const ScanAndSell: React.FC = () => {
         <Keypad updateAmount={updateAmount} backspace={backspace} />
 
         <div className="flex gap-3 mt-2">
-          <button className="cursor-pointer flex-1 text-[#4D43EF] hover:bg-gray-300 py-2 rounded-lg transition ease-in-out duration-300 font-semibold">
+          <button
+            onClick={handleMax}
+            className="cursor-pointer flex-1 text-[#4D43EF] hover:bg-gray-300 py-2 rounded-lg transition ease-in-out duration-300 font-semibold"
+          >
             Max
           </button>
           <button
