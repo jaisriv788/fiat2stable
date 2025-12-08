@@ -590,10 +590,10 @@ const Sell: React.FC = () => {
   async function handlSell() {
     const cryptoAmount = token === "usdt" ? amounts.USDT : amounts.USDC;
 
-    if (parseFloat(cryptoAmount) > parseFloat(availableBalance)) {
-      showError("Insufficient Balance", "");
-      return;
-    }
+    // if (parseFloat(cryptoAmount) > parseFloat(availableBalance)) {
+    //   showError("Insufficient Balance", "");
+    //   return;
+    // }
 
     try {
       setLoading(true);

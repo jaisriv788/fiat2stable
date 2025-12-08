@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { QRCodeCanvas } from "qrcode.react";
-import { X } from "lucide-react";
+// import { QRCodeCanvas } from "qrcode.react";
+import { Copy, X } from "lucide-react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import type { RootState } from "@/store/store";
@@ -42,7 +42,7 @@ const Model: React.FC<ModelProps> = ({
   const [transactionId, setTransactionId] = useState("");
   const [upiId, setUpiId] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const [upi2, setUpi2] = useState("");
   // Poll the backend to check order status every 3 seconds
   useEffect(() => {
     const interval = setInterval(async () => {
@@ -58,6 +58,8 @@ const Model: React.FC<ModelProps> = ({
         );
 
         const status = response?.data?.order?.status;
+
+        setUpi2(response.data.upi_id);
 
         if (status === "merchant_accepted") {
           setOrderData(response.data.order);
@@ -96,6 +98,10 @@ const Model: React.FC<ModelProps> = ({
 
     try {
       setLoading(true);
+      if (!upiId.includes("@") || upiId.split("@").length != 2) {
+        showError("Incorrect Upi Id", "");
+        return;
+      }
       const formData = new FormData();
       formData.append("order_id", order_id);
       formData.append("upi_reference", transactionId);
@@ -125,7 +131,7 @@ const Model: React.FC<ModelProps> = ({
       // setOpen(false);
     } catch (error) {
       console.log(error);
-      showError("Something went wrong while submitting.", "");
+      showError("Error", "Please enter correct UPI details");
     } finally {
       setLoading(false);
     }
@@ -136,16 +142,12 @@ const Model: React.FC<ModelProps> = ({
       const formData = new FormData();
       formData.append("order_id", order_id);
 
-      const response = await axios.post(
-        `${baseUrl}/delete`,
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await axios.post(`${baseUrl}/delete`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
       console.log(response.data);
       setOpen(false);
       showSuccess("Request cancelled successfully.", "");
@@ -154,6 +156,8 @@ const Model: React.FC<ModelProps> = ({
       showError("Request cancelled failed.", "");
     }
   }
+
+  const upiQR = `upi://pay?pa=${upi2}&pn=Merchant&am=${orderData?.inr_amount}&cu=INR`;
 
   return (
     <div className="absolute inset-0 bg-black/50 z-50 backdrop-blur-sm flex items-center justify-center">
@@ -168,21 +172,16 @@ const Model: React.FC<ModelProps> = ({
           <div className="flex items-center justify-center">
             <div className="relative inline-block mx-auto my-5">
               {orderData ? (
-                <QRCodeCanvas
-                  value={`upi://pay?pa=${orderData?.upi_id}&am=${orderData?.inr_amount}&cu=INR`}
-                  size={200}
-                  level="H"
+                <img
+                  src={`https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=${encodeURIComponent(
+                    upiQR
+                  )}`}
+                  alt="upi-qr"
+                  className="rounded-xl shadow-lg"
                 />
               ) : (
                 <Skeleton className="w-[200px] h-[200px] bg-gray-300" />
               )}
-
-              {/* Center logo in QR */}
-              <img
-                src="/users/three.jpeg"
-                alt="logo"
-                className="absolute rounded-full top-1/2 left-1/2 w-10 h-10 -translate-x-1/2 -translate-y-1/2"
-              />
             </div>
           </div>
         ) : (
@@ -238,6 +237,19 @@ const Model: React.FC<ModelProps> = ({
               </div>
               <div className="text-center text-sm font-semibold text-gray-500">
                 Scan QR & pay, then click proceed
+              </div>
+              <div className="flex gap-2 items-center justify-center mt-2">
+                {upi2}{" "}
+                <Copy
+                  className="hover:text-gray-500 cursor-pointer transition ease-in-out duration-300"
+                  size={15}
+                  onClick={() => {
+                    navigator.clipboard
+                      .writeText(upi2)
+                      .then(() => alert("Copied!"))
+                      .catch((err) => console.error("Error copying:", err));
+                  }}
+                />
               </div>
             </>
           )
