@@ -41,7 +41,11 @@ const ScanAndSell: React.FC = () => {
     USDC: "0",
     GBK: "0",
   });
-
+  const [enabled, setEnabled] = useState({
+    gbk: true,
+    usdc: true,
+    usdt: true,
+  });
   // @ts-ignore
   const [refresh, setRefresh] = useState<boolean>(false);
 
@@ -237,6 +241,20 @@ const ScanAndSell: React.FC = () => {
     }));
   };
 
+  async function fetchData() {
+    try {
+      const response = await axios.get(`${baseUrl}/enabled-currencies`);
+      setEnabled(response.data.enabled_currencies);
+      // console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="max-w-lg overflow-hidden w-full px-2 mt-9">
@@ -278,9 +296,9 @@ const ScanAndSell: React.FC = () => {
               }}
               className="border px-2 py-1 rounded text-lg"
             >
-              <option value="usdt">USDT</option>
-              <option value="usdc">USDC</option>
-              <option value="gbk">GBK</option>
+              {enabled.usdt && <option value="usdt">USDT</option>}
+              {enabled.usdc && <option value="usdc">USDC</option>}
+              {enabled.gbk && <option value="gbk">GBK</option>}
             </select>
           </div>
 

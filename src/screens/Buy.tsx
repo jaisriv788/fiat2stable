@@ -36,6 +36,11 @@ const Buy: React.FC = () => {
   const [showPaymentConfirmation, setShowPaymentConfirmation] = useState(false);
   const [order_id, setOrder_Id] = useState(null);
   const [timeLeft, setTimeLeft] = useState(300);
+  const [enabled, setEnabled] = useState({
+    gbk: true,
+    usdc: true,
+    usdt: true,
+  });
   // const [liveMerchants, setLiveMerchants] = useState(0);
   const { showSuccess } = useShowSuccess();
   const { showError } = useShowError();
@@ -185,6 +190,19 @@ const Buy: React.FC = () => {
     }
   }
 
+  async function fetchData() {
+    try {
+      const response = await axios.get(`${baseUrl}/enabled-currencies`);
+      setEnabled(response.data.enabled_currencies);
+      // console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
   // useEffect(() => {
   //   const fetchLiveMerchants = async () => {
   //     try {
@@ -236,9 +254,9 @@ const Buy: React.FC = () => {
               </SelectTrigger>
 
               <SelectContent>
-                <SelectItem value="usdt">USDT</SelectItem>
-                <SelectItem value="usdc">USDC</SelectItem>
-                <SelectItem value="gbk">GBK</SelectItem>
+                {enabled.usdt && <SelectItem value="usdt">USDT</SelectItem>}
+                {enabled.usdc && <SelectItem value="usdc">USDC</SelectItem>}
+                {enabled.gbk && <SelectItem value="gbk">GBK</SelectItem>}
               </SelectContent>
             </Select>
           </div>

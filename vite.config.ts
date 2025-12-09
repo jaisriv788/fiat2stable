@@ -23,9 +23,9 @@ export default defineConfig({
         "apple-touch-icon.png",
       ],
       manifest: {
-        name: "GBK Fiat",
-        short_name: "GBK",
-        description: "Gbk fiat application.",
+        name: "Scan2Pay Direct",
+        short_name: "Scan2Pay",
+        description: "Scan2Pay application.",
         theme_color: "#ffffff",
         background_color: "#ffffff",
         display: "standalone",
@@ -38,12 +38,12 @@ export default defineConfig({
             type: "image/png",
           },
           {
-            src: "three.png",
+            src: "four.png",
             sizes: "512x512",
             type: "image/png",
           },
           {
-            src: "three.png",
+            src: "four.png",
             sizes: "512x512",
             type: "image/png",
             purpose: "any maskable",

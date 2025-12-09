@@ -80,6 +80,7 @@ const Navbar: React.FC = () => {
   if (match) {
     title = "Payment Confirmation";
   }
+  
   if (matchOrder) {
     title = "Order Details (" + order_id + ")";
   }
