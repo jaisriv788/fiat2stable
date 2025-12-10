@@ -17,8 +17,9 @@ import { Link } from "react-router";
 
 interface Transaction {
   amount: number; //
+  inr_amount: number;
   type: string; //
-  trans_id: string; //
+  income_id: string; //
   transaction_type: "USDT" | "USDC";
   transaction_hash: string;
   payment_method: string;
@@ -47,7 +48,7 @@ const WalletModelTransactionView: React.FC = () => {
           },
         }
       );
-      // console.log(response.data.data);
+      console.log(response.data.data);
 
       if (response.data.status == "false") {
         setTransaction([]);
@@ -94,6 +95,7 @@ const WalletModelTransactionView: React.FC = () => {
                 <TableHead>Trx Type</TableHead>
                 <TableHead>Type</TableHead>
                 <TableHead>Amount</TableHead>
+                <TableHead>INR Amt</TableHead>
                 <TableHead className="text-center">Hash</TableHead>
               </TableRow>
             </TableHeader>
@@ -104,7 +106,7 @@ const WalletModelTransactionView: React.FC = () => {
                     key={index}
                     className="odd:bg-[#4D43EF]/10 hover:bg-gray-100 cursor-pointer"
                   >
-                    <TableCell>{item?.trans_id ?? "-"}</TableCell>
+                    <TableCell>{item?.income_id ?? "-"}</TableCell>
                     <TableCell>
                       {item?.payment_method?.toString()?.toUpperCase() ?? "-"}
                     </TableCell>
@@ -112,6 +114,7 @@ const WalletModelTransactionView: React.FC = () => {
                       {item?.type[0].toUpperCase() + item?.type.slice(1)}
                     </TableCell>
                     <TableCell>${item?.amount.toFixed(4) ?? "-"}</TableCell>
+                    <TableCell>₹{item?.inr_amount.toFixed(4) ?? "-"}</TableCell>
                     <TableCell className="flex items-center gap-1 cursor-pointer hover:text-[#4D43EF] transition ease-in-out duration-300">
                       {item?.transaction_hash && <ExternalLink size={14} />}
                       {item?.transaction_hash ? (
