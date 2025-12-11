@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { Loader2 } from "lucide-react";
 import { motion } from "motion/react";
 import axios from "axios";
 import { useSelector } from "react-redux";
@@ -50,6 +49,14 @@ const PaymentConfirmation: React.FC<PaymentConfirmationProps> = ({
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    if (!confirmed) {
+      return;
+    }
+    const audio = new Audio("/users/complete.mp3");
+    audio.play();
+  }, [confirmed]);
+
   return (
     <div className="absolute inset-0 bg-black/50 z-50 backdrop-blur-sm flex items-center justify-center">
       <div className="p-6 bg-white rounded-xl relative max-w-lg w-full mx-3 shadow-xl border border-gray-100">
@@ -77,9 +84,14 @@ const PaymentConfirmation: React.FC<PaymentConfirmationProps> = ({
             className="flex flex-col items-center gap-4 px-5 py-4 rounded-lg bg-green-50
         text-green-600 font-medium shadow-inner border border-green-100"
           >
-            <video autoPlay muted playsInline className="z-50 w-30 h-30">
+            {/* <video autoPlay muted playsInline className="z-50 w-30 h-30">
               <source src="/users/success.webm" type="video/webm" />
-            </video>
+            </video> */}
+            <img
+              src="/users/check.gif.gif"
+              className="mx-auto aspect-square w-30"
+            />
+
             {/* Title */}
             <motion.div
               animate={{ opacity: [0.7, 1] }}

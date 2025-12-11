@@ -66,6 +66,7 @@ const ConfirmSell: React.FC = () => {
     const s = seconds % 60;
     return `${m}:${s < 10 ? "0" + s : s}`;
   };
+
   useEffect(() => {
     const interval = setInterval(async () => {
       try {
@@ -144,6 +145,14 @@ const ConfirmSell: React.FC = () => {
       stopScanner(); // fire and forget
     };
   }, [proceed]);
+
+  useEffect(() => {
+    if (!scannedValue ) {
+      return;
+    }
+    const audio = new Audio("/users/complete.mp3");
+    audio.play();
+  }, [scannedValue ]);
 
   const extractUpiId = (qrText: string): string | null => {
     try {
@@ -393,6 +402,14 @@ const ConfirmSell: React.FC = () => {
     });
   }, [scannedValue]);
 
+  useEffect(() => {
+    if (!data) {
+      return;
+    }
+    const audio = new Audio("/users/complete.mp3");
+    audio.play();
+  }, [data]);
+
   const steps = Array.from({ length: 3 }, (_, i) => i + 1);
 
   return (
@@ -417,18 +434,22 @@ const ConfirmSell: React.FC = () => {
         </div>
       )}
       {data && (
-        <div className="fixed inset-0 bg-gradient-to-b from-white to-slate-100 z-50 flex flex-col items-center justify-center px-4">
+        <div className="fixed inset-0 bg-linear-to-b from-white to-slate-100 z-50 flex flex-col items-center justify-center px-4">
           <div className="flex flex-col items-center justify-center py-10 w-full">
             <div className="bg-white/80 backdrop-blur-xl shadow-xl border border-slate-200 rounded-2xl p-8 w-full max-w-md space-y-6 animate-in fade-in zoom-in duration-300">
               {/* Success Icon */}
-              <video
+              {/* <video
                 autoPlay
                 muted
                 playsInline
                 className="z-50 w-30 h-30 mx-auto"
               >
                 <source src="/users/success.webm" type="video/webm" />
-              </video>
+              </video> */}
+              <img
+                src="/users/check.gif.gif"
+                className="aspect-square w-30 mx-auto"
+              />
 
               <h2 className="text-2xl font-bold text-slate-800 text-center">
                 Payment Successful

@@ -32,12 +32,12 @@ const Dashboard: React.FC = () => {
           },
         }
       );
-      // console.log(response.data.data);
+      console.log(response.data);
       dispatch(
         setLimit({
           limit: {
-            buy_limit: response.data.data.buy_limit,
-            sell_limit: response.data.data.sell_limit,
+            buy_limit: response.data.data.base_buy_limit,
+            sell_limit: response.data.data.base_sell_limit,
             verified_social_media: response.data.data.verified_social_media,
           },
         })

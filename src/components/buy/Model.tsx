@@ -33,6 +33,8 @@ const Model: React.FC<ModelProps> = ({
   const token = useSelector((state: RootState) => state.user.token);
   const baseUrl = useSelector((state: RootState) => state.consts.baseUrl);
 
+  const isMobile = /android|iphone|ipad|ipod/i.test(navigator.userAgent);
+  // console.log({ isMobile });
   const { showError } = useShowError();
   const { showSuccess } = useShowSuccess();
 
@@ -43,6 +45,13 @@ const Model: React.FC<ModelProps> = ({
   const [upiId, setUpiId] = useState("");
   const [loading, setLoading] = useState(false);
   const [upi2, setUpi2] = useState("");
+
+  const openPaytm = () => {
+    const upiLink = `upi://pay?pa=${upi2}&am=${orderData?.inr_amount}&cu=INR&tn=Test%20Payment`;
+
+    window.location.href = upiLink;
+  };
+
   // Poll the backend to check order status every 3 seconds
   useEffect(() => {
     const interval = setInterval(async () => {
@@ -229,7 +238,8 @@ const Model: React.FC<ModelProps> = ({
           <div>
             <div className="text-center text-sm font-semibold text-gray-500">
               Please wait
-            </div><div className="text-center text-sm font-semibold text-gray-500">
+            </div>
+            <div className="text-center text-sm font-semibold text-gray-500">
               While any merchant accepts you buy order.
             </div>
           </div>
@@ -258,13 +268,20 @@ const Model: React.FC<ModelProps> = ({
             </>
           )
         )}
-
+        {orderData && isMobile && (
+          <button
+            onClick={openPaytm}
+            className="mt-3 hover:bg-sky-600 transition ease-in-out duration-300 cursor-pointer  bg-sky-500 text-semibold text-white w-full py-2 rounded-lg"
+          >
+            Pay with UPI App
+          </button>
+        )}
         {/* Buttons */}
         {orderData &&
           (!showSubmitBox ? (
             <button
               onClick={() => setShowSubmitBox(true)}
-              className="w-full cursor-pointer bg-[#4D43EF] transition-all duration-300 ease-in-out hover:bg-[#847ef1] text-white py-2 rounded-lg mt-5"
+              className="w-full cursor-pointer bg-[#4D43EF] transition-all duration-300 ease-in-out hover:bg-[#847ef1] text-white py-2 rounded-lg mt-2"
             >
               Proceed
             </button>
