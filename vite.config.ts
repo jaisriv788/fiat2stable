@@ -14,6 +14,7 @@ export default defineConfig({
     }),
 
     tailwindcss(),
+
     VitePWA({
       registerType: "autoUpdate", // auto-updates the service worker
       includeAssets: [
