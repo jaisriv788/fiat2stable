@@ -1,37 +1,44 @@
 import React, { useLayoutEffect } from "react";
 import { Route, Routes } from "react-router";
-import Login from "./screens/Login";
-import Dashboard from "./screens/Dashboard";
-import ProtectedRoute from "./components/common/ProtectedRoute";
-import PublicRoute from "./components/common/PublicRoute";
-import Buy from "./screens/Buy";
-import ScanAndSell from "./screens/ScanAndSell2";
-import Order from "./screens/Order";
-import Payment from "./screens/Payment";
-
-import Sell from "./screens/Sell";
-import Support from "./screens/Support";
-import Limit from "./screens/Limit";
-import Transaction from "./screens/Transaction";
-import Settings from "./screens/Settings";
-import Refer from "./screens/Refer";
-import GettingStarted from "./screens/Support/GettingStarted";
-import General from "./screens/Support/General";
-import Limits from "./screens/Support/Limits";
-import ReferAndEarn from "./screens/Support/ReferAndEarn";
-import Trx from "./screens/Support/Transaction";
-import DepositAndWithdraw from "./screens/Support/DepositAndWithdraw";
-import AllFaq from "./screens/Support/AllFaq";
-import { useLocation } from "react-router";
-import NotFound from "./components/common/NotFound";
-import Error from "./components/common/Error";
-import Success from "./components/common/Success";
-import Verification from "./components/common/Verification";
 import { useSelector } from "react-redux";
 import type { RootState } from "./store/store";
-import ConfirmSell from "./screens/ConfirmSell";
-import OrderDetails from "./screens/OrderDetails";
-// import WalletTransaction from "./screens/WalletTransaction";
+import { useLocation } from "react-router";
+const Login = React.lazy(() => import("./screens/Login"));
+const Dashboard = React.lazy(() => import("./screens/Dashboard"));
+const ProtectedRoute = React.lazy(
+  () => import("./components/common/ProtectedRoute")
+);
+const PublicRoute = React.lazy(() => import("./components/common/PublicRoute"));
+const Buy = React.lazy(() => import("./screens/Buy"));
+const ScanAndSell = React.lazy(() => import("./screens/ScanAndSell2"));
+const Order = React.lazy(() => import("./screens/Order"));
+const Payment = React.lazy(() => import("./screens/Payment"));
+const Sell = React.lazy(() => import("./screens/Sell"));
+const Support = React.lazy(() => import("./screens/Support"));
+const Limit = React.lazy(() => import("./screens/Limit"));
+const Transaction = React.lazy(() => import("./screens/Transaction"));
+const Settings = React.lazy(() => import("./screens/Settings"));
+const Refer = React.lazy(() => import("./screens/Refer"));
+const GettingStarted = React.lazy(
+  () => import("./screens/Support/GettingStarted")
+);
+const General = React.lazy(() => import("./screens/Support/General"));
+const Limits = React.lazy(() => import("./screens/Support/Limits"));
+const ReferAndEarn = React.lazy(() => import("./screens/Support/ReferAndEarn"));
+const Trx = React.lazy(() => import("./screens/Support/Transaction"));
+const DepositAndWithdraw = React.lazy(
+  () => import("./screens/Support/DepositAndWithdraw")
+);
+const AllFaq = React.lazy(() => import("./screens/Support/AllFaq"));
+const NotFound = React.lazy(() => import("./components/common/NotFound"));
+const Error = React.lazy(() => import("./components/common/Error"));
+const Success = React.lazy(() => import("./components/common/Success"));
+const Verification = React.lazy(
+  () => import("./components/common/Verification")
+);
+
+const ConfirmSell = React.lazy(() => import("./screens/ConfirmSell"));
+const OrderDetails = React.lazy(() => import("./screens/OrderDetails"));
 
 const App: React.FC = () => {
   const { pathname } = useLocation();
@@ -52,44 +59,58 @@ const App: React.FC = () => {
     <div>
       {showError && <Error />}
       {showSuccess && <Success />}
-      <Routes>
-        <Route element={<PublicRoute />}>
-          <Route path="/:id?" element={<Login />} />
-          <Route path="/auth/verification" element={<Verification />} />
-        </Route>
+      <React.Suspense
+        fallback={
+          <div className="flex items-center justify-center text-xl font-semibold">
+            Loading...
+          </div>
+        }
+      >
+        <Routes>
+          <Route element={<PublicRoute />}>
+            <Route path="/:id?" element={<Login />} />
+            <Route path="/auth/verification" element={<Verification />} />
+          </Route>
 
-        <Route element={<ProtectedRoute />}>
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/buy" element={<Buy />} />
-          <Route path="/scan" element={<ScanAndSell />} />
-          <Route path="/confirm-sell/:inr/:usdt/:order_id" element={<ConfirmSell />} />
-          <Route path="/order" element={<Order />} />
-          <Route path="/order/:order_id?" element={<OrderDetails />} />
-          <Route path="/payment" element={<Payment />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/buy" element={<Buy />} />
+            <Route path="/scan" element={<ScanAndSell />} />
+            <Route
+              path="/confirm-sell/:inr/:usdt/:order_id"
+              element={<ConfirmSell />}
+            />
+            <Route path="/order" element={<Order />} />
+            <Route path="/order/:order_id?" element={<OrderDetails />} />
+            <Route path="/payment" element={<Payment />} />
 
-          <Route path="/sell" element={<Sell />} />
-          <Route path="/support" element={<Support />} />
+            <Route path="/sell" element={<Sell />} />
+            <Route path="/support" element={<Support />} />
 
-          <Route path="/support/gettingstarted" element={<GettingStarted />} />
-          <Route path="/support/general" element={<General />} />
-          <Route path="/support/limits" element={<Limits />} />
-          <Route path="/support/refer&earn" element={<ReferAndEarn />} />
-          <Route path="/support/transactions" element={<Trx />} />
-          <Route
-            path="/support/deposit&withdraw"
-            element={<DepositAndWithdraw />}
-          />
-          <Route path="/support/allfaqs" element={<AllFaq />} />
+            <Route
+              path="/support/gettingstarted"
+              element={<GettingStarted />}
+            />
+            <Route path="/support/general" element={<General />} />
+            <Route path="/support/limits" element={<Limits />} />
+            <Route path="/support/refer&earn" element={<ReferAndEarn />} />
+            <Route path="/support/transactions" element={<Trx />} />
+            <Route
+              path="/support/deposit&withdraw"
+              element={<DepositAndWithdraw />}
+            />
+            <Route path="/support/allfaqs" element={<AllFaq />} />
 
-          <Route path="/limit" element={<Limit />} />
-          <Route path="/transaction" element={<Transaction />} />
-          <Route path="/refer" element={<Refer />} />
-          <Route path="/profile" element={<Settings />} />
-          {/* <Route path="/wallet/transactions" element={<WalletTransaction />} /> */}
-        </Route>
+            <Route path="/limit" element={<Limit />} />
+            <Route path="/transaction" element={<Transaction />} />
+            <Route path="/refer" element={<Refer />} />
+            <Route path="/profile" element={<Settings />} />
+            {/* <Route path="/wallet/transactions" element={<WalletTransaction />} /> */}
+          </Route>
 
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </React.Suspense>
     </div>
   );
 };
