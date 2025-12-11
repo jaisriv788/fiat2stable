@@ -10,8 +10,10 @@ import axios from "axios";
 import { useShowError } from "@/hooks/useShowError";
 import { useShowSuccess } from "@/hooks/useShowSuccess";
 import QrCode from "qrcode-decoder";
+import { Progress } from "@/components/ui/progress";
 
 const QR_REGION_ID = "html5qr-reader-confirm";
+const TOTAL_TIME = 300;
 
 const ConfirmSell: React.FC = () => {
   const navigate = useNavigate();
@@ -398,9 +400,10 @@ const ConfirmSell: React.FC = () => {
       {showModel && (
         <div className="fixed inset-0 bg-white z-50 flex flex-col items-center justify-center">
           {/* Loader Animation */}
-          <video autoPlay loop muted playsInline className="w-50 z-50  mx-auto">
-            <source src="/users/loader2.webm" type="video/webm" />
-          </video>
+          <img
+            src="/users/process.gif"
+            className="aspect-square w-20 mx-auto mb-5"
+          />
 
           {/* Text */}
           <div className="mt-6 text-center">
@@ -488,8 +491,12 @@ const ConfirmSell: React.FC = () => {
         {!proceed ? (
           <div
             id={QR_REGION_ID}
-            className="w-full text-center text-sm text-gray-600 font-semibold h-full flex items-center justify-center bg-gray-50"
+            className="w-full text-center text-sm text-gray-600 font-semibold h-full flex items-center flex-col justify-center bg-gray-50"
           >
+            <img
+              src="/users/process.gif"
+              className="aspect-square w-20 mx-auto mb-5"
+            />
             Please Wait For <br />
             Merchant Confirmation
           </div>
@@ -528,7 +535,7 @@ const ConfirmSell: React.FC = () => {
           <p className="text-red-500 text-lg font-bold mt-1">
             {formatTime(timer)}
           </p>
-          <div className="h-2 bg-blue-400 mt-2" />
+          <Progress value={(timer / TOTAL_TIME) * 100} className="h-2 w-full" />
         </div>
 
         <div className="relative w-full px-6 py-4">

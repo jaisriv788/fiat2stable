@@ -36,7 +36,7 @@ const Model: React.FC<ModelProps> = ({
   const { showError } = useShowError();
   const { showSuccess } = useShowSuccess();
 
-  const [orderData, setOrderData] = useState<any>(null);
+  const [orderData, setOrderData] = useState(null);
   const [showSubmitBox, setShowSubmitBox] = useState(false);
   // const [imageFile, setImageFile] = useState<File | null>(null);
   const [transactionId, setTransactionId] = useState("");
@@ -226,8 +226,12 @@ const Model: React.FC<ModelProps> = ({
 
         {/* Instruction Text */}
         {!orderData ? (
-          <div className="text-center text-sm font-semibold text-gray-500">
-            Please wait
+          <div>
+            <div className="text-center text-sm font-semibold text-gray-500">
+              Please wait
+            </div><div className="text-center text-sm font-semibold text-gray-500">
+              While any merchant accepts you buy order.
+            </div>
           </div>
         ) : (
           !showSubmitBox && (

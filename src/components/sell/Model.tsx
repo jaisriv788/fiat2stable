@@ -170,6 +170,10 @@ const Model: React.FC<ModelProps> = ({
         {!data &&
           (orderData ? (
             <div className="p-4 my-5 bg-green-50 border border-green-300 rounded-lg text-center">
+              <img
+                src="/users/process.gif"
+                className="aspect-square w-20 mx-auto mb-3"
+              />
               <h2 className="text-lg font-semibold text-green-700">
                 Order Accepted
               </h2>

@@ -117,27 +117,10 @@ const PaymentConfirmation: React.FC<PaymentConfirmationProps> = ({
             className="flex flex-col items-center gap-4 justify-center p-6 rounded-xl
         bg-white/60 backdrop-blur shadow-md text-center text-[#4D43EF] font-medium"
           >
-            <motion.div
-              animate={{
-                rotate: 360,
-                scale: [1, 1.08, 1],
-              }}
-              transition={{
-                rotate: {
-                  repeat: Infinity,
-                  duration: 2.5,
-                  ease: "easeInOut",
-                },
-                scale: {
-                  repeat: Infinity,
-                  duration: 1.8,
-                  ease: "easeInOut",
-                },
-              }}
-            >
-              <Loader2 className="h-7 w-7" />
-            </motion.div>
-
+            <img
+              src="/users/process.gif"
+              className="aspect-square w-20 mx-auto"
+            />
             <motion.div
               animate={{ opacity: [0.7, 1, 0.7] }}
               transition={{
