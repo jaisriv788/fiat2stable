@@ -138,7 +138,7 @@ const Refer: React.FC = () => {
             </button>
           )}
         </div>
-        <div className="py-3 px-3 bg-white rounded-lg mt-3 flex items-center">
+        {/* <div className="py-3 px-3 bg-white rounded-lg mt-3 flex items-center">
           <div className="flex-1">
             <div className="text-sm font-semibold text-gray-700">
               Claimable Rewards
@@ -165,7 +165,7 @@ const Refer: React.FC = () => {
               "Claim USDC"
             )}
           </button>
-        </div>
+        </div> */}
         <div className="py-3 px-3 bg-white rounded-lg mt-3 flex items-center">
           <div className="flex-1">
             <div className="text-sm font-semibold text-gray-700">

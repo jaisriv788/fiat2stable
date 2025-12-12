@@ -55,7 +55,7 @@ const WalletModelAssetsView: React.FC = () => {
         </div>
       </div>
 
-      <div className="flex items-center gap-3 cursor-pointer transition ease-in-out duration-300 rounded-lg hover:bg-gray-300 px-3 py-1">
+      {/* <div className="flex items-center gap-3 cursor-pointer transition ease-in-out duration-300 rounded-lg hover:bg-gray-300 px-3 py-1">
         <img src="usdc.svg" className="w-10 aspect-square" />
         <div className="flex flex-col">
           <span className="font-bold">USDC</span>
@@ -65,7 +65,7 @@ const WalletModelAssetsView: React.FC = () => {
               : `$${parseFloat(assetsData?.total_usdc).toFixed(2) ?? 0.0}`}
           </span>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

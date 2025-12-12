@@ -77,7 +77,7 @@ const TrxCard: React.FC = () => {
               </div>
             </div>
 
-            <div className="bg-white/10 backdrop-blur-md rounded-lg p-3 sm:p-4">
+            {/* <div className="bg-white/10 backdrop-blur-md rounded-lg p-3 sm:p-4">
               <div className="font-extrabold text-2xl sm:text-3xl text-gray-100">
                 {data ? data.buy_volume_usdc : "0"}
               </div>
@@ -93,7 +93,7 @@ const TrxCard: React.FC = () => {
               <div className="text-xs sm:text-sm font-semibold text-gray-200 mt-1">
                 Sell & Pay Volume USDC
               </div>
-            </div>
+            </div> */}
           </div>
 
           <div className="flex flex-col justify-center bg-white/10 backdrop-blur-md rounded-lg p-4">
@@ -101,7 +101,7 @@ const TrxCard: React.FC = () => {
               {data ? data.complete_transaction : "0"}
             </div>
             <div className="text-xs sm:text-sm font-semibold text-gray-200 mt-1">
-              Successful USDC Trx.
+              Successful Trx.
             </div>
           </div>
         </div>

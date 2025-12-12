@@ -107,7 +107,7 @@ const Navbar: React.FC = () => {
 
   useEffect(() => {
     const interval = setInterval(
-      () => setShowSelling((prev) => (prev == 3 ? 0 : prev + 1)),
+      () => setShowSelling((prev) => (prev == 1 ? 0 : prev + 1)),
       3500
     );
     return () => clearInterval(interval);

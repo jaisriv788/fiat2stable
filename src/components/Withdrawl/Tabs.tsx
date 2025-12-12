@@ -22,7 +22,7 @@ const Tabs: React.FC<TabsProps> = ({ setView }) => {
         </div>
       </div>
 
-      <div
+      {/* <div
         onClick={() => {
           setView(2);
         }}
@@ -35,7 +35,7 @@ const Tabs: React.FC<TabsProps> = ({ setView }) => {
             Withdraw USDC from your in app wallet
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 };

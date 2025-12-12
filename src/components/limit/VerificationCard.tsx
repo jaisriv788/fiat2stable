@@ -30,7 +30,7 @@ const VerificationCard: React.FC = () => {
       try {
         const response = await axios.post(
           `${baseUrl}/user-social-media-details`,
-          { },
+          {},
           {
             headers: {
               Authorization: `Bearer ${tkn}`,
@@ -110,7 +110,7 @@ const VerificationCard: React.FC = () => {
                 <span className="text-xl font-bold">${item.price}</span> Limit
               </div>
               <div className="text-xs font-semibold">
-                +{item.bonus} USDC/USDT Reward
+                +{item.bonus} USDT Reward
               </div>
             </div>
             <div>

@@ -111,7 +111,7 @@ const Sidebar: React.FC = () => {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
           onClick={handleClose}
-          className="absolute inset-0 z-40 bg-black/40 backdrop-blur-md"
+          className="fixed inset-0 z-40 bg-black/40 backdrop-blur-md"
         >
           <motion.div
             key="sidebar"

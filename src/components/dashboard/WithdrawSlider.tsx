@@ -55,7 +55,7 @@ const WithdrawSlider: React.FC = () => {
         return;
       }
 
-      await axios.post(
+      const response = await axios.post(
         `${baseUrl}/withdraw`,
         {
           user_id: userData?.id,
@@ -72,7 +72,11 @@ const WithdrawSlider: React.FC = () => {
         }
       );
 
-      // console.log(response.data);
+      console.log(response.data);
+      if (response.data.status !== "success") {
+        showError("Withdraw Failed", response?.data?.message);
+        return;
+      }
 
       setUsdt("");
       setUsdc("");
