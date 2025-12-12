@@ -61,9 +61,7 @@ const App: React.FC = () => {
       {showSuccess && <Success />}
       <React.Suspense
         fallback={
-          <div className="flex items-center justify-center text-xl font-semibold">
-            Loading...
-          </div>
+          <div className="flex items-center justify-center text-xl font-semibold"></div>
         }
       >
         <Routes>
