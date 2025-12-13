@@ -28,10 +28,18 @@ const Refer: React.FC = () => {
   const userData = useSelector((state: RootState) => state.user.userData);
   const baseUrl = useSelector((state: RootState) => state.consts.baseUrl);
   const token = useSelector((state: RootState) => state?.user?.token);
+  const limit = useSelector((state: RootState) => state?.price?.limit);
 
   const navigate = useNavigate();
 
   const handleGenerateLink = () => {
+    if (limit?.buy_limit <= claimData?.link_limit) {
+      showError(
+        "Error Generating Limit",
+        `Buy limit must be atleast ${claimData.link_limit} `
+      );
+      return;
+    }
     setLoading(true);
 
     setTimeout(() => {
@@ -91,7 +99,7 @@ const Refer: React.FC = () => {
   return (
     <div className="mt-24 px-2 flex flex-col gap-2 max-w-lg mx-auto">
       <div className="text-xl font-bold">
-        Refer your friends & Earn {userData.refre_earn}% of their volume
+        Refer your friends & Earn {claimData?.refer_earning}% of their volume
       </div>
 
       <div className="card mt-6 px-3 md:px-5 border-b-2 border-r border-[#4D43EF] py-5  bg-linear-to-br from-[#7728E2] via-[#5C5AD7] to-[#22BDCF] shadow-xl rounded-lg">
