@@ -70,6 +70,7 @@ const Navbar: React.FC = () => {
     "/support/refer&earn": "Help & Support",
     "/support/transactions": "Help & Support",
     "/support/allfaqs": "Help & Support",
+    "/incomplete-order" : "Incomplete Orders"
   };
 
   let title = routeTitles[location.pathname];

@@ -20,6 +20,7 @@ import { setConnectionSlider } from "@/store/slices/modelSlice";
 import { setLimit } from "@/store/slices/priceSlice";
 import { CgProfile } from "react-icons/cg";
 // import ThemeSwitcher from "./ThemeSwitcher";
+import { PiHandCoins } from "react-icons/pi";
 
 const Sidebar: React.FC = () => {
   const isOnline = useOnlineStatus();
@@ -41,6 +42,14 @@ const Sidebar: React.FC = () => {
       tag: "Transaction",
       click: () => {
         navigate("/transaction");
+      },
+    },
+    {
+      id: 7,
+      icon: PiHandCoins ,
+      tag: "Incomplete Orders",
+      click: () => {
+        navigate("/incomplete-order");
       },
     },
     {
@@ -124,12 +133,7 @@ const Sidebar: React.FC = () => {
           >
             <div className="px-5 py-5 md:py-4 border-b border-gray-300 flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <img
-                  className="logo"
-                  src="three.jpeg"
-                  alt="icon"
-                  width={40}
-                />
+                <img className="logo" src="three.jpeg" alt="icon" width={40} />
                 <div className="font-bold">Scan2Pay Direct</div>
               </div>
               <IoCloseCircleSharp

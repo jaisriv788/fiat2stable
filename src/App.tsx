@@ -39,6 +39,7 @@ const Verification = React.lazy(
 
 const ConfirmSell = React.lazy(() => import("./screens/ConfirmSell"));
 const OrderDetails = React.lazy(() => import("./screens/OrderDetails"));
+const IncompleteOrders = React.lazy(() => import("./screens/IncompleteOrders"));
 
 const App: React.FC = () => {
   const { pathname } = useLocation();
@@ -103,6 +104,7 @@ const App: React.FC = () => {
             <Route path="/transaction" element={<Transaction />} />
             <Route path="/refer" element={<Refer />} />
             <Route path="/profile" element={<Settings />} />
+            <Route path="/incomplete-order" element={<IncompleteOrders />} />
             {/* <Route path="/wallet/transactions" element={<WalletTransaction />} /> */}
           </Route>
 
