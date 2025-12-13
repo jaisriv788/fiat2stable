@@ -36,20 +36,34 @@ const IncompleteOrders: React.FC = () => {
   const [id, setId] = useState("");
   const [count, setCount] = useState(0);
 
-  async function handleApprove(orderid) {
+  async function handleApprove(orderid, type) {
     try {
       setLoading2(true);
       setId(orderid);
-      const response = await axios.post(
-        `${baseUrl}/merchant/confirm-payment`,
-        { order_id: orderid },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      let response;
+      if (type === "sell") {
+        response = await axios.post(
+          `${baseUrl}/merchant/confirm-payment`,
+          { order_id: orderid },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+      } else {
+        response = await axios.post(
+          `${baseUrl}/approve-scan-order-status`,
+          { order_id: orderid },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+      }
 
       console.log(response.data);
       setCount((prev) => prev + 1);
@@ -66,7 +80,7 @@ const IncompleteOrders: React.FC = () => {
       try {
         setLoading(true);
         const response = await axios.post(
-          `${baseUrl}/merchant/incomplete-orders`,
+          `${baseUrl}/incomplete-orders`,
           {},
           {
             headers: {
@@ -138,7 +152,9 @@ const IncompleteOrders: React.FC = () => {
                     <Button
                       size="sm"
                       disabled={loading2}
-                      onClick={() => handleApprove(item.order_id)}
+                      onClick={() =>
+                        handleApprove(item.order_id, item.order_type)
+                      }
                       className="cursor-pointer transition ease-in-out duration-300 hover:bg-[#4D43EF]/70 bg-[#4D43EF]"
                     >
                       {loading2 && id == item.order_id

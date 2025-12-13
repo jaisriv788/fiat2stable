@@ -37,7 +37,6 @@ const ConfirmSell: React.FC = () => {
 
   // QR scanner refs/state
   const qrRef = useRef<Html5Qrcode | null>(null);
-  // @ts-ignore
   const [scannerError, setScannerError] = useState<string | null>(null);
   const [scannedValue, setScannedValue] = useState<string | null>(null);
   const [isScanning, setIsScanning] = useState<boolean>(false);
@@ -46,6 +45,8 @@ const ConfirmSell: React.FC = () => {
   const [proceed, setProceed] = useState(false);
   const [showModel, setShowModel] = useState(false);
   const [data, setData] = useState(null);
+  const [approved, setApproved] = useState(false);
+  const [approveLoad, setApprovedLoad] = useState(false);
 
   useEffect(() => {
     if (timer <= 0) {
@@ -147,12 +148,12 @@ const ConfirmSell: React.FC = () => {
   }, [proceed]);
 
   useEffect(() => {
-    if (!scannedValue ) {
+    if (!scannedValue) {
       return;
     }
     const audio = new Audio("/users/complete.mp3");
     audio.play();
-  }, [scannedValue ]);
+  }, [scannedValue]);
 
   const extractUpiId = (qrText: string): string | null => {
     try {
@@ -266,6 +267,7 @@ const ConfirmSell: React.FC = () => {
 
   const onScanError = (errorMessage: string) => {
     console.debug("scan error", errorMessage);
+    console.debug("scan error", scannerError);
   };
 
   // const handleUploadQRImage = async (
@@ -412,6 +414,30 @@ const ConfirmSell: React.FC = () => {
 
   const steps = Array.from({ length: 3 }, (_, i) => i + 1);
 
+  async function handleApprove() {
+    try {
+      setApprovedLoad(true);
+      const response = await axios.post(
+        `${baseUrl}/approve-scan-order-status`,
+        {
+          order_id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${tokenHeader}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      console.log(response.data);
+      navigate("/scan");
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setApprovedLoad(false);
+    }
+  }
   return (
     <div className="w-full min-h-screen bg-white flex flex-col items-center mt-18 p-6 gap-6">
       {showModel && (
@@ -446,13 +472,13 @@ const ConfirmSell: React.FC = () => {
               >
                 <source src="/users/success.webm" type="video/webm" />
               </video> */}
-              <img
+              {/* <img
                 src="/users/check.gif.gif"
                 className="aspect-square w-30 mx-auto"
-              />
+              /> */}
 
               <h2 className="text-2xl font-bold text-slate-800 text-center">
-                Payment Successful
+                Payment Details
               </h2>
 
               {/* Payment Info Card */}
@@ -486,13 +512,50 @@ const ConfirmSell: React.FC = () => {
                   </span>
                 </p>
                 <p className="text-[#4D43EF] font-medium italic">
-                  Transaction Successful
+                  Transaction Completed By The Merchant. Please Approve the
+                  Transaction.
                 </p>
               </div>
 
               {/* Continue Button */}
               <button
-                onClick={() => navigate("/scan")}
+                disabled={approveLoad}
+                onClick={() => setApproved(true)}
+                className="w-full cursor-pointer transtion ease-in-out bg-[#4D43EF] text-white py-3 rounded-xl font-semibold text-lg
+        shadow-md hover:bg-[#4D43EF]/80 hover:shadow-lg active:scale-95
+        transition-all duration-200"
+              >
+                {approveLoad ? "Please Wait" : "Approve"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {approved && (
+        <div className="fixed inset-0 bg-linear-to-b from-white to-slate-100 z-50 flex flex-col items-center justify-center px-4">
+          <div className="flex flex-col items-center justify-center py-10 w-full">
+            <div className="bg-white/80 backdrop-blur-xl shadow-xl border border-slate-200 rounded-2xl p-8 w-full max-w-md space-y-6 animate-in fade-in zoom-in duration-300">
+              {/* Success Icon */}
+              {/* <video
+                autoPlay
+                muted
+                playsInline
+                className="z-50 w-30 h-30 mx-auto"
+              >
+                <source src="/users/success.webm" type="video/webm" />
+              </video> */}
+              <img
+                src="/users/check.gif.gif"
+                className="aspect-square w-30 mx-auto"
+              />
+
+              <h2 className="text-2xl font-bold text-slate-800 text-center">
+                Payment Successful
+              </h2>
+
+              {/* Continue Button */}
+              <button
+                onClick={handleApprove}
                 className="w-full cursor-pointer transtion ease-in-out bg-[#4D43EF] text-white py-3 rounded-xl font-semibold text-lg
         shadow-md hover:bg-[#4D43EF]/80 hover:shadow-lg active:scale-95
         transition-all duration-200"
