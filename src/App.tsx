@@ -36,10 +36,13 @@ const Success = React.lazy(() => import("./components/common/Success"));
 const Verification = React.lazy(
   () => import("./components/common/Verification")
 );
+// const Dispute = React.lazy(() => import("./screens/Dispute"));
+const DisputeStatus = React.lazy(() => import("./screens/DisputeStatus"));
 
 const ConfirmSell = React.lazy(() => import("./screens/ConfirmSell"));
 const OrderDetails = React.lazy(() => import("./screens/OrderDetails"));
 const IncompleteOrders = React.lazy(() => import("./screens/IncompleteOrders"));
+const DisputeForm = React.lazy(() => import("./screens/DisputeForm"));
 
 const App: React.FC = () => {
   const { pathname } = useLocation();
@@ -105,6 +108,10 @@ const App: React.FC = () => {
             <Route path="/refer" element={<Refer />} />
             <Route path="/profile" element={<Settings />} />
             <Route path="/incomplete-order" element={<IncompleteOrders />} />
+            {/* <Route path="/dispute" element={<Dispute />} /> */}
+            <Route path="/dispute-details" element={<DisputeStatus />} />
+            <Route path="/dispute-form" element={<DisputeForm />} />
+
             {/* <Route path="/wallet/transactions" element={<WalletTransaction />} /> */}
           </Route>
 

@@ -21,6 +21,7 @@ import { setLimit } from "@/store/slices/priceSlice";
 import { CgProfile } from "react-icons/cg";
 // import ThemeSwitcher from "./ThemeSwitcher";
 import { PiHandCoins } from "react-icons/pi";
+// import { MdFormatListBulletedAdd } from "react-icons/md";
 
 const Sidebar: React.FC = () => {
   const isOnline = useOnlineStatus();
@@ -46,7 +47,7 @@ const Sidebar: React.FC = () => {
     },
     {
       id: 7,
-      icon: PiHandCoins ,
+      icon: PiHandCoins,
       tag: "Incomplete Orders",
       click: () => {
         navigate("/incomplete-order");
@@ -76,6 +77,14 @@ const Sidebar: React.FC = () => {
         navigate("/profile");
       },
     },
+    // {
+    //   id: 9,
+    //   icon: MdFormatListBulletedAdd,
+    //   tag: "Dispute Status",
+    //   click: () => {
+    //     navigate("/dispute-details");
+    //   },
+    // },
     {
       id: 6,
       icon: ImConnection,
@@ -129,7 +138,7 @@ const Sidebar: React.FC = () => {
             exit={{ x: -80, opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
             onClick={(e) => e.stopPropagation()}
-            className="bg-[#E5E5E5] border-r slider border-gray-300 h-full top-0  w-75 flex flex-col"
+            className="bg-[#E5E5E5] overflow-y-auto border-r slider border-gray-300 h-full top-0  w-75 flex flex-col"
           >
             <div className="px-5 py-5 md:py-4 border-b border-gray-300 flex items-center justify-between">
               <div className="flex items-center gap-2">
