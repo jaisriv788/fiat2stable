@@ -980,7 +980,7 @@ const ScanAndSell: React.FC = () => {
           <span className="font-semibold text-sm">
             Your Transaction Limit :{" "}
             <span className=" text-[#4D43EF]">
-              {limit?.sell_limit} USDT Bep20
+              {limit?.sell_limit} USDT BEP20
             </span>
           </span>
           <FaGreaterThan className="text-sm text-gray-600" />

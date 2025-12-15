@@ -40,7 +40,7 @@ const Model: React.FC<ModelProps> = ({
 
   const [orderData, setOrderData] = useState(null);
   const [showSubmitBox, setShowSubmitBox] = useState(false);
-  // const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imageFile, setImageFile] = useState<File | null>(null);
   const [transactionId, setTransactionId] = useState("");
   const [upiId, setUpiId] = useState("");
   const [loading, setLoading] = useState(false);
@@ -96,10 +96,10 @@ const Model: React.FC<ModelProps> = ({
   // };
 
   async function handleSubmitProof() {
-    // if (!imageFile) {
-    //   showError("Please upload a screenshot.", "");
-    //   return;
-    // }
+    if (!imageFile) {
+      showError("Please upload a screenshot.", "");
+      return;
+    }
     if (!transactionId.trim()) {
       showError("Please enter a transaction ID.", "");
       return;
@@ -115,7 +115,7 @@ const Model: React.FC<ModelProps> = ({
       formData.append("order_id", order_id);
       formData.append("upi_reference", transactionId);
       formData.append("upi_id", upiId);
-      // formData.append("screenshot", imageFile);
+      formData.append("screenshot", imageFile);
 
       // console.log({ order_id, transactionId, imageFile });
       const response = await axios.post(
@@ -196,7 +196,7 @@ const Model: React.FC<ModelProps> = ({
         ) : (
           <div className="text-center text-sm font-semibold text-gray-500">
             <div>
-              {/* <div className="space-y-2 mt-3">
+              <div className="space-y-2 mt-3">
                 {" "}
                 <Label>Upload Screenshot</Label>{" "}
                 <Input
@@ -207,7 +207,7 @@ const Model: React.FC<ModelProps> = ({
                     setImageFile(file);
                   }}
                 />{" "}
-              </div>{" "} */}
+              </div>{" "}
               <div className="space-y-2 mt-3">
                 {" "}
                 <Label>UPI ID</Label>{" "}

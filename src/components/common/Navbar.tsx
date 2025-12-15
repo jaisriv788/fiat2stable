@@ -55,8 +55,8 @@ const Navbar: React.FC = () => {
   const isDashboard = location.pathname == "/dashboard";
 
   const routeTitles: Record<string, string> = {
-    "/buy": "Buy USDT Bep20",
-    "/sell": "Sell USDT Bep20",
+    "/buy": "Buy USDT BEP20",
+    "/sell": "Sell USDT BEP20",
     "/scan": "Scan & Pay",
     "/limit": "My Limit",
     "/transaction": "Transaction",
@@ -70,7 +70,7 @@ const Navbar: React.FC = () => {
     "/support/refer&earn": "Help & Support",
     "/support/transactions": "Help & Support",
     "/support/allfaqs": "Help & Support",
-    "/incomplete-order" : "Incomplete Orders"
+    "/incomplete-order": "Incomplete Orders",
   };
 
   let title = routeTitles[location.pathname];
@@ -81,7 +81,7 @@ const Navbar: React.FC = () => {
   if (match) {
     title = "Payment Confirmation";
   }
-  
+
   if (matchOrder) {
     title = "Order Details (" + order_id + ")";
   }
@@ -164,6 +164,10 @@ const Navbar: React.FC = () => {
   }, [buyingPriceUSDC, sellingPriceUSDC]);
 
   async function back() {
+    if (location.pathname.startsWith("/confirm-sell")) {
+      navigate("/dashboard");
+      return;
+    }
     if (match) {
       try {
         const formData = new FormData();

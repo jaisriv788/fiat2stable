@@ -1,5 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Input } from "../ui/input";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import type { RootState } from "@/store/store";
+import { useShowError } from "@/hooks/useShowError";
+import { useShowSuccess } from "@/hooks/useShowSuccess";
 
 interface UsdtProps {
   usdt: string;
@@ -8,8 +13,10 @@ interface UsdtProps {
     total_usdc: string;
   } | null;
   receiverAddress: string;
+  otp: string;
   setUsdt: React.Dispatch<React.SetStateAction<string>>;
   setReceiverAddress: React.Dispatch<React.SetStateAction<string>>;
+  setOtp: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const Usdt: React.FC<UsdtProps> = ({
@@ -18,7 +25,42 @@ const Usdt: React.FC<UsdtProps> = ({
   assetsData,
   receiverAddress,
   setReceiverAddress,
+  otp,
+  setOtp,
 }) => {
+  const [loading, setLoading] = useState(false);
+
+  const baseUrl = useSelector((state: RootState) => state.consts.baseUrl);
+  const token = useSelector((state: RootState) => state?.user?.token);
+
+  const { showSuccess } = useShowSuccess();
+  const { showError } = useShowError();
+
+  async function handleOtpSend() {
+    try {
+      setLoading(true);
+      const response = await axios.post(
+        `${baseUrl}/get-withdraw-otp`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response.data);
+      if (response.data.status) {
+        showSuccess("Otp Sent.", "");
+      }
+    } catch (error) {
+      console.log(error);
+      showError("Error", "Error occured while sending the otp.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <div>
       <div>
@@ -72,7 +114,30 @@ const Usdt: React.FC<UsdtProps> = ({
           placeholder="Enter the Receiver Address ..."
           className="border-gray-400 text-[#4D43EF] font-semibold"
         />
+        <div className="mt-2 flex gap-1">
+          <Input
+            value={otp}
+            onChange={(e) => setOtp(e.target.value)}
+            placeholder="Enter the Otp..."
+            className="border-gray-400 flex-1 text-[#4D43EF] font-semibold"
+          />
+          <button
+            onClick={handleOtpSend}
+            disabled={loading}
+            className="bg-[#4D43EF] text-white rounded-lg px-2 hover:bg-[#4D43EF]/80 cursor-pointer transition ease-in-out duration-300"
+          >
+            {loading ? "Sending.." : "Send Otp"}
+          </button>
+        </div>
       </div>
+      {/* <div className="mt-3 bg-[#deddfd] px-2 py-3 rounded-lg">
+        <Input
+          value={receiverAddress}
+          onChange={(e) => setReceiverAddress(e.target.value)}
+          placeholder="Enter the Receiver Address ..."
+          className="border-gray-400 text-[#4D43EF] font-semibold"
+        />
+      </div> */}
       <div className="py-2 px-4 mt-3 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 rounded-md">
         <p className="font-semibold">Warning:</p>
         <ul className="list-disc list-inside mt-1">

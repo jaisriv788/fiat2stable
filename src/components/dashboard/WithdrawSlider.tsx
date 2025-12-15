@@ -28,6 +28,7 @@ const WithdrawSlider: React.FC = () => {
   const [refresh, setRefresh] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [receiverAddress, setReceiverAddress] = useState<string>("");
+  const [otp, setOtp] = useState("");
 
   const { showError } = useShowError();
   const { showSuccess } = useShowSuccess();
@@ -63,6 +64,7 @@ const WithdrawSlider: React.FC = () => {
           from_wallet_address: String(userData?.wallet_address || ""),
           to_wallet_address: receiverAddress,
           type,
+          otp,
         },
         {
           headers: {
@@ -80,6 +82,7 @@ const WithdrawSlider: React.FC = () => {
 
       setUsdt("");
       setUsdc("");
+      setOtp("");
       setReceiverAddress("");
       setShowModel(false);
       setRefresh((prev) => !prev);
@@ -270,6 +273,8 @@ const WithdrawSlider: React.FC = () => {
                   usdt={usdt}
                   setUsdt={setUsdt}
                   setReceiverAddress={setReceiverAddress}
+                  otp={otp}
+                  setOtp={setOtp}
                 />
               )}
 
@@ -307,7 +312,7 @@ const WithdrawSlider: React.FC = () => {
                     }
                     setShowModel(true);
                   }}
-                  disabled={(!usdc || !usdt) && !receiverAddress}
+                  disabled={(!usdc && !usdt) || !receiverAddress || !otp}
                   className="disabled:bg-gray-300 disabled:cursor-not-allowed disabled:text-gray-500 disabled:border-gray-500 mt-5 bg-white text-[#4D43EF] font-semibold border-2 border-[#4D43EF] w-full py-2 rounded-lg hover:bg-black hover:border-black hover:text-white cursor-pointer transition ease-in-out duration-300"
                 >
                   Withdraw

@@ -3,7 +3,7 @@ import { useNavigate, useParams, useLocation } from "react-router";
 import { Html5Qrcode } from "html5-qrcode";
 import type { Html5QrcodeCameraScanConfig } from "html5-qrcode";
 import { motion } from "framer-motion";
-import { Info } from "lucide-react";
+import { ExternalLink, Info } from "lucide-react";
 import type { RootState } from "@/store/store";
 import { useSelector } from "react-redux";
 import axios from "axios";
@@ -47,6 +47,7 @@ const ConfirmSell: React.FC = () => {
   const [data, setData] = useState(null);
   const [approved, setApproved] = useState(false);
   const [approveLoad, setApprovedLoad] = useState(false);
+  const [link, setLink] = useState("");
 
   useEffect(() => {
     if (timer <= 0) {
@@ -121,6 +122,7 @@ const ConfirmSell: React.FC = () => {
         console.log("Polling order status:", response.data);
         if (response.data.status) {
           setData(response.data.order);
+          setLink(response?.data?.payment_screenshot);
           clearInterval(interval);
           setShowModel(false);
         }
@@ -510,6 +512,17 @@ const ConfirmSell: React.FC = () => {
                   <span className="text-green-600 font-bold">
                     {data.upi_reference}
                   </span>
+                </p>
+                <p className="flex justify-between">
+                  <span className="font-semibold text-slate-900">
+                    Proof (Screenshot)
+                  </span>{" "}
+                  <button
+                    className="font-mono flex hover:text-gray-500 transition ease-in-out duration-300 items-center gap-1 cursor-pointer"
+                    onClick={() => window.open(link, "_")}
+                  >
+                    Open <ExternalLink size={16} />
+                  </button>
                 </p>
                 <p className="text-[#4D43EF] font-medium italic">
                   Transaction Completed By The Merchant. Please Approve the

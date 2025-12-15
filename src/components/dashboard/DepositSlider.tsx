@@ -84,9 +84,9 @@ const DepositSlider: React.FC = () => {
                   <div className="flex items-center gap-5">
                     <FaCircleDollarToSlot className="text-[#4D43EF] text-2xl" />
                     <div>
-                      <div className="font-semibold">Deposit USDT Bep20</div>
+                      <div className="font-semibold">Deposit USDT BEP20</div>
                       <div className="text-sm text-gray-700">
-                        Deposit USDT Bep20 to your in app wallet
+                        Deposit USDT BEP20 to your in app wallet
                       </div>
                     </div>
                   </div>

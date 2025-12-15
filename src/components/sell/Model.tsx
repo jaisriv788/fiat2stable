@@ -1,7 +1,7 @@
 import type { RootState } from "@/store/store";
 import { Progress } from "@/components/ui/progress";
 import axios from "axios";
-import { X } from "lucide-react";
+import { ExternalLink, X } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useShowError } from "@/hooks/useShowError";
@@ -31,7 +31,7 @@ const Model: React.FC<ModelProps> = ({
   const { showError } = useShowError();
   const { showSuccess } = useShowSuccess();
 
-  const [orderData, setOrderData] = useState<any>(null);
+  const [orderData, setOrderData] = useState(null);
   const [wait, setWait] = useState(false);
   const [data, setData] = React.useState(null);
   const [loading, setLoading] = React.useState(true);
@@ -225,6 +225,15 @@ const Model: React.FC<ModelProps> = ({
               <div className="flex justify-between">
                 <span className="font-semibold">UPI Reference:</span>
                 <span className="font-mono">{data.upi_reference}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="font-semibold">Proof (Screenshot):</span>
+                <button
+                  className="font-mono flex hover:text-gray-500 transition ease-in-out duration-300 items-center gap-1 cursor-pointer"
+                  onClick={() => window.open(data?.payment_screenshot, "_")}
+                >
+                  Open <ExternalLink size={16} />
+                </button>
               </div>
             </div>
 
