@@ -72,7 +72,8 @@ const Navbar: React.FC = () => {
     "/support/allfaqs": "Help & Support",
     "/incomplete-order": "Incomplete Orders",
     "/dispute" : "Dispute",
-    "/dispute-details" : "Dispute Details"
+    "/dispute-details" : "Dispute Details",
+    "/dispute-form": "Dispute Form"
   };
 
   let title = routeTitles[location.pathname];

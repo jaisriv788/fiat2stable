@@ -17,7 +17,7 @@ const Tabs: React.FC<TabsProps> = ({ setView }) => {
         <div>
           <div className="font-semibold">Withdraw USDT</div>
           <div className="text-sm txt text-gray-700">
-            Withdraw USDT from your in app wallet
+            Withdraw USDT from your in app wallet (BEP-20)
           </div>
         </div>
       </div>

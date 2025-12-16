@@ -21,7 +21,7 @@ import { setLimit } from "@/store/slices/priceSlice";
 import { CgProfile } from "react-icons/cg";
 // import ThemeSwitcher from "./ThemeSwitcher";
 import { PiHandCoins } from "react-icons/pi";
-// import { MdFormatListBulletedAdd } from "react-icons/md";
+import { MdFormatListBulletedAdd } from "react-icons/md";
 
 const Sidebar: React.FC = () => {
   const isOnline = useOnlineStatus();
@@ -77,14 +77,14 @@ const Sidebar: React.FC = () => {
         navigate("/profile");
       },
     },
-    // {
-    //   id: 9,
-    //   icon: MdFormatListBulletedAdd,
-    //   tag: "Dispute Status",
-    //   click: () => {
-    //     navigate("/dispute-details");
-    //   },
-    // },
+    {
+      id: 9,
+      icon: MdFormatListBulletedAdd,
+      tag: "Dispute Status",
+      click: () => {
+        navigate("/dispute-details");
+      },
+    },
     {
       id: 6,
       icon: ImConnection,
